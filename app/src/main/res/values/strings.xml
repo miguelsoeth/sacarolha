@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">sacarolha</string>
+    <string name="entrar">Entrar</string>
+    <string name="digite_sua_senha">Digite sua senha</string>
+    <string name="digite_seu_usu_rio_email">Digite seu usuário/email</string>
+    <string name="saca_rolha">Saca Rolha</string>
+
+</resources>
