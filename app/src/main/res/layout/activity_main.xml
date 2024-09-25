@@ -1,52 +1,15 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="80sp"
-        android:background="@color/white">
+    <!-- Add specific content for this screen -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to MainActivity"
+        android:textSize="20sp"
+        android:gravity="center"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="15sp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="120sp"
-                android:scaleType="centerCrop"
-                android:layout_height="60sp"
-                android:src="@drawable/placeholder"/>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|end">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:text="Olá Miguel!"/>
-
-                <ImageView
-                    android:layout_width="60sp"
-                    android:layout_height="60sp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginLeft="10sp"
-                    android:src="@drawable/placeholder_circle"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,38 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60sp"
+    android:background="@color/white"
+    android:gravity="center">
+
+    <!-- Example Menu Buttons -->
+    <ImageView
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:src="@drawable/bottombar_inicio"
+        android:contentDescription="Home"
+        android:layout_marginHorizontal="10sp"/>
+
+    <ImageView
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:src="@drawable/bottombar_clientes"
+        android:contentDescription="Home"
+        android:layout_marginHorizontal="10sp"/>
+
+    <ImageView
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:src="@drawable/bottombar_vinhos"
+        android:contentDescription="Home"
+        android:layout_marginHorizontal="10sp"/>
+
+    <ImageView
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:src="@drawable/bottombar_vender"
+        android:contentDescription="Home"
+        android:layout_marginHorizontal="10sp"/>
+
+</LinearLayout>
