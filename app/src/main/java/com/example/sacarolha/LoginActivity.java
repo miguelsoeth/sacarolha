@@ -1,13 +1,18 @@
 package com.example.sacarolha;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,20 +20,86 @@ public class LoginActivity extends AppCompatActivity {
 
     Button btnEntrar;
 
+    EditText editUser, editPassword;
+    CheckBox checkLembrar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        editUser = findViewById(R.id.editUser);
+        editPassword = findViewById(R.id.editPassword);
+
+        checkLembrar = findViewById(R.id.checkLembrar);
+
         btnEntrar = findViewById(R.id.btnEntrar);
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(it);
-                finish();
+                String usuario = editUser.getText().toString();
+                String senha = editPassword.getText().toString();
+                boolean lembrarUser = checkLembrar.isChecked();
+
+                if (verificarCredenciais(usuario, senha)) {
+                    if (lembrarUser) {
+                        setAutoLogin(usuario, senha);
+                    }
+                    acceptLogin();
+                }
             }
         });
+
+        autoLogin();
+    }
+
+    private boolean verificarCredenciais(String usuario, String senha) {
+        if ( usuario.isEmpty() && senha.isEmpty() ) {
+            editUser.setError("Campo obrigatório");
+            editPassword.setError("Campo obrigatório");
+            return false;
+        }
+
+        if ( usuario.isEmpty() ) {
+            editUser.setError("Campo obrigatório");
+            return false;
+        }
+
+        if ( senha.isEmpty() ) {
+            editPassword.setError("Campo obrigatório");
+            return false;
+        }
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString(Shared.KEY_USERNAME, usuario);
+        edit.apply();
+        return true;
+    }
+
+    private void setAutoLogin(String usuario, String senha) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString(Shared.KEY_USUARIO, usuario);
+        edit.putString(Shared.KEY_SENHA, senha);
+        edit.apply();
+    }
+
+    private void autoLogin() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        String usuario = preferences.getString(Shared.KEY_USUARIO, "");
+        String senha = preferences.getString(Shared.KEY_SENHA, "");
+        editUser.setText(usuario);
+        editPassword.setText(senha);
+        if (!usuario.isEmpty() || !senha.isEmpty()) {
+            btnEntrar.performClick();
+        }
+    }
+
+    private void acceptLogin() {
+        Intent it = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(it);
+        finish();
     }
 
 }

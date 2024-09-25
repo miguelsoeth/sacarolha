@@ -67,13 +67,8 @@
             android:orientation="vertical"
             android:gravity="center">
 
-<!--            <TextView-->
-<!--                android:text="Usuário"-->
-<!--                android:fontFamily="@font/zain_regular"-->
-<!--                android:textSize="20sp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"/>-->
             <EditText
+                android:id="@+id/editUser"
                 android:layout_width="match_parent"
                 android:fontFamily="@font/zain_regular"
                 android:layout_height="50sp"
@@ -83,9 +78,10 @@
                 android:textColorHint="@color/transparent_white"
                 android:textColor="@color/white"
                 android:background="@drawable/bkg_dark_purple_rounded"
-                android:hint="@string/digite_seu_usu_rio_email" />
+                android:hint="@string/digite_seu_usu_rio_email"/>
 
             <EditText
+                android:id="@+id/editPassword"
                 android:layout_width="match_parent"
                 android:fontFamily="@font/zain_regular"
                 android:layout_height="50sp"
@@ -96,7 +92,7 @@
                 android:textColor="@color/white"
                 android:padding="10sp"
                 android:background="@drawable/bkg_dark_purple_rounded"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"/>
 
             <Button
                 android:id="@+id/btnEntrar"
@@ -106,6 +102,13 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/light_green"
                 android:text="@string/entrar" />
+
+            <CheckBox
+                android:id="@+id/checkLembrar"
+                android:fontFamily="@font/zain_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lembrar usuário "/>
 
         </LinearLayout>
 

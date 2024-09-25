@@ -1,5 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="60sp"
@@ -8,31 +9,38 @@
 
     <!-- Example Menu Buttons -->
     <ImageView
+        android:id="@+id/btnHome"
         android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_height="50sp"
         android:src="@drawable/bottombar_inicio"
         android:contentDescription="Home"
-        android:layout_marginHorizontal="10sp"/>
+        android:layout_marginHorizontal="10sp"
+        app:tint="@color/vector_color_state" />
 
     <ImageView
+        android:id="@+id/btnClientes"
         android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_height="50sp"
         android:src="@drawable/bottombar_clientes"
-        android:contentDescription="Home"
-        android:layout_marginHorizontal="10sp"/>
+        android:contentDescription="Clientes"
+        android:layout_marginHorizontal="10sp"
+        app:tint="@color/vector_color_state"/>
 
     <ImageView
+        android:id="@+id/btnVinhos"
         android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_height="50sp"
         android:src="@drawable/bottombar_vinhos"
-        android:contentDescription="Home"
-        android:layout_marginHorizontal="10sp"/>
+        android:contentDescription="Vinhos"
+        android:layout_marginHorizontal="10sp"
+        app:tint="@color/vector_color_state"/>
 
     <ImageView
+        android:id="@+id/btnVender"
         android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_height="50sp"
         android:src="@drawable/bottombar_vender"
-        android:contentDescription="Home"
-        android:layout_marginHorizontal="10sp"/>
-
+        android:contentDescription="Vender"
+        android:layout_marginHorizontal="10sp"
+        app:tint="@color/vector_color_state"/>
 </LinearLayout>

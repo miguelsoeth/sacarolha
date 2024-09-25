@@ -23,19 +23,37 @@
             android:layout_height="match_parent"
             android:gravity="center|end">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/perfilGroup"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:text="Olá Miguel!"/>
+                android:layout_height="match_parent"
+                android:gravity="center">
 
-            <ImageView
-                android:layout_width="45sp"
-                android:layout_height="45sp"
-                android:scaleType="centerCrop"
-                android:layout_marginLeft="10sp"
-                android:src="@drawable/placeholder_circle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:text="Olá "/>
+                <TextView
+                    android:id="@+id/topbarUsername"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:text=""/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:text="!"/>
+
+<!--                 -->
+
+            </LinearLayout>
 
         </LinearLayout>
 

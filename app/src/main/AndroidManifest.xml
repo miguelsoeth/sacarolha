@@ -22,8 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+            android:name=".MainActivity"/>
+        <activity
+            android:name=".ClientesActivity"/>
+        <activity
+            android:name=".VenderActivity"/>
+        <activity
+            android:name=".VinhosActivity"/>
     </application>
 
 </manifest>
