@@ -26,6 +26,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src\\main\\res', 'src\\main\\res\\layouts\\template', 'src\\main\\res\\layouts\\default', 'src\\main\\res\\drawables\\default', 'src\\main\\res\\drawables\\icons', 'src\\main\\res\\drawables\\menu', 'src\\main\\res\\drawables\\template'
+            }
+        }
+    }
 }
 
 dependencies {
