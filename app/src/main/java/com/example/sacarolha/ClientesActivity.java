@@ -2,7 +2,7 @@ package com.example.sacarolha;
 
 import android.os.Bundle;
 
-public class ClientesActivity  extends BaseActivity {
+public class ClientesActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

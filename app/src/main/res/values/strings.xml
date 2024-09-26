@@ -9,5 +9,8 @@
     <string name="saca">saca </string>
     <string name="onde_cada_venda_uma_rolha_a_menos">Onde cada venda é uma rolha a menos!</string>
     <string name="registrar">Registrar</string>
+    <string name="cadastrar_cliente">Cadastrar cliente</string>
+    <string name="dados_basicos">Dados básicos</string>
+    <string name="endereco">Endereço</string>
 
 </resources>

@@ -39,4 +39,12 @@ public enum EstadosEnum {
     public String toString() {
         return descricao;
     }
+
+    public static String[] getNameArray() {
+        String[] names = new String[EstadosEnum.values().length];
+        for (int i = 0; i < EstadosEnum.values().length; i++) {
+            names[i] = EstadosEnum.values()[i].descricao;
+        }
+        return names;
+    }
 }

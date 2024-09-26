@@ -5,14 +5,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sacarolha.database.dao.UserDAO;
 import com.example.sacarolha.database.model.User;
 import com.example.sacarolha.util.Shared;
+import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.handlers.PasswordHandler;
 
 import java.security.NoSuchAlgorithmException;

@@ -7,16 +7,21 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.sacarolha.util.Shared;
+import com.example.sacarolha.util.enums.EstadosEnum;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -56,7 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setActiveButton(btnClientes);
-                setBaseContent(R.layout.activity_clientes);
+                setBaseContent(R.layout.activity_cadastrar_clientes);
             }
         });
 
@@ -114,6 +119,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         FrameLayout contentFrame = findViewById(R.id.content_frame);
         LayoutInflater inflater = LayoutInflater.from(this);
         View childLayout = inflater.inflate(contentId, contentFrame, false);
+        contentFrame.removeAllViews();
         contentFrame.addView(childLayout);
     }
 
@@ -126,5 +132,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         btnClientes.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.black));
         btnVinhos.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.black));
         btnVender.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.black));
+    }
+
+    protected void setExternalInflaters() {
     }
 }
