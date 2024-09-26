@@ -16,6 +16,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sacarolha.database.dao.UserDAO;
+import com.example.sacarolha.database.model.User;
+
+import java.security.NoSuchAlgorithmException;
+
 public class LoginActivity extends AppCompatActivity {
 
     Button btnEntrar;
@@ -27,6 +32,23 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        boolean isFirstRun = preferences.getBoolean(Shared.KEY_FIRST_RUN, true);
+
+        Toast.makeText(this, String.valueOf(isFirstRun), Toast.LENGTH_SHORT);
+
+        if (isFirstRun) {
+            UserDAO userDAO = new UserDAO(LoginActivity.this);
+            User u = new User("Miguel Soeth", "miguelsth", "admin123");
+            userDAO.insert(u);
+
+            Toast.makeText(this, "Usuário inicial configurado!", Toast.LENGTH_SHORT);
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(Shared.KEY_FIRST_RUN, false);
+            editor.apply();
+        }
 
         editUser = findViewById(R.id.editUser);
         editPassword = findViewById(R.id.editPassword);
@@ -70,9 +92,27 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
+        UserDAO userDAO = new UserDAO(LoginActivity.this);
+        User u = userDAO.getUserByUsername(usuario);
+
+        if(u == null) {
+            Toast.makeText(this, "Usuário não encontrado!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        try {
+            String hashSenha = PasswordHandler.hashPassword(senha);
+            if (!hashSenha.equals(u.getSenha())) {
+                Toast.makeText(this, "Senha incorreta!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        }
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         SharedPreferences.Editor edit = preferences.edit();
-        edit.putString(Shared.KEY_USERNAME, usuario);
+        edit.putString(Shared.KEY_USERNAME, u.getNome().split(" ")[0]);
         edit.apply();
         return true;
     }
