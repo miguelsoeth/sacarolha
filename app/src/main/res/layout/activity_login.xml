@@ -27,7 +27,6 @@
             <TextView
                 android:text="@string/saca"
                 android:textAlignment="center"
-                android:layout_marginRight="5sp"
                 android:textSize="60sp"
                 android:textColor="@color/dark_green"
                 android:fontFamily="@font/zain_bold"
