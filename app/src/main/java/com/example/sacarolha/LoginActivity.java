@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sacarolha.database.dao.UserDAO;
 import com.example.sacarolha.database.model.User;
+import com.example.sacarolha.util.Shared;
+import com.example.sacarolha.util.handlers.PasswordHandler;
+
 import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {

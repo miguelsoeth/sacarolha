@@ -4,7 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.sacarolha.PasswordHandler;
+import com.example.sacarolha.util.handlers.PasswordHandler;
+import com.example.sacarolha.util.handlers.StringHandler;
 import com.example.sacarolha.database.DBOpenHelper;
 import com.example.sacarolha.database.model.User;
 
@@ -31,6 +32,8 @@ public class UserDAO extends AbstrataDAO {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+
+        u.setNome(StringHandler.capitalize(u.getNome()));
 
         long insertRows = 0;
         try {

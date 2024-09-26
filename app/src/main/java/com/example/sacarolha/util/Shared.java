@@ -1,4 +1,4 @@
-package com.example.sacarolha;
+package com.example.sacarolha.util;
 
 public class Shared {
     public static final String KEY_USUARIO = "KEY_USUARIO";

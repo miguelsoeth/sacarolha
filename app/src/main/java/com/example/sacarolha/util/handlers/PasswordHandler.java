@@ -1,4 +1,4 @@
-package com.example.sacarolha;
+package com.example.sacarolha.util.handlers;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
