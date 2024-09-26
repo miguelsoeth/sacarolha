@@ -4,21 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.sacarolha.database.dao.UserDAO;
 import com.example.sacarolha.database.model.User;
-
 import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
@@ -36,18 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         boolean isFirstRun = preferences.getBoolean(Shared.KEY_FIRST_RUN, true);
 
-        Toast.makeText(this, String.valueOf(isFirstRun), Toast.LENGTH_SHORT);
-
         if (isFirstRun) {
-            UserDAO userDAO = new UserDAO(LoginActivity.this);
-            User u = new User("Miguel Soeth", "miguelsth", "admin123");
-            userDAO.insert(u);
-
-            Toast.makeText(this, "Usuário inicial configurado!", Toast.LENGTH_SHORT);
-
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(Shared.KEY_FIRST_RUN, false);
-            editor.apply();
+            registerOnFirstRun();
         }
 
         editUser = findViewById(R.id.editUser);
@@ -138,6 +121,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void acceptLogin() {
         Intent it = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(it);
+        finish();
+    }
+
+    private void registerOnFirstRun() {
+        Intent it = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(it);
         finish();
     }

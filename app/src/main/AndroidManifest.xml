@@ -32,6 +32,8 @@
             android:name=".VenderActivity"/>
         <activity
             android:name=".VinhosActivity"/>
+        <activity
+            android:name=".RegisterActivity"/>
     </application>
 
 </manifest>

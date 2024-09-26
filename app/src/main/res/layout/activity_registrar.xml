@@ -67,6 +67,19 @@
             android:gravity="center">
 
             <EditText
+                android:id="@+id/editNome"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/zain_regular"
+                android:layout_height="50sp"
+                android:layout_marginBottom="10sp"
+                android:textSize="20sp"
+                android:padding="10sp"
+                android:textColorHint="@color/transparent_white"
+                android:textColor="@color/white"
+                android:background="@drawable/bkg_dark_purple_rounded"
+                android:hint="@string/digite_seu_nome"/>
+
+            <EditText
                 android:id="@+id/editUser"
                 android:layout_width="match_parent"
                 android:fontFamily="@font/zain_regular"
@@ -94,20 +107,13 @@
                 android:inputType="textPassword"/>
 
             <Button
-                android:id="@+id/btnEntrar"
+                android:id="@+id/btnRegistrar"
                 android:fontFamily="@font/zain_regular"
                 android:textSize="25sp"
                 android:layout_width="300sp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/light_green"
-                android:text="@string/entrar" />
-
-            <CheckBox
-                android:id="@+id/checkLembrar"
-                android:fontFamily="@font/zain_regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lembrar usuário "/>
+                android:text="@string/registrar" />
 
         </LinearLayout>
 

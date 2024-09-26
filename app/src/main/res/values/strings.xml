@@ -2,10 +2,12 @@
     <string name="app_name">Sacarolha</string>
     <string name="entrar">Entrar</string>
     <string name="digite_sua_senha">Digite sua senha</string>
-    <string name="digite_seu_usu_rio_email">Digite seu usuário/email</string>
+    <string name="digite_seu_usuario">Digite seu usuário</string>
+    <string name="digite_seu_nome">Digite seu nome</string>
     <string name="saca_rolha">Saca Rolha</string>
     <string name="rolha">rolha</string>
     <string name="saca">saca </string>
     <string name="onde_cada_venda_uma_rolha_a_menos">Onde cada venda é uma rolha a menos!</string>
+    <string name="registrar">Registrar</string>
 
 </resources>
