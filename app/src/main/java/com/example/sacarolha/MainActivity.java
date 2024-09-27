@@ -1,54 +1,136 @@
 package com.example.sacarolha;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sacarolha.database.dao.ClienteDAO;
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
+
+    private ImageView btnHome, btnClientes, btnVinhos, btnVender;
+    TextView topbarUsername;
+    LinearLayout perfilGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        replaceFragment(new HomeFragment());
 
-//        ClienteDAO clienteDAO = new ClienteDAO(MainActivity.this);
-//        VinhoDAO vinhoDAO = new VinhoDAO(MainActivity.this);
-//
-//        // Create 3 Cliente instances
-//        Cliente cliente1 = new Cliente("João Silva", "12345678901", "11987654321", "Rua A", "123", "São Paulo", EstadosEnum.SP.name(), "joao@email.com");
-//        Cliente cliente2 = new Cliente("Maria Oliveira", "98765432100", "11976543210", "Rua B", "456", "Rio de Janeiro", EstadosEnum.RJ.name(), "maria@email.com");
-//        Cliente cliente3 = new Cliente("Carlos Pereira", "45678912300", "11965432109", "Rua C", "789", "Belo Horizonte", EstadosEnum.MG.name(), null);
-//
-//        // Insert Cliente instances into the database
-//        clienteDAO.insert(cliente1);
-//        clienteDAO.insert(cliente2);
-//        clienteDAO.insert(cliente3);
-//
-//        // Create 3 Vinho instances
-//        Vinho vinho1 = new Vinho("Vinho Tinto", TiposVinhoEnum.TINTO.name(), 2020, 49.99, 100);
-//        Vinho vinho2 = new Vinho("Vinho Branco", TiposVinhoEnum.TINTO.name(), null, 39.99, 50);
-//        Vinho vinho3 = new Vinho("Vinho Rosé", TiposVinhoEnum.TINTO.name(), 2021, 45.00, 75);
-//
-//        // Insert Vinho instances into the database
-//        vinhoDAO.insert(vinho1);
-//        vinhoDAO.insert(vinho2);
-//        vinhoDAO.insert(vinho3);
+        btnHome = findViewById(R.id.btnHome);
+        btnHome.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setActiveButton(btnHome);
+                replaceFragment(new HomeFragment());
+            }
+        });
 
+        btnClientes = findViewById(R.id.btnClientes);
+        btnClientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setActiveButton(btnClientes);
+                replaceFragment(new ClientesFragment());
+            }
+        });
+
+        btnVinhos = findViewById(R.id.btnVinhos);
+        btnVinhos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setActiveButton(btnVinhos);
+                replaceFragment(new VinhosFragment());
+            }
+        });
+
+        btnVender = findViewById(R.id.btnVender);
+        btnVender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setActiveButton(btnVender);
+                replaceFragment(new VenderFragment());
+            }
+        });
+
+        topbarUsername = findViewById(R.id.topbarUsername);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String username = preferences.getString(Shared.KEY_USERNAME, "");
+        topbarUsername.setText(username);
+
+        perfilGroup = findViewById(R.id.perfilGroup);
+        perfilGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupMenu(view);
+            }
+        });
     }
 
-    @Override
-    protected int getLayoutResourceId() {
-        // Return the layout for this specific activity
-        return R.layout.activity_main; // Replace with your actual layout
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_profile, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.action_logout) {
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                    SharedPreferences.Editor edit = preferences.edit();
+                    edit.remove(Shared.KEY_USUARIO);
+                    edit.remove(Shared.KEY_SENHA);
+                    edit.apply();
+
+                    Intent it = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(it);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        popupMenu.show();
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
+    private void setActiveButton(ImageView activeButton) {
+        resetButtonColorState();
+        activeButton.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+    }
+    private void resetButtonColorState() {
+        btnHome.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
+        btnClientes.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
+        btnVinhos.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
+        btnVender.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
     }
 }

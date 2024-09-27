@@ -27,15 +27,7 @@
         <activity
             android:name=".MainActivity"/>
         <activity
-            android:name=".ClientesActivity"/>
-        <activity
-            android:name=".VenderActivity"/>
-        <activity
-            android:name=".VinhosActivity"/>
-        <activity
             android:name=".RegisterActivity"/>
-        <activity
-            android:name=".CadastrarClienteActivity"/>
     </application>
 
 </manifest>

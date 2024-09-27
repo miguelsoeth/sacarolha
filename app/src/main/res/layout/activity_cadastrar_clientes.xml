@@ -71,7 +71,14 @@
                     android:background="@drawable/bkg_dark_purple_rounded"
                     />
 
-<!--                <com.santalu.maskara.widget.MaskEditText-->
+                <EditText
+                    android:id="@+id/editTelefone"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:hint="telefone"
+                    android:layout_height="wrap_content"/>
+
+<!--                <EditText-->
 <!--                    android:id="@+id/editTelefone"-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="50sp"-->
@@ -84,9 +91,6 @@
 <!--                    android:textColor="@color/white"-->
 <!--                    android:background="@drawable/bkg_dark_purple_rounded"-->
 <!--                    android:inputType="number"-->
-<!--                    app:mask="+55 (__) _____-____"-->
-<!--                    app:maskCharacter="_"-->
-<!--                    app:maskStyle="completable"-->
 <!--                    />-->
 
                 <EditText

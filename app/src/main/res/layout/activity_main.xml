@@ -1,35 +1,32 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_purple"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    <!-- Add specific content for this screen -->
-    <TextView
-        android:layout_width="300sp"
-        android:layout_height="400sp"
-        android:text="Welcome to MainActivity"
-        android:textSize="20sp"
-        android:gravity="center"/>
-    <TextView
-        android:layout_width="300sp"
-        android:layout_height="400sp"
-        android:text="Welcome to MainActivity"
-        android:textSize="20sp"
-        android:gravity="center"/>
-    <TextView
-        android:layout_width="300sp"
-        android:layout_height="400sp"
-        android:text="Welcome to MainActivity"
-        android:textSize="20sp"
-        android:gravity="center"/>
-    <TextView
-        android:layout_width="300sp"
-        android:layout_height="400sp"
-        android:text="Welcome to MainActivity"
-        android:textSize="20sp"
-        android:gravity="center"/>
+    <include layout="@layout/top_bar"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/frame_layout"
+            >
+        </FrameLayout>
+
+    </ScrollView>
+
+
+
+    <include layout="@layout/bottom_bar" />
 
 </LinearLayout>

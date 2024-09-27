@@ -17,6 +17,7 @@ import com.example.sacarolha.database.dao.UserDAO;
 import com.example.sacarolha.database.model.User;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.EstadosEnum;
+import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.handlers.PasswordHandler;
 
 import java.security.NoSuchAlgorithmException;
