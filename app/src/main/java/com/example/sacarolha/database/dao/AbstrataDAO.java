@@ -13,11 +13,11 @@ public abstract class AbstrataDAO {
     protected DBOpenHelper db_helper;
 
     protected final void Open() {
-        db = db_helper.openDatabase();
+        db = db_helper.getWritableDatabase();
     }
 
     protected final void Close() {
-        db_helper.close();
+        //db_helper.close();
     }
 
 }

@@ -42,12 +42,30 @@
                     android:orientation="vertical"
                     android:gravity="center">
 
-                    <TextView
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/dados_basicos"
-                        android:fontFamily="@font/zain_regular"
-                        android:textSize="30sp"/>
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dados_basicos"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="30sp"/>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="10sp"-->
+<!--                            android:text="*obrigatório"-->
+<!--                            android:fontFamily="@font/zain_regular"-->
+<!--                            android:textColor="@color/dark_red"-->
+<!--                            android:textSize="15sp"/>-->
+
+                    </LinearLayout>
+
+
 
                     <EditText
                         android:id="@+id/editNome"
@@ -75,6 +93,7 @@
                         android:textSize="20sp"
                         android:textColorHint="@color/transparent_white"
                         android:textColor="@color/white"
+                        android:inputType="number"
                         android:background="@drawable/bkg_dark_purple_rounded"
                         />
 
@@ -134,32 +153,7 @@
                         android:fontFamily="@font/zain_regular"
                         android:textSize="30sp"/>
 
-                    <EditText
-                        android:id="@+id/editLogradouro"
-                        android:layout_width="match_parent"
-                        android:layout_height="50sp"
-                        android:layout_marginBottom="10sp"
-                        android:padding="10sp"
-                        android:hint="Logradouro (Ex. Rua XYZ, Bairro ABC)"
-                        android:fontFamily="@font/zain_regular"
-                        android:textSize="20sp"
-                        android:textColorHint="@color/transparent_white"
-                        android:textColor="@color/white"
-                        android:background="@drawable/bkg_dark_purple_rounded"
-                        />
-                    <EditText
-                        android:id="@+id/editNumero"
-                        android:layout_width="match_parent"
-                        android:layout_height="50sp"
-                        android:layout_marginBottom="10sp"
-                        android:padding="10sp"
-                        android:hint="N° da residência (Ex. Nº 123, apto 456)"
-                        android:fontFamily="@font/zain_regular"
-                        android:textSize="20sp"
-                        android:textColorHint="@color/transparent_white"
-                        android:textColor="@color/white"
-                        android:background="@drawable/bkg_dark_purple_rounded"
-                        />
+
 
                     <Spinner
                         android:id="@+id/spinnerEstado"
@@ -184,12 +178,80 @@
                         android:background="@drawable/bkg_dark_purple_rounded"
                         />
 
+                    <EditText
+                        android:id="@+id/editRua"
+                        android:layout_width="match_parent"
+                        android:layout_height="50sp"
+                        android:layout_marginBottom="10sp"
+                        android:padding="10sp"
+                        android:hint="Rua"
+                        android:fontFamily="@font/zain_regular"
+                        android:textSize="20sp"
+                        android:textColorHint="@color/transparent_white"
+                        android:textColor="@color/white"
+                        android:background="@drawable/bkg_dark_purple_rounded"
+                        />
+
+                    <EditText
+                        android:id="@+id/editBairro"
+                        android:layout_width="match_parent"
+                        android:layout_height="50sp"
+                        android:layout_marginBottom="10sp"
+                        android:padding="10sp"
+                        android:hint="Bairro"
+                        android:fontFamily="@font/zain_regular"
+                        android:textSize="20sp"
+                        android:textColorHint="@color/transparent_white"
+                        android:textColor="@color/white"
+                        android:background="@drawable/bkg_dark_purple_rounded"
+                        />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50sp"
+                        android:weightSum="1">
+
+                        <EditText
+                            android:id="@+id/editNumero"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.25"
+                            android:inputType="number"
+                            android:layout_height="50sp"
+                            android:layout_marginBottom="10sp"
+                            android:padding="10sp"
+                            android:hint="Num."
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="20sp"
+                            android:textColorHint="@color/transparent_white"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bkg_dark_purple_rounded"
+                            android:layout_marginRight="10sp"
+                            />
+
+                        <EditText
+                            android:id="@+id/editComplemento"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.75"
+                            android:layout_height="50sp"
+                            android:layout_marginBottom="10sp"
+                            android:padding="10sp"
+                            android:hint="Complemento"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="20sp"
+                            android:textColorHint="@color/transparent_white"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bkg_dark_purple_rounded"
+                            />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
 
             <Button
-                android:id="@+id/btnEntrar"
+                android:id="@+id/btnCadastrar"
                 android:fontFamily="@font/zain_regular"
                 android:textSize="25sp"
                 android:layout_gravity="center"

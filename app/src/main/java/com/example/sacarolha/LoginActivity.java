@@ -43,13 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         boolean isFirstRun = preferences.getBoolean(Shared.KEY_FIRST_RUN, true);
 
         if (isFirstRun) {
-            DBOpenHelper db = new DBOpenHelper(LoginActivity.this);
-            try {
-                db.createDatabase();
-            } catch (IOException e) {
-                System.out.println("EXCEPTION: "+e);
-                throw new RuntimeException(e);
-            }
             registerOnFirstRun();
         }
 

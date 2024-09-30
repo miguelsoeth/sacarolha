@@ -17,7 +17,9 @@ public class ClienteDAO extends AbstrataDAO {
             Cliente.COLUNA_DOCUMENTO,
             Cliente.COLUNA_TELEFONE,
             Cliente.COLUNA_EMAIL,
-            Cliente.COLUNA_LOGRADOURO,
+            Cliente.COLUNA_RUA,
+            Cliente.COLUNA_BAIRRO,
+            Cliente.COLUNA_COMPLEMENTO,
             Cliente.COLUNA_NUMERO,
             Cliente.COLUNA_CIDADE,
             Cliente.COLUNA_ESTADO
@@ -39,7 +41,9 @@ public class ClienteDAO extends AbstrataDAO {
             contentValues.put(Cliente.COLUNA_DOCUMENTO, cliente.getDocumento());
             contentValues.put(Cliente.COLUNA_TELEFONE, cliente.getTelefone());
             contentValues.put(Cliente.COLUNA_EMAIL, cliente.getEmail());
-            contentValues.put(Cliente.COLUNA_LOGRADOURO, cliente.getLogradouro());
+            contentValues.put(Cliente.COLUNA_RUA, cliente.getRua());
+            contentValues.put(Cliente.COLUNA_BAIRRO, cliente.getBairro());
+            contentValues.put(Cliente.COLUNA_COMPLEMENTO, cliente.getComplemento());
             contentValues.put(Cliente.COLUNA_NUMERO, cliente.getNumero());
             contentValues.put(Cliente.COLUNA_CIDADE, cliente.getCidade());
             contentValues.put(Cliente.COLUNA_ESTADO, cliente.getEstado());
@@ -70,7 +74,9 @@ public class ClienteDAO extends AbstrataDAO {
                 cliente.setDocumento(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_DOCUMENTO)));
                 cliente.setTelefone(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_TELEFONE)));
                 cliente.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_EMAIL)));
-                cliente.setLogradouro(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_LOGRADOURO)));
+                cliente.setRua(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_RUA)));
+                cliente.setBairro(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_BAIRRO)));
+                cliente.setComplemento(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_COMPLEMENTO)));
                 cliente.setNumero(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_NUMERO)));
                 cliente.setCidade(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_CIDADE)));
                 cliente.setEstado(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_ESTADO)));
@@ -96,7 +102,9 @@ public class ClienteDAO extends AbstrataDAO {
             contentValues.put(Cliente.COLUNA_DOCUMENTO, cliente.getDocumento());
             contentValues.put(Cliente.COLUNA_TELEFONE, cliente.getTelefone());
             contentValues.put(Cliente.COLUNA_EMAIL, cliente.getEmail());
-            contentValues.put(Cliente.COLUNA_LOGRADOURO, cliente.getLogradouro());
+            contentValues.put(Cliente.COLUNA_RUA, cliente.getRua());
+            contentValues.put(Cliente.COLUNA_BAIRRO, cliente.getBairro());
+            contentValues.put(Cliente.COLUNA_COMPLEMENTO, cliente.getComplemento());
             contentValues.put(Cliente.COLUNA_NUMERO, cliente.getNumero());
             contentValues.put(Cliente.COLUNA_CIDADE, cliente.getCidade());
             contentValues.put(Cliente.COLUNA_ESTADO, cliente.getEstado());
@@ -139,7 +147,9 @@ public class ClienteDAO extends AbstrataDAO {
                     cliente.setDocumento(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_DOCUMENTO)));
                     cliente.setTelefone(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_TELEFONE)));
                     cliente.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_EMAIL)));
-                    cliente.setLogradouro(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_LOGRADOURO)));
+                    cliente.setRua(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_RUA)));
+                    cliente.setBairro(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_BAIRRO)));
+                    cliente.setComplemento(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_COMPLEMENTO)));
                     cliente.setNumero(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_NUMERO)));
                     cliente.setCidade(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_CIDADE)));
                     cliente.setEstado(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_ESTADO)));

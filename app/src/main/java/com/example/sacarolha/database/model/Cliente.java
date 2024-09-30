@@ -12,10 +12,12 @@ public class Cliente {
             COLUNA_DOCUMENTO = "documento",
             COLUNA_TELEFONE = "telefone",
             COLUNA_EMAIL = "email",
-            COLUNA_LOGRADOURO = "logradouro",
-            COLUNA_NUMERO = "numero",
+            COLUNA_ESTADO = "estado",
             COLUNA_CIDADE = "cidade",
-            COLUNA_ESTADO = "estado";
+            COLUNA_RUA = "rua",
+            COLUNA_BAIRRO = "bairro",
+            COLUNA_COMPLEMENTO = "complemento",
+            COLUNA_NUMERO = "numero";
 
     public static final String
             CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
@@ -24,9 +26,11 @@ public class Cliente {
             COLUNA_DOCUMENTO + " TEXT NOT NULL, " +
             COLUNA_TELEFONE + " TEXT NOT NULL, " +
             COLUNA_EMAIL + " TEXT, " +  // Email is optional
-            COLUNA_LOGRADOURO + " TEXT NOT NULL, " +
-            COLUNA_NUMERO + " TEXT NOT NULL, " +
-            COLUNA_CIDADE + " TEXT NOT NULL, " +
+            COLUNA_RUA + " TEXT, " + // is optional
+            COLUNA_BAIRRO + " TEXT, " + // is optional
+            COLUNA_COMPLEMENTO + " TEXT, " +  // is optional
+            COLUNA_NUMERO + " TEXT, " + // is optional
+            COLUNA_CIDADE + " TEXT, " + // is optional
             COLUNA_ESTADO + " TEXT NOT NULL " +
             ");";
 
@@ -38,7 +42,9 @@ public class Cliente {
     private String documento;
     private String telefone;
     private String email;  // Optional field
-    private String logradouro;
+    private String rua;
+    private String bairro;
+    private String complemento;  // Optional field
     private String numero;
     private String cidade;
     private String estado;
@@ -48,12 +54,14 @@ public class Cliente {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Cliente(String nome, String documento, String telefone, String logradouro, String numero, String cidade, String estado, String email) {
+    public Cliente(String nome, String documento, String telefone, String rua, String bairro, String complemento, String numero, String cidade, String estado, String email) {
         this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.documento = documento;
         this.telefone = telefone;
-        this.logradouro = logradouro;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.complemento = complemento;  // Optional
         this.numero = numero;
         this.cidade = cidade;
         this.estado = estado;
@@ -101,12 +109,28 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getLogradouro() {
-        return logradouro;
+    public String getRua() {
+        return rua;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     public String getNumero() {
