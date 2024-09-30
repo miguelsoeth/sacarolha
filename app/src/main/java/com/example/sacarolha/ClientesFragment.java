@@ -3,17 +3,20 @@ package com.example.sacarolha;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sacarolha.util.handlers.MaskHandler;
 
 public class ClientesFragment extends Fragment {
-    private EditText editDocumento, editTelefone;
+
+    Button btn;
 
     public ClientesFragment() {
         // Required empty public constructor
@@ -23,15 +26,17 @@ public class ClientesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_clientes, container, false);
-
-        editDocumento = view.findViewById(R.id.editDocumento);
-        editTelefone = view.findViewById(R.id.editTelefone);
-
-        // Create MaskHandler instance and apply masks
-        MaskHandler handler = new MaskHandler();
-        handler.MaskTelefone(editTelefone);
-        handler.MaskCPF_CNPJ(editDocumento);
-
+        btn = view.findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CadastrarClienteFragment cadastrarClienteFragment = new CadastrarClienteFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, cadastrarClienteFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         return view;
     }
 }

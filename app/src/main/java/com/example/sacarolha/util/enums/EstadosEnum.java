@@ -1,6 +1,7 @@
 package com.example.sacarolha.util.enums;
 
 public enum EstadosEnum {
+    NONE("Selecione o estado"),
     AC("Acre"),
     AL("Alagoas"),
     AP("Amapá"),

@@ -8,4 +8,4 @@
     android:textSize="20sp"
     android:textColorHint="@color/transparent_white"
     android:textColor="@color/white"
-    android:background="@drawable/bkg_dark_purple"/>
+    android:background="@drawable/bkg_dark_purple_rounded"/>
