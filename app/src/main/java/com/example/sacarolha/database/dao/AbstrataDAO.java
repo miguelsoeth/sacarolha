@@ -17,7 +17,7 @@ public abstract class AbstrataDAO {
     }
 
     protected final void Close() {
-        //db_helper.close();
+        db_helper.close();
     }
 
 }

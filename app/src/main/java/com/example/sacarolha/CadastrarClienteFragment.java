@@ -108,7 +108,7 @@ public class CadastrarClienteFragment extends Fragment {
 
         // Validate each field and set error messages
         if (documento.isEmpty()) {
-            editDocumento.setError("Documento cannot be empty");
+            editDocumento.setError("Documento não pode estar vazio!");
             isOkay = false;
         }
         else if(!DocumentHandler.isValidDocument(documento)) {
@@ -117,18 +117,18 @@ public class CadastrarClienteFragment extends Fragment {
         }
 
         if (nome.isEmpty()) {
-            editNome.setError("Nome cannot be empty");
+            editNome.setError("Nome não pode estar vazio!");
             isOkay = false;
         }
 
         if (telefone.isEmpty()) {
-            editTelefone.setError("Telefone cannot be empty");
+            editTelefone.setError("Telefone não pode estar vazio!");
             isOkay = false;
         }
 
         // Validate spinner state
         if (spinnerEstado.getSelectedItem() == null || spinnerEstado.getSelectedItemPosition() == 0) {
-            ((TextView)spinnerEstado.getSelectedView()).setError("Please select a state");
+            ((TextView)spinnerEstado.getSelectedView()).setError("Selecione um estado!");
             isOkay = false;
         }
 
