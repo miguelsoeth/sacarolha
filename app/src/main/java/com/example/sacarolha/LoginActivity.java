@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.sacarolha.database.DBOpenHelper;
+import com.example.sacarolha.database.dao.CidadeDAO;
+import com.example.sacarolha.database.dao.EstadoDAO;
 import com.example.sacarolha.database.dao.UserDAO;
 import com.example.sacarolha.database.model.User;
 import com.example.sacarolha.util.Shared;
@@ -20,6 +24,7 @@ import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.handlers.PasswordHandler;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
@@ -38,6 +43,13 @@ public class LoginActivity extends AppCompatActivity {
         boolean isFirstRun = preferences.getBoolean(Shared.KEY_FIRST_RUN, true);
 
         if (isFirstRun) {
+            DBOpenHelper db = new DBOpenHelper(LoginActivity.this);
+            try {
+                db.createDatabase();
+            } catch (IOException e) {
+                System.out.println("EXCEPTION: "+e);
+                throw new RuntimeException(e);
+            }
             registerOnFirstRun();
         }
 

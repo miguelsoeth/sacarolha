@@ -36,7 +36,6 @@ public class CadastrarClienteFragment extends Fragment {
         ArrayAdapter<EstadosEnum> adapter = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_rounded, EstadosEnum.values());
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerEstado.setAdapter(adapter);
-        spinnerEstado.set
 
         // Create MaskHandler instance and apply masks
         MaskHandler handler = new MaskHandler();
