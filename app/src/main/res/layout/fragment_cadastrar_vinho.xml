@@ -88,59 +88,59 @@
                         android:layout_marginBottom="10sp"
                         android:padding="10sp"
                         android:hint="Ano da safra"
-                        android:maxLength="18"
+                        android:maxLength="4"
                         android:fontFamily="@font/zain_regular"
                         android:textSize="20sp"
                         android:textColorHint="@color/transparent_white"
                         android:textColor="@color/white"
                         android:inputType="number"
                         android:background="@drawable/bkg_dark_purple_rounded"
-                        android:enabled="false"
-                        android:drawableEnd="@drawable/ic_calendar"
                         />
 
-
-                    <EditText
-                        android:id="@+id/editTelefone"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50sp"
-                        android:layout_marginBottom="10sp"
-                        android:padding="10sp"
-                        android:hint="Telefone"
-                        android:fontFamily="@font/zain_regular"
-                        android:textSize="20sp"
-                        android:textColorHint="@color/transparent_white"
-                        android:textColor="@color/white"
-                        android:background="@drawable/bkg_dark_purple_rounded"
-                        android:inputType="number"
-                        />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
 
-                    <EditText
-                        android:id="@+id/editMail"
-                        android:layout_width="match_parent"
-                        android:layout_height="50sp"
-                        android:layout_marginBottom="10sp"
-                        android:padding="10sp"
-                        android:hint="Email"
-                        android:inputType="textEmailAddress"
-                        android:fontFamily="@font/zain_regular"
-                        android:textSize="20sp"
-                        android:textColorHint="@color/transparent_white"
-                        android:textColor="@color/white"
-                        android:background="@drawable/bkg_dark_purple_rounded"
-                        />
+                        <EditText
+                            android:id="@+id/editPreço"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:layout_gravity="start"
+                            android:layout_marginBottom="10sp"
+                            android:padding="10sp"
+                            android:hint="Preço"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="20sp"
+                            android:textColorHint="@color/transparent_white"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bkg_dark_purple_rounded"
+                            android:inputType="number"
+                            />
+
+                        <EditText
+                            android:id="@+id/editEstoque"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="start"
+                            android:layout_marginBottom="10sp"
+                            android:padding="10sp"
+                            android:hint="Estoque"
+                            android:inputType="textEmailAddress"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="20sp"
+                            android:textColorHint="@color/transparent_white"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bkg_dark_purple_rounded"
+                            />
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginBottom="20sp"
-                android:weightSum="1">
 
             </LinearLayout>
 
