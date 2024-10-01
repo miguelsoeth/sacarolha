@@ -18,6 +18,7 @@ import com.example.sacarolha.CadastrarClienteFragment;
 import com.example.sacarolha.EditarClienteFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Cliente;
+import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class ClienteAdapter extends ArrayAdapter<Cliente> implements Filterable 
         });
 
         text1.setText(cliente.getNome());
-        text2.setText(cliente.getDocumento());
+        text2.setText(MaskHandler.applyDocumentMask(cliente.getDocumento()));
 
         return convertView;
     }

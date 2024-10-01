@@ -77,6 +77,9 @@ public class CadastrarClienteFragment extends Fragment {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     String userId = preferences.getString(Shared.KEY_USER_ID, "");
 
+                    documento = MaskHandler.removePunctuation(documento);
+                    telefone = MaskHandler.removePunctuation(telefone);
+
                     Cliente cliente = new Cliente(nome, documento, telefone, rua, bairro, complemento, numero, cidade, estado, email, userId);
 
                     ClienteDAO clienteDAO = new ClienteDAO(getContext());

@@ -22,6 +22,7 @@ import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.handlers.DocumentHandler;
+import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,17 +89,15 @@ public class EditarClienteFragment extends Fragment {
             seedingUpdate = true;
             spinnerEstado.setSelection(pos);
 
-            editDocumento.setText(c.getDocumento());
+            editDocumento.setText(MaskHandler.applyDocumentMask(c.getDocumento()));
             editNome.setText(c.getNome());
             editMail.setText(c.getEmail());
-            editTelefone.setText(c.getTelefone());
+            editTelefone.setText(MaskHandler.applyPhoneMask(c.getTelefone()));
             editCidade.setText(c.getCidade());
             editRua.setText(c.getRua());
             editBairro.setText(c.getBairro());
             editNumero.setText(c.getNumero());
             editComplemento.setText(c.getComplemento());
-
-            System.out.println(c.getCidade());
 
         }
 
@@ -121,6 +120,9 @@ public class EditarClienteFragment extends Fragment {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     String userId = preferences.getString(Shared.KEY_USER_ID, "");
 
+                    documento = MaskHandler.removePunctuation(documento);
+                    telefone = MaskHandler.removePunctuation(telefone);
+
                     Cliente cliente = new Cliente(mClienteId, nome, documento, telefone, rua, bairro, complemento, numero, cidade, estado, email, userId);
 
                     ClienteDAO clienteDAO = new ClienteDAO(getContext());
@@ -134,7 +136,9 @@ public class EditarClienteFragment extends Fragment {
             }
         });
 
-
+        MaskHandler handler = new MaskHandler();
+        handler.MaskTelefone(editTelefone);
+        handler.MaskCPF_CNPJ(editDocumento);
 
         return view;
 

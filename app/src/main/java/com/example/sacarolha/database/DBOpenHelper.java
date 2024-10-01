@@ -2,19 +2,11 @@ package com.example.sacarolha.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.sacarolha.database.model.Cidade;
 import com.example.sacarolha.database.model.Cliente;
-import com.example.sacarolha.database.model.Estado;
 import com.example.sacarolha.database.model.User;
 import com.example.sacarolha.database.model.Vinho;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 

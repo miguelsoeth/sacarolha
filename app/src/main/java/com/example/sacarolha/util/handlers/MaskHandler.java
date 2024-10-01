@@ -93,6 +93,19 @@ public class MaskHandler {
         return input.toString().replaceAll("[^0-9]", "");
     }
 
+    public static String applyDocumentMask(String text) {
+        text = removePunctuation(text);
+
+        if (text.length() == 11) {
+            text = applyCpfMask(text);
+        }
+        else if (text.length() == 14){
+            text = applyCnpjMask(text);
+        }
+
+        return text;
+    }
+
     private static String applyCpfMask(String text) {
         StringBuilder masked = new StringBuilder(text);
         if (text.length() > 3) {
@@ -124,7 +137,7 @@ public class MaskHandler {
         return masked.toString();
     }
 
-    private static String applyPhoneMask(String text) {
+    public static String applyPhoneMask(String text) {
         StringBuilder masked = new StringBuilder(text);
 
         if (text.length() > 2) {

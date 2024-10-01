@@ -18,7 +18,8 @@ public class VinhoDAO extends AbstrataDAO {
             Vinho.COLUNA_TIPO,
             Vinho.COLUNA_SAFRA,
             Vinho.COLUNA_PRECO,
-            Vinho.COLUNA_ESTOQUE
+            Vinho.COLUNA_ESTOQUE,
+            Vinho.COLUNA_USER_ID  // New column for user ID (foreign key)
     };
 
     public VinhoDAO(Context context) {
@@ -38,6 +39,7 @@ public class VinhoDAO extends AbstrataDAO {
             contentValues.put(Vinho.COLUNA_SAFRA, vinho.getSafra());
             contentValues.put(Vinho.COLUNA_PRECO, vinho.getPreco());
             contentValues.put(Vinho.COLUNA_ESTOQUE, vinho.getEstoque());
+            contentValues.put(Vinho.COLUNA_USER_ID, vinho.getUserId());  // Set user ID
 
             insertRows = db.insert(Vinho.TABLE_NAME, null, contentValues);
         } finally {
@@ -66,6 +68,7 @@ public class VinhoDAO extends AbstrataDAO {
                 vinho.setSafra(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)) ? null : cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)));
                 vinho.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(Vinho.COLUNA_PRECO)));
                 vinho.setEstoque(cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_ESTOQUE)));
+                vinho.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_USER_ID)));  // Retrieve user ID
             }
             if (cursor != null) {
                 cursor.close();
@@ -89,6 +92,7 @@ public class VinhoDAO extends AbstrataDAO {
             contentValues.put(Vinho.COLUNA_SAFRA, vinho.getSafra());
             contentValues.put(Vinho.COLUNA_PRECO, vinho.getPreco());
             contentValues.put(Vinho.COLUNA_ESTOQUE, vinho.getEstoque());
+            contentValues.put(Vinho.COLUNA_USER_ID, vinho.getUserId());  // Update user ID
 
             rowsAffected = db.update(Vinho.TABLE_NAME, contentValues, Vinho.COLUNA_ID + " = ?",
                     new String[]{vinho.getId()});
@@ -129,6 +133,7 @@ public class VinhoDAO extends AbstrataDAO {
                     vinho.setSafra(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)) ? null : cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)));
                     vinho.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(Vinho.COLUNA_PRECO)));
                     vinho.setEstoque(cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_ESTOQUE)));
+                    vinho.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_USER_ID)));  // Set user ID
                     vinhos.add(vinho);
                 }
                 cursor.close();
