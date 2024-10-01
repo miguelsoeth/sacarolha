@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDAO extends AbstrataDAO {
+    // Add user_id to the list of columns
     private final String[] colunas = {
             Cliente.COLUNA_ID,
             Cliente.COLUNA_NOME,
@@ -22,14 +23,15 @@ public class ClienteDAO extends AbstrataDAO {
             Cliente.COLUNA_COMPLEMENTO,
             Cliente.COLUNA_NUMERO,
             Cliente.COLUNA_CIDADE,
-            Cliente.COLUNA_ESTADO
+            Cliente.COLUNA_ESTADO,
+            Cliente.COLUNA_USER_ID // Foreign key to User table
     };
 
     public ClienteDAO(Context context) {
         db_helper = new DBOpenHelper(context);
     }
 
-    // Insert method
+    // Insert method, including foreign key reference for user_id
     public long insert(Cliente cliente) {
         long insertRows = 0;
         try {
@@ -47,6 +49,7 @@ public class ClienteDAO extends AbstrataDAO {
             contentValues.put(Cliente.COLUNA_NUMERO, cliente.getNumero());
             contentValues.put(Cliente.COLUNA_CIDADE, cliente.getCidade());
             contentValues.put(Cliente.COLUNA_ESTADO, cliente.getEstado());
+            contentValues.put(Cliente.COLUNA_USER_ID, cliente.getUserId()); // Foreign key reference
 
             insertRows = db.insert(Cliente.TABLE_NAME, null, contentValues);
         } finally {
@@ -56,7 +59,7 @@ public class ClienteDAO extends AbstrataDAO {
         return insertRows;
     }
 
-    // Get Cliente by ID
+    // Get Cliente by ID, including the user_id foreign key
     public Cliente selectById(String id) {
         Cliente cliente = null;
         try {
@@ -80,6 +83,7 @@ public class ClienteDAO extends AbstrataDAO {
                 cliente.setNumero(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_NUMERO)));
                 cliente.setCidade(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_CIDADE)));
                 cliente.setEstado(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_ESTADO)));
+                cliente.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_USER_ID))); // Retrieve user_id
             }
             if (cursor != null) {
                 cursor.close();
@@ -91,7 +95,7 @@ public class ClienteDAO extends AbstrataDAO {
         return cliente;
     }
 
-    // Update method
+    // Update method including foreign key reference for user_id
     public int update(Cliente cliente) {
         int rowsAffected = 0;
         try {
@@ -108,6 +112,7 @@ public class ClienteDAO extends AbstrataDAO {
             contentValues.put(Cliente.COLUNA_NUMERO, cliente.getNumero());
             contentValues.put(Cliente.COLUNA_CIDADE, cliente.getCidade());
             contentValues.put(Cliente.COLUNA_ESTADO, cliente.getEstado());
+            contentValues.put(Cliente.COLUNA_USER_ID, cliente.getUserId()); // Update foreign key reference
 
             rowsAffected = db.update(Cliente.TABLE_NAME, contentValues, Cliente.COLUNA_ID + " = ?",
                     new String[]{cliente.getId()});
@@ -132,7 +137,7 @@ public class ClienteDAO extends AbstrataDAO {
         return rowsDeleted;
     }
 
-    // Select all Clientes
+    // Select all Clientes including the foreign key user_id
     public List<Cliente> selectAll() {
         List<Cliente> clientes = new ArrayList<>();
         try {
@@ -153,6 +158,7 @@ public class ClienteDAO extends AbstrataDAO {
                     cliente.setNumero(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_NUMERO)));
                     cliente.setCidade(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_CIDADE)));
                     cliente.setEstado(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_ESTADO)));
+                    cliente.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Cliente.COLUNA_USER_ID))); // Retrieve user_id
                     clientes.add(cliente);
                 }
                 cursor.close();

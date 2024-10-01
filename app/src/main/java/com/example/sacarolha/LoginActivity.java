@@ -91,6 +91,10 @@ public class LoginActivity extends AppCompatActivity {
         UserDAO userDAO = new UserDAO(LoginActivity.this);
         User u = userDAO.getUserByUsername(usuario);
 
+        if (u == null) {
+            u = userDAO.getUserByEmail(usuario);
+        }
+
         if(u == null) {
             Toast.makeText(this, "Usuário não encontrado!", Toast.LENGTH_SHORT).show();
             return false;
@@ -109,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putString(Shared.KEY_USERNAME, u.getNome().split(" ")[0]);
+        edit.putString(Shared.KEY_USER_ID, u.getId());
         edit.apply();
         return true;
     }

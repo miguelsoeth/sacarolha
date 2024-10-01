@@ -2,6 +2,7 @@
     <string name="app_name">Sacarolha</string>
     <string name="entrar">Entrar</string>
     <string name="digite_sua_senha">Digite sua senha</string>
+    <string name="digite_seu_usuario_ou_email">Digite seu usuário ou email</string>
     <string name="digite_seu_usuario">Digite seu usuário</string>
     <string name="digite_seu_nome">Digite seu nome</string>
     <string name="saca_rolha">Saca Rolha</string>

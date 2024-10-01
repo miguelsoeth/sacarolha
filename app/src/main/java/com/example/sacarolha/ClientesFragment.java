@@ -50,7 +50,7 @@ public class ClientesFragment extends Fragment {
 
         clienteDAO = new ClienteDAO(getActivity());
         List<Cliente> clientes = clienteDAO.selectAll();
-        ClienteAdapter adapter = new ClienteAdapter(getActivity(), clientes);
+        ClienteAdapter adapter = new ClienteAdapter(getActivity(), clientes, getFragmentManager());
 
         listView = view.findViewById(R.id.listview);
         listView.setAdapter(adapter);

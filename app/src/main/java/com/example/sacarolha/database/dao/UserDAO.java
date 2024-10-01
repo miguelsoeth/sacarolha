@@ -18,7 +18,8 @@ public class UserDAO extends AbstrataDAO {
             User.COLUNA_ID,
             User.COLUNA_NOME,
             User.COLUNA_USUARIO,
-            User.COLUNA_SENHA
+            User.COLUNA_SENHA,
+            User.COLUNA_EMAIL
     };
 
     public UserDAO(Context context) {
@@ -44,16 +45,45 @@ public class UserDAO extends AbstrataDAO {
             contentValues.put(User.COLUNA_NOME, u.getNome());
             contentValues.put(User.COLUNA_USUARIO, u.getUsuario());
             contentValues.put(User.COLUNA_SENHA, u.getSenha());
+            contentValues.put(User.COLUNA_EMAIL, u.getEmail());  // Insert email
 
             insertRows = db.insert(User.TABLE_NAME, null, contentValues);
-        }
-        finally {
+        } finally {
             Close();
         }
 
         return insertRows;
-
     }
+
+    public User getUserByEmail(String email) {
+
+        User user = null;
+        try {
+            Open();
+
+            String selection = User.COLUNA_EMAIL + " = ? ";
+            String[] selectionArgs = { email };
+
+            Cursor cursor = db.query(User.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                user = new User();
+                user.setId(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_ID)));
+                user.setNome(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_NOME)));
+                user.setSenha(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_SENHA)));
+                user.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_USUARIO)));
+                user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_EMAIL)));  // Fetch email
+            }
+            if (cursor != null) {
+                cursor.close();
+            }
+        } finally {
+            Close();
+        }
+
+        return user;
+    }
+
 
     public User getUserByUsername(String username) {
 
@@ -72,6 +102,7 @@ public class UserDAO extends AbstrataDAO {
                 user.setNome(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_NOME)));
                 user.setSenha(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_SENHA)));
                 user.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_USUARIO)));
+                user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_EMAIL)));  // Fetch email
             }
             if (cursor != null) {
                 cursor.close();
@@ -96,6 +127,7 @@ public class UserDAO extends AbstrataDAO {
                 user.setNome(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_NOME)));
                 user.setSenha(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_SENHA)));
                 user.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_USUARIO)));
+                user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_EMAIL)));  // Fetch email
             }
             if (cursor != null) {
                 cursor.close();
@@ -115,6 +147,7 @@ public class UserDAO extends AbstrataDAO {
             contentValues.put(User.COLUNA_NOME, u.getNome());
             contentValues.put(User.COLUNA_USUARIO, u.getUsuario());
             contentValues.put(User.COLUNA_SENHA, u.getSenha());
+            contentValues.put(User.COLUNA_EMAIL, u.getEmail());  // Update email
 
             rowsAffected = db.update(User.TABLE_NAME, contentValues, User.COLUNA_ID + " = ?",
                     new String[]{String.valueOf(u.getId())});
@@ -149,6 +182,7 @@ public class UserDAO extends AbstrataDAO {
                     user.setNome(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_NOME)));
                     user.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_USUARIO)));
                     user.setSenha(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_SENHA)));
+                    user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(User.COLUNA_EMAIL)));  // Fetch email
                     users.add(user);
                 }
                 cursor.close();
@@ -158,5 +192,4 @@ public class UserDAO extends AbstrataDAO {
         }
         return users;
     }
-
 }

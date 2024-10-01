@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -23,27 +22,47 @@ import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.handlers.DocumentHandler;
-import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CadastrarClienteFragment extends Fragment {
-
+public class EditarClienteFragment extends Fragment {
+    
+    private static final String ARG_CLIENTE_ID = "clienteId";
     private EditText editNome, editMail, editDocumento, editTelefone, editCidade, editRua, editBairro, editNumero, editComplemento;
     private Spinner spinnerEstado;
-    Button btnCadastrar;
+    Button btnSalvar;
+    boolean seedingUpdate = true;
 
-    public CadastrarClienteFragment() {
+    // TODO: Rename and change types of parameters
+    private String mClienteId;
+
+    public EditarClienteFragment() {
         // Required empty public constructor
+    }
+
+    public static EditarClienteFragment newInstance(String clienteId) {
+        EditarClienteFragment fragment = new EditarClienteFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_CLIENTE_ID, clienteId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mClienteId = getArguments().getString(ARG_CLIENTE_ID);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cadastrar_cliente, container, false);
+        View view = inflater.inflate(R.layout.fragment_editar_cliente, container, false);
 
         editDocumento = view.findViewById(R.id.editDocumento);
         editNome = view.findViewById(R.id.editNome);
@@ -58,8 +77,33 @@ public class CadastrarClienteFragment extends Fragment {
         spinnerEstado = view.findViewById(R.id.spinnerEstado);
         configureSpinnerWithEnum(spinnerEstado, EstadosEnum.class);
 
-        btnCadastrar = view.findViewById(R.id.btnCadastrar);
-        btnCadastrar.setOnClickListener(new View.OnClickListener() {
+        ClienteDAO clienteDAO = new ClienteDAO(getContext());
+        Cliente c = clienteDAO.selectById(mClienteId);
+
+        if (c == null) {
+            Toast.makeText(getContext(), "Cliente não encontrado!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Integer pos = EstadosEnum.getPosition(c.getEstado());
+            seedingUpdate = true;
+            spinnerEstado.setSelection(pos);
+
+            editDocumento.setText(c.getDocumento());
+            editNome.setText(c.getNome());
+            editMail.setText(c.getEmail());
+            editTelefone.setText(c.getTelefone());
+            editCidade.setText(c.getCidade());
+            editRua.setText(c.getRua());
+            editBairro.setText(c.getBairro());
+            editNumero.setText(c.getNumero());
+            editComplemento.setText(c.getComplemento());
+
+            System.out.println(c.getCidade());
+
+        }
+
+        btnSalvar = view.findViewById(R.id.btnSalvar);
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ValidFields()) {
@@ -77,26 +121,24 @@ public class CadastrarClienteFragment extends Fragment {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     String userId = preferences.getString(Shared.KEY_USER_ID, "");
 
-                    Cliente cliente = new Cliente(nome, documento, telefone, rua, bairro, complemento, numero, cidade, estado, email, userId);
+                    Cliente cliente = new Cliente(mClienteId, nome, documento, telefone, rua, bairro, complemento, numero, cidade, estado, email, userId);
 
                     ClienteDAO clienteDAO = new ClienteDAO(getContext());
-                    long result = clienteDAO.insert(cliente);
+                    long result = clienteDAO.update(cliente);
 
                     if (result > 0) {
-                        Toast.makeText(getContext(), "Cliente cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Cliente salvo com sucesso!", Toast.LENGTH_SHORT).show();
                         requireActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
             }
         });
 
-        MaskHandler handler = new MaskHandler();
-        handler.MaskTelefone(editTelefone);
-        handler.MaskCPF_CNPJ(editDocumento);
+
 
         return view;
-    }
 
+    }
     private boolean ValidFields() {
         // Clear previous errors
         editDocumento.setError(null);
@@ -156,6 +198,11 @@ public class CadastrarClienteFragment extends Fragment {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (seedingUpdate) {
+                    seedingUpdate = false; // Reset flag
+                    return;
+                }
+
                 if (i == 0) {
                     ((TextView) view).setTextColor(getResources().getColor(R.color.transparent_white));
                     setInputsFontSize(0);
@@ -174,7 +221,6 @@ public class CadastrarClienteFragment extends Fragment {
 
             }
         });
-        spinner.setSelection(0);
     }
 
     private void setInputsStatus(boolean status) {
@@ -214,5 +260,4 @@ public class CadastrarClienteFragment extends Fragment {
         editNumero.setBackgroundResource(resource);
         editComplemento.setBackgroundResource(resource);
     }
-
 }

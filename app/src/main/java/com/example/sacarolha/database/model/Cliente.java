@@ -17,7 +17,8 @@ public class Cliente {
             COLUNA_RUA = "rua",
             COLUNA_BAIRRO = "bairro",
             COLUNA_COMPLEMENTO = "complemento",
-            COLUNA_NUMERO = "numero";
+            COLUNA_NUMERO = "numero",
+            COLUNA_USER_ID = "user_id";  // Foreign key column for user
 
     public static final String
             CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
@@ -25,13 +26,15 @@ public class Cliente {
             COLUNA_NOME + " TEXT NOT NULL, " +
             COLUNA_DOCUMENTO + " TEXT NOT NULL, " +
             COLUNA_TELEFONE + " TEXT NOT NULL, " +
-            COLUNA_EMAIL + " TEXT, " +  // Email is optional
-            COLUNA_RUA + " TEXT, " + // is optional
-            COLUNA_BAIRRO + " TEXT, " + // is optional
+            COLUNA_EMAIL + " TEXT NOT NULL, " +  // Email is optional
+            COLUNA_RUA + " TEXT, " +  // is optional
+            COLUNA_BAIRRO + " TEXT, " +  // is optional
             COLUNA_COMPLEMENTO + " TEXT, " +  // is optional
-            COLUNA_NUMERO + " TEXT, " + // is optional
-            COLUNA_CIDADE + " TEXT, " + // is optional
-            COLUNA_ESTADO + " TEXT NOT NULL " +
+            COLUNA_NUMERO + " TEXT, " +  // is optional
+            COLUNA_CIDADE + " TEXT, " +  // is optional
+            COLUNA_ESTADO + " TEXT NOT NULL, " +
+            COLUNA_USER_ID + " TEXT, " +  // Foreign key field
+            "FOREIGN KEY (" + COLUNA_USER_ID + ") REFERENCES " + User.TABLE_NAME + "(" + User.COLUNA_ID + ") ON DELETE CASCADE" +
             ");";
 
     public static final String
@@ -48,13 +51,29 @@ public class Cliente {
     private String numero;
     private String cidade;
     private String estado;
+    private String userId;  // Foreign key to User
 
     // Constructor to automatically generate UUID
     public Cliente() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Cliente(String nome, String documento, String telefone, String rua, String bairro, String complemento, String numero, String cidade, String estado, String email) {
+    public Cliente(String id, String nome, String documento, String telefone, String rua, String bairro, String complemento, String numero, String cidade, String estado, String email, String userId) {
+        this.id = id;
+        this.nome = nome;
+        this.documento = documento;
+        this.telefone = telefone;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.complemento = complemento;  // Optional
+        this.numero = numero;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.email = email;
+        this.userId = userId;  // Initialize foreign key field
+    }
+
+    public Cliente(String nome, String documento, String telefone, String rua, String bairro, String complemento, String numero, String cidade, String estado, String email, String userId) {
         this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.documento = documento;
@@ -65,7 +84,8 @@ public class Cliente {
         this.numero = numero;
         this.cidade = cidade;
         this.estado = estado;
-        this.email = email;  // Optional
+        this.email = email;
+        this.userId = userId;  // Initialize foreign key field
     }
 
     // Getters and Setters
@@ -155,5 +175,13 @@ public class Cliente {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

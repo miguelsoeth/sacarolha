@@ -48,4 +48,13 @@ public enum EstadosEnum {
         }
         return names;
     }
+
+    public static int getPosition(String state) {
+        for (int i = 0; i < EstadosEnum.values().length; i++) {
+            if (EstadosEnum.values()[i].descricao.equals(state)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

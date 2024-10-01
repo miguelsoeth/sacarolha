@@ -16,7 +16,7 @@ import com.example.sacarolha.util.Shared;
 public class RegisterActivity  extends AppCompatActivity {
     Button btnRegistrar;
 
-    EditText editUser, editPassword, editNome;
+    EditText editUser, editPassword, editNome, editEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class RegisterActivity  extends AppCompatActivity {
         editUser = findViewById(R.id.editUser);
         editPassword = findViewById(R.id.editPassword);
         editNome = findViewById(R.id.editNome);
+        editEmail = findViewById(R.id.editEmail);
 
         btnRegistrar = findViewById(R.id.btnRegistrar);
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -34,6 +35,7 @@ public class RegisterActivity  extends AppCompatActivity {
                 String usuario = editUser.getText().toString();
                 String senha = editPassword.getText().toString();
                 String nome = editNome.getText().toString();
+                String email = editEmail.getText().toString();
 
                 boolean error = false;
 
@@ -52,12 +54,17 @@ public class RegisterActivity  extends AppCompatActivity {
                     error = true;
                 }
 
+                if (email.isEmpty()) {
+                    editEmail.setError("Campo obrigatório");
+                    error = true;
+                }
+
                 if (error) {
                     return;
                 }
 
                 UserDAO userDAO = new UserDAO(RegisterActivity.this);
-                User u = new User(nome, usuario, senha);
+                User u = new User(nome, usuario, senha, email);
                 userDAO.insert(u);
 
                 Toast.makeText(RegisterActivity.this, "Usuário registrado com sucesso!", Toast.LENGTH_SHORT).show();

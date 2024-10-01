@@ -11,6 +11,11 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.sacarolha.CadastrarClienteFragment;
+import com.example.sacarolha.EditarClienteFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Cliente;
 
@@ -20,11 +25,13 @@ import java.util.List;
 public class ClienteAdapter extends ArrayAdapter<Cliente> implements Filterable {
     private List<Cliente> originalClientes;
     private List<Cliente> filteredClientes;
+    private FragmentManager fragmentManager;
 
-    public ClienteAdapter(Context context, List<Cliente> clientes) {
+    public ClienteAdapter(Context context, List<Cliente> clientes, FragmentManager fragmentManager) {
         super(context, 0, clientes);
-        this.originalClientes = new ArrayList<>(clientes);  // Keep a copy of the original list
+        this.originalClientes = new ArrayList<>(clientes);
         this.filteredClientes = clientes;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -50,7 +57,14 @@ public class ClienteAdapter extends ArrayAdapter<Cliente> implements Filterable 
         btnItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), text1.getText(), Toast.LENGTH_SHORT).show();
+
+                String clienteId = cliente.getId();
+
+                EditarClienteFragment editarClienteFragment = EditarClienteFragment.newInstance(clienteId);
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frame_layout, editarClienteFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

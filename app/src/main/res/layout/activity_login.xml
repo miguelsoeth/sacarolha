@@ -6,111 +6,129 @@
     android:layout_height="match_parent"
     android:background="@color/light_purple">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginVertical="30sp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:src="@drawable/wineglass_top"
-            android:layout_width="150sp"
-            android:layout_height="150sp"
-            android:layout_gravity="center_horizontal"/>
         <LinearLayout
-            android:id="@+id/title"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="@string/saca"
-                android:textAlignment="center"
-                android:textSize="60sp"
-                android:textColor="@color/dark_green"
-                android:fontFamily="@font/zain_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:text="@string/rolha"
-                android:textAlignment="center"
-                android:textSize="60sp"
-                android:textColor="@color/dark_purple"
-                android:fontFamily="@font/zain_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <TextView
-            android:text="@string/onde_cada_venda_uma_rolha_a_menos"
-            android:textAlignment="center"
-            android:fontFamily="@font/zain_regular"
-            android:layout_marginTop="-20sp"
-            android:textSize="24sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <EditText
-                android:id="@+id/editUser"
-                android:layout_width="match_parent"
-                android:fontFamily="@font/zain_regular"
-                android:layout_height="50sp"
-                android:layout_marginBottom="10sp"
-                android:textSize="20sp"
-                android:padding="10sp"
-                android:textColorHint="@color/transparent_white"
-                android:textColor="@color/white"
-                android:background="@drawable/bkg_dark_purple_rounded"
-                android:hint="@string/digite_seu_usuario"/>
-
-            <EditText
-                android:id="@+id/editPassword"
-                android:layout_width="match_parent"
-                android:fontFamily="@font/zain_regular"
-                android:layout_height="50sp"
-                android:textSize="20sp"
-                android:layout_marginBottom="10sp"
-                android:hint="@string/digite_sua_senha"
-                android:textColorHint="@color/transparent_white"
-                android:textColor="@color/white"
-                android:padding="10sp"
-                android:background="@drawable/bkg_dark_purple_rounded"
-                android:inputType="textPassword"/>
-
-            <Button
-                android:id="@+id/btnEntrar"
-                android:fontFamily="@font/zain_regular"
-                android:textSize="25sp"
-                android:layout_width="300sp"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginVertical="30sp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_green"
-                android:text="@string/entrar" />
+                android:layout_width="match_parent">
 
-            <CheckBox
-                android:id="@+id/checkLembrar"
-                android:fontFamily="@font/zain_regular"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:src="@drawable/wineglass_top"
+                    android:layout_width="150sp"
+                    android:layout_height="150sp"
+                    android:layout_gravity="center_horizontal"/>
+                <LinearLayout
+                    android:id="@+id/title"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="@string/saca"
+                        android:textAlignment="center"
+                        android:textSize="60sp"
+                        android:textColor="@color/dark_green"
+                        android:fontFamily="@font/zain_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="@string/rolha"
+                        android:textAlignment="center"
+                        android:textSize="60sp"
+                        android:textColor="@color/dark_purple"
+                        android:fontFamily="@font/zain_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <TextView
+                    android:text="@string/onde_cada_venda_uma_rolha_a_menos"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/zain_regular"
+                    android:layout_marginTop="-20sp"
+                    android:textSize="24sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lembrar usuário "/>
+                android:gravity="center"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <EditText
+                        android:id="@+id/editUser"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/zain_regular"
+                        android:layout_height="50sp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:inputType="textEmailAddress"
+                        android:layout_marginBottom="10sp"
+                        android:textSize="20sp"
+                        android:padding="10sp"
+                        android:textColorHint="@color/transparent_white"
+                        android:textColor="@color/white"
+                        android:background="@drawable/bkg_dark_purple_rounded"
+                        android:hint="@string/digite_seu_usuario_ou_email"/>
+
+                    <EditText
+                        android:id="@+id/editPassword"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/zain_regular"
+                        android:layout_height="50sp"
+                        android:textSize="20sp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:layout_marginBottom="10sp"
+                        android:hint="@string/digite_sua_senha"
+                        android:textColorHint="@color/transparent_white"
+                        android:textColor="@color/white"
+                        android:padding="10sp"
+                        android:background="@drawable/bkg_dark_purple_rounded"
+                        android:inputType="textPassword"/>
+
+                    <Button
+                        android:id="@+id/btnEntrar"
+                        android:fontFamily="@font/zain_regular"
+                        android:textSize="25sp"
+                        android:layout_width="300sp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/light_green"
+                        android:text="@string/entrar" />
+
+                    <CheckBox
+                        android:id="@+id/checkLembrar"
+                        android:fontFamily="@font/zain_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lembrar usuário"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
