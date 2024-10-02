@@ -111,7 +111,8 @@ public class MaskHandler {
                     String cleanString = s.toString().replaceAll("[^\\d]", ""); // Everything except the last two digits
 
                     if (!cleanString.isEmpty()) {
-                        String formatted = applyPriceMask(cleanString);
+                        double parsed = Double.parseDouble(cleanString);
+                        String formatted = applyPriceMask(parsed);
 
                         current = formatted;
                         textField.setText(formatted);
@@ -206,7 +207,12 @@ public class MaskHandler {
 
     public static String applyPriceMask(String text) {
         double parsed = Double.parseDouble(text);
-        String formatted = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(parsed / 100);
+        String formatted = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(parsed);
+        return formatted;
+    }
+
+    private static String applyPriceMask(Double value) {
+        String formatted = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(value / 100);
         return formatted;
     }
 }

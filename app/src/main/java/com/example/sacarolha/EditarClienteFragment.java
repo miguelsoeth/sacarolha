@@ -36,7 +36,6 @@ public class EditarClienteFragment extends Fragment {
     Button btnSalvar;
     boolean seedingUpdate = true;
 
-    // TODO: Rename and change types of parameters
     private String mClienteId;
 
     public EditarClienteFragment() {

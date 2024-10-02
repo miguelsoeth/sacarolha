@@ -55,6 +55,16 @@ public class Vinho {
         this.userId = userId;  // Set the foreign key
     }
 
+    public Vinho(String id, String nome, String tipo, Integer safra, double preco, int estoque, String userId) {
+        this.id = id;
+        this.nome = nome;
+        this.tipo = tipo;
+        this.safra = safra;  // Can be null
+        this.preco = preco;
+        this.estoque = estoque;
+        this.userId = userId;  // Set the foreign key
+    }
+
     // Getters and Setters
     public String getId() {
         return id;

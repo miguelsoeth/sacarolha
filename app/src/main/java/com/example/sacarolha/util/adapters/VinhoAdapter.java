@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sacarolha.EditarClienteFragment;
+import com.example.sacarolha.EditarVinhoFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Vinho;
@@ -61,9 +62,9 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
 
                 String vinhoId = vinho.getId();
 
-                EditarClienteFragment editarClienteFragment = EditarClienteFragment.newInstance(vinhoId);
+                EditarVinhoFragment editarVinhoFragment = EditarVinhoFragment.newInstance(vinhoId);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frame_layout, editarClienteFragment);
+                transaction.replace(R.id.frame_layout, editarVinhoFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -71,8 +72,9 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
 
         text1.setText(vinho.getNome());
         text2.setText(vinho.getTipo());
-        String precoString = MaskHandler.applyPriceMask(String.valueOf(vinho.getPreco()));
-        text3.setText(precoString);
+        String price = String.valueOf(vinho.getPreco());
+        String maskedPrice = MaskHandler.applyPriceMask(price);
+        text3.setText(maskedPrice);
 
         return convertView;
     }
