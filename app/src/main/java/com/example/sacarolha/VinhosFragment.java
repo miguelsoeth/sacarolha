@@ -10,9 +10,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.example.sacarolha.database.dao.ClienteDAO;
 import com.example.sacarolha.database.dao.VinhoDAO;
@@ -20,6 +22,8 @@ import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.adapters.ClienteAdapter;
 import com.example.sacarolha.util.adapters.VinhoAdapter;
+import com.example.sacarolha.util.enums.TiposVinhoEnum;
+import com.example.sacarolha.util.handlers.SpinnerHandler;
 
 import java.util.List;
 
@@ -29,6 +33,9 @@ public class VinhosFragment extends Fragment {
     ListView listView;
     VinhoDAO vinhoDAO;
     EditText searchText;
+    Spinner filtrarTipo;
+
+    String filterName = null, filterType = null;
 
     public VinhosFragment() {
         // Required empty public constructor
@@ -68,11 +75,35 @@ public class VinhosFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adapter.getFilter().filter(charSequence);
+                filterName = String.valueOf(charSequence);
+                adapter.getFilter().filter(filterName+";"+filterType);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        filtrarTipo = view.findViewById(R.id.filtrarTipo);
+        SpinnerHandler spinner = new SpinnerHandler();
+        spinner.configureSpinnerWithEnum_light(filtrarTipo, TiposVinhoEnum.class, getContext());
+
+        filtrarTipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i != 0) {
+                    filterType = filtrarTipo.getSelectedItem().toString();
+                    adapter.getFilter().filter(filterName+";"+filterType);
+                }
+                else {
+                    filterType = null;
+                    adapter.getFilter().filter(filterName+";"+filterType);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });

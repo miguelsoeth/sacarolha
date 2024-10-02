@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:background="@drawable/bkg_light_purple_rounded"
         android:layout_height="wrap_content"
@@ -15,58 +15,117 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:paddingVertical="10sp"
-            android:paddingHorizontal="25sp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5sp"
             android:layout_weight="1"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/text_vinho_tipo"
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:text="Tipo"
+                android:fontFamily="@font/zain_bold"
+                android:textSize="20sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginBottom="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.95"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            >
+
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="10sp"
+                android:paddingHorizontal="25sp"
+                android:layout_width="0dp"
+                android:layout_weight="0.65"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/text_vinho_nome"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="25sp"
-                    android:fontFamily="@font/zain_regular"
-                    android:text="Name"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/text_vinho_tipo"
-                    android:fontFamily="@font/zain_regular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Document"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/text_vinho_nome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/zain_regular"
+                        android:text="Name"
+                        android:textStyle="bold"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        />
+
+                    <TextView
+                        android:id="@+id/text_vinho_safra"
+                        android:fontFamily="@font/zain_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Safra"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/text_vinho_preco"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="0.35"
+                android:layout_height="match_parent"
                 android:layout_gravity="center|end"
-                android:textAlignment="textEnd"
-                android:fontFamily="@font/zain_bold"
-                android:text="Price"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:textSize="20sp"
-                />
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/text_vinho_preco"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/zain_bold"
+                    android:text="Price"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="20sp"
+                    />
+
+                <Button
+                    android:id="@+id/btnItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bkg_dark_purple_rounded"
+                    android:fontFamily="@font/zain_regular"
+                    android:text="Editar"
+                    android:textSize="20sp"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnItem"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/bkg_dark_purple_rounded"
-            android:fontFamily="@font/zain_regular"
-            android:text="Editar"
-            android:textSize="20sp"/>
-
     </LinearLayout>
+
 </LinearLayout>

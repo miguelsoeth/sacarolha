@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cadastrar Vinho"
+                android:text="Editar Vinho"
                 android:fontFamily="@font/zain_bold"
                 android:textSize="40sp"
                 android:gravity="center"

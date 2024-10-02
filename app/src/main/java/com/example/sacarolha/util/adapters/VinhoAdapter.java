@@ -52,9 +52,10 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.vinho_item, parent, false);
         }
 
-        TextView text1 = convertView.findViewById(R.id.text_vinho_nome);
-        TextView text2 = convertView.findViewById(R.id.text_vinho_tipo);
-        TextView text3 = convertView.findViewById(R.id.text_vinho_preco);
+        TextView text_vinho_nome = convertView.findViewById(R.id.text_vinho_nome);
+        TextView text_vinho_tipo = convertView.findViewById(R.id.text_vinho_tipo);
+        TextView text_vinho_preco = convertView.findViewById(R.id.text_vinho_preco);
+        TextView text_vinho_safra = convertView.findViewById(R.id.text_vinho_safra);
         Button btnItem = convertView.findViewById(R.id.btnItem);
         btnItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +71,12 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
             }
         });
 
-        text1.setText(vinho.getNome());
-        text2.setText(vinho.getTipo());
+        text_vinho_nome.setText(vinho.getNome());
+        text_vinho_tipo.setText(vinho.getTipo());
         String price = String.valueOf(vinho.getPreco());
         String maskedPrice = MaskHandler.applyPriceMask(price);
-        text3.setText(maskedPrice);
+        text_vinho_preco.setText(maskedPrice);
+        text_vinho_safra.setText("Safra " + String.valueOf(vinho.getSafra()));
 
         return convertView;
     }
@@ -86,12 +88,17 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
                 FilterResults results = new FilterResults();
                 List<Vinho> filteredList = new ArrayList<>();
 
+                String[] filterParts = constraint.toString().split(";");
+                String filterName = !filterParts[0].isEmpty() ? filterParts[0].toLowerCase().trim() : "";
+                String filterType = !filterParts[1].isEmpty() ? filterParts[1].toLowerCase().trim() : "";
+
                 if (constraint == null || constraint.length() == 0) {
                     filteredList.addAll(originalVinhos);
                 } else {
-                    String filterPattern = constraint.toString().toLowerCase().trim();
                     for (Vinho vinho : originalVinhos) {
-                        if (vinho.getNome().toLowerCase().contains(filterPattern)) {
+                        boolean conditionName = filterName.equals("null") || vinho.getNome().toLowerCase().contains(filterName);
+                        boolean conditionType = filterType.equals("null") || vinho.getTipo().toLowerCase().contains(filterType);
+                        if (conditionName && conditionType) {
                             filteredList.add(vinho);
                         }
                     }

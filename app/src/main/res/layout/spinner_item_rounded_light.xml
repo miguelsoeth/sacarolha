@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/spinnerTextView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fontFamily="@font/zain_regular"
+    android:textSize="18sp"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="8sp"
+    android:text="TESTE"
+    android:singleLine="true"
+    android:ellipsize="end"
+    android:textColor="@color/light_gray"
+    android:background="@drawable/bkg_light_purple_rounded"/>
