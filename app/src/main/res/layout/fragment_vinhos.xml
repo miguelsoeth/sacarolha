@@ -12,17 +12,17 @@
         android:fillViewport="true"
         >
 
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:weightSum="1"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <LinearLayout
+                android:id="@+id/contentLayout"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:layout_height="0dp">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -41,6 +41,7 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="5sp"
                         android:weightSum="1">
 
                         <EditText
@@ -84,8 +85,6 @@
 
             </LinearLayout>
 
-
-
             <Button
                 android:id="@+id/btnCadastrar"
                 android:fontFamily="@font/zain_regular"
@@ -94,9 +93,12 @@
                 android:layout_width="300sp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/light_green"
-                android:text="Cadastrar vinho" />
+                android:text="Cadastrar vinho"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@id/contentLayout"
+                />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </ScrollView>
 
