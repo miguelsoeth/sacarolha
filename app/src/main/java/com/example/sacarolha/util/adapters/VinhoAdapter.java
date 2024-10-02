@@ -17,6 +17,7 @@ import com.example.sacarolha.EditarClienteFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
 
         text1.setText(vinho.getNome());
         text2.setText(vinho.getTipo());
-        String precoString = String.format("%.2f", vinho.getPreco());
+        String precoString = MaskHandler.applyPriceMask(String.valueOf(vinho.getPreco()));
         text3.setText(precoString);
 
         return convertView;

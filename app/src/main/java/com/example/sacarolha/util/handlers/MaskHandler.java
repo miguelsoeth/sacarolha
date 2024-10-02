@@ -1,8 +1,12 @@
 package com.example.sacarolha.util.handlers;
 
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class MaskHandler {
 
@@ -86,6 +90,48 @@ public class MaskHandler {
 
     }
 
+    public void MaskPrice(EditText textField) {
+
+        textField.addTextChangedListener(new TextWatcher() {
+            private String current = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().equals(current)) {
+                    textField.removeTextChangedListener(this);
+
+                    String cleanString = s.toString().replaceAll("[^\\d]", ""); // Everything except the last two digits
+
+                    if (!cleanString.isEmpty()) {
+                        String formatted = applyPriceMask(cleanString);
+
+                        current = formatted;
+                        textField.setText(formatted);
+
+                        // Ensure the text has content before setting selection
+                        if (formatted.length() > 0) {
+                            textField.setSelection(formatted.length());
+                        }
+                    }
+
+                    if (cleanString.equals("00")) {
+                        textField.setText("");
+                    }
+
+                    textField.addTextChangedListener(this);
+                }
+            }
+        });
+    }
+
     public static String removePunctuation(CharSequence input) {
         if (input == null) {
             return null;
@@ -156,5 +202,11 @@ public class MaskHandler {
         }
 
         return masked.toString();
+    }
+
+    public static String applyPriceMask(String text) {
+        double parsed = Double.parseDouble(text);
+        String formatted = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(parsed / 100);
+        return formatted;
     }
 }

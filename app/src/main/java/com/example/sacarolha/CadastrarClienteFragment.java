@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -56,7 +55,7 @@ public class CadastrarClienteFragment extends Fragment {
         editComplemento = view.findViewById(R.id.editComplemento);
 
         spinnerEstado = view.findViewById(R.id.spinnerEstado);
-        configureSpinnerWithEnum(spinnerEstado, EstadosEnum.class);
+        configureSpinnerWithEnumWithFieldDisabling(spinnerEstado, EstadosEnum.class);
 
         btnCadastrar = view.findViewById(R.id.btnCadastrar);
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +148,7 @@ public class CadastrarClienteFragment extends Fragment {
         return isOkay;
     }
 
-    private <E extends Enum<E>> void configureSpinnerWithEnum(Spinner spinner, Class<E> enumClass) {
+    private <E extends Enum<E>> void configureSpinnerWithEnumWithFieldDisabling(Spinner spinner, Class<E> enumClass) {
 
         List<E> enumList = new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
         ArrayAdapter<E> adapter = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_rounded, enumList);
