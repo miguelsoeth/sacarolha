@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.sacarolha.database.dao.ClienteDAO;
 import com.example.sacarolha.database.dao.VinhoDAO;
@@ -94,13 +95,19 @@ public class VinhosFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i != 0) {
                     filterType = filtrarTipo.getSelectedItem().toString();
-                    adapter.getFilter().filter(filterName+";"+filterType);
-                }
-                else {
+                    if (view != null) {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.dark_purple));
+                    }
+                    adapter.getFilter().filter(filterName + ";" + filterType);
+                } else {
                     filterType = null;
-                    adapter.getFilter().filter(filterName+";"+filterType);
+                    if (view != null) {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.light_gray));
+                    }
+                    adapter.getFilter().filter(filterName + ";" + filterType);
                 }
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

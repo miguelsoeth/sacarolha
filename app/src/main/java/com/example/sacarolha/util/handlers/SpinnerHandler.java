@@ -46,6 +46,7 @@ public class SpinnerHandler {
         ArrayAdapter<E> adapter = new ArrayAdapter<>(context, R.layout.spinner_item_rounded_light, enumList);
         adapter.setDropDownViewResource(R.layout.spinner_item_light);
         spinner.setAdapter(adapter);
+        spinner.setSelection(0);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -62,7 +63,6 @@ public class SpinnerHandler {
 
             }
         });
-        spinner.setSelection(0);
     }
 
 }

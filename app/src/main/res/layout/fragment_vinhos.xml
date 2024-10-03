@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ClientesFragment">
 
     <ScrollView
@@ -12,13 +13,14 @@
         android:fillViewport="true"
         >
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:weightSum="1"
             >
 
             <LinearLayout
-                android:id="@+id/contentLayout"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
@@ -88,17 +90,16 @@
             <Button
                 android:id="@+id/btnCadastrar"
                 android:fontFamily="@font/zain_regular"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:layout_gravity="center"
-                android:layout_width="300sp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_green"
+                android:background="@drawable/bkg_light_green"
+                app:backgroundTint="@null"
                 android:text="Cadastrar vinho"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@id/contentLayout"
                 />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </ScrollView>
 
