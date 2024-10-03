@@ -3,6 +3,7 @@ package com.example.sacarolha;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
@@ -24,13 +25,15 @@ import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.handlers.SpinnerHandler;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 public class EditarVinhoFragment extends Fragment {
 
     private static final String ARG_VINHO_ID = "vinhoId";
-    private EditText editNome, editSafra, editPreco, editEstoque;
+    private EditText editNome, editSafra, editPreco, editEstoque, editCodigo;
     private Spinner spinnerTipo;
-    private Button btnSalvar;
+    private Button btnSalvar, btnScanCodigo;
     boolean seedingUpdate = true;
 
     private String mVinhoId;
@@ -64,6 +67,7 @@ public class EditarVinhoFragment extends Fragment {
         editSafra = view.findViewById(R.id.editSafra);
         editEstoque = view.findViewById(R.id.editEstoque);
         editNome = view.findViewById(R.id.editNome);
+        editCodigo = view.findViewById(R.id.editCodigo);
 
         spinnerTipo = view.findViewById(R.id.spinnerTipo);
         SpinnerHandler spinner = new SpinnerHandler();
@@ -85,9 +89,13 @@ public class EditarVinhoFragment extends Fragment {
             spinnerTipo.setSelection(pos);
 
             editNome.setText(v.getNome());
-            editSafra.setText(String.valueOf(v.getSafra()));
+            Integer safra = v.getSafra();
+            if (!safra.equals(0)) {
+                editSafra.setText(String.valueOf(safra));
+            }
             editEstoque.setText(String.valueOf(v.getEstoque()));
             editPreco.setText(MaskHandler.applyPriceMask(String.valueOf(v.getPreco())));
+            editCodigo.setText(v.getCodigo());
 
         }
 
@@ -98,10 +106,17 @@ public class EditarVinhoFragment extends Fragment {
                 if (ValidFields()) {
 
                     String nome = editNome.getText().toString().trim();
-                    Integer safra = Integer.parseInt(editSafra.getText().toString().trim());
+                    Integer safra;
+                    if ( editSafra.getText() != null && !editSafra.getText().toString().isEmpty() ) {
+                        safra = Integer.parseInt(editSafra.getText().toString().trim());
+                    }
+                    else {
+                        safra = 0;
+                    }
                     String preco = editPreco.getText().toString().trim();
                     Integer estoque = Integer.parseInt(editEstoque.getText().toString().trim());
                     String tipo = spinnerTipo.getSelectedItem().toString();
+                    String codigo = editCodigo.getText().toString().trim();
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     String userId = preferences.getString(Shared.KEY_USER_ID, "");
 
@@ -109,7 +124,7 @@ public class EditarVinhoFragment extends Fragment {
                     preco = preco.substring(0, preco.length() - 2) + "." + preco.substring(preco.length() - 2);
                     Double parsedPreco = Double.parseDouble(preco);
 
-                    Vinho vinho = new Vinho(mVinhoId, nome, tipo, safra, parsedPreco, estoque, userId);
+                    Vinho vinho = new Vinho(mVinhoId, nome, tipo, safra, parsedPreco, estoque, codigo, userId);
 
                     VinhoDAO vinhoDAO = new VinhoDAO(getContext());
                     long result = vinhoDAO.update(vinho);
@@ -122,6 +137,14 @@ public class EditarVinhoFragment extends Fragment {
             }
         });
 
+        btnScanCodigo = view.findViewById(R.id.btnScanCodigo);
+        btnScanCodigo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ScanCode();
+            }
+        });
+
         MaskHandler handler = new MaskHandler();
         handler.MaskPrice(editPreco);
 
@@ -131,26 +154,21 @@ public class EditarVinhoFragment extends Fragment {
     private boolean ValidFields() {
         editNome.setError(null);
         ((TextView)spinnerTipo.getSelectedView()).setError(null);
-        editSafra.setError(null);
         editEstoque.setError(null);
         editPreco.setError(null);
+        editCodigo.setError(null);
 
         boolean isOkay = true;
 
         // Get text from EditTexts
         String nome = editNome.getText().toString().trim();
-        String safra = editSafra.getText().toString().trim();
         String preco = editPreco.getText().toString().trim();
         String estoque = editEstoque.getText().toString().trim();
+        String codigo = editCodigo.getText().toString().trim();
 
         // Validate each field and set error messages
         if (nome.isEmpty()) {
             editNome.setError("Nome não pode estar vazio!");
-            isOkay = false;
-        }
-
-        if (safra.isEmpty()) {
-            editSafra.setError("Safra não pode estar vazio!");
             isOkay = false;
         }
 
@@ -169,6 +187,30 @@ public class EditarVinhoFragment extends Fragment {
             isOkay = false;
         }
 
+        VinhoDAO vinhoDAO = new VinhoDAO(getContext());
+        Vinho v = vinhoDAO.selectByCodigoWithId(codigo, mVinhoId);
+        if (v != null) {
+            editCodigo.setError("Já existe vinho com este código!");
+            isOkay = false;
+        }
+
         return isOkay;
     }
+
+    private void ScanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Aumentar/Diminuir o volume para Ligar/Desligar o flash");
+        options.setBeepEnabled(false);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureActivity.class);
+        barLauncher.launch(options);
+    }
+
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null) {
+            editCodigo.setError(null);
+            editCodigo.setText(result.getContents());
+        }
+    });
+
 }

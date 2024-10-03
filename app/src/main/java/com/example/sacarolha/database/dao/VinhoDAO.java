@@ -19,6 +19,7 @@ public class VinhoDAO extends AbstrataDAO {
             Vinho.COLUNA_SAFRA,
             Vinho.COLUNA_PRECO,
             Vinho.COLUNA_ESTOQUE,
+            Vinho.COLUNA_CODIGO,
             Vinho.COLUNA_USER_ID  // New column for user ID (foreign key)
     };
 
@@ -39,6 +40,7 @@ public class VinhoDAO extends AbstrataDAO {
             contentValues.put(Vinho.COLUNA_SAFRA, vinho.getSafra());
             contentValues.put(Vinho.COLUNA_PRECO, vinho.getPreco());
             contentValues.put(Vinho.COLUNA_ESTOQUE, vinho.getEstoque());
+            contentValues.put(Vinho.COLUNA_CODIGO, vinho.getCodigo());
             contentValues.put(Vinho.COLUNA_USER_ID, vinho.getUserId());  // Set user ID
 
             insertRows = db.insert(Vinho.TABLE_NAME, null, contentValues);
@@ -68,6 +70,70 @@ public class VinhoDAO extends AbstrataDAO {
                 vinho.setSafra(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)) ? null : cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)));
                 vinho.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(Vinho.COLUNA_PRECO)));
                 vinho.setEstoque(cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_ESTOQUE)));
+                vinho.setCodigo(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_CODIGO)) ? null : cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_CODIGO)));
+                vinho.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_USER_ID)));  // Retrieve user ID
+            }
+            if (cursor != null) {
+                cursor.close();
+            }
+        } finally {
+            Close();
+        }
+
+        return vinho;
+    }
+
+    // Get Vinho by Codigo
+    public Vinho selectByCodigo(String codigo) {
+        Vinho vinho = null;
+        try {
+            Open();
+
+            String selection = Vinho.COLUNA_CODIGO + " = ?";
+            String[] selectionArgs = {codigo};
+
+            Cursor cursor = db.query(Vinho.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                vinho = new Vinho();
+                vinho.setId(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_ID)));
+                vinho.setNome(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_NOME)));
+                vinho.setTipo(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_TIPO)));
+                vinho.setSafra(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)) ? null : cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)));
+                vinho.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(Vinho.COLUNA_PRECO)));
+                vinho.setEstoque(cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_ESTOQUE)));
+                vinho.setCodigo(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_CODIGO)) ? null : cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_CODIGO)));
+                vinho.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_USER_ID)));  // Retrieve user ID
+            }
+            if (cursor != null) {
+                cursor.close();
+            }
+        } finally {
+            Close();
+        }
+
+        return vinho;
+    }
+
+    public Vinho selectByCodigoWithId(String codigo, String id) {
+        Vinho vinho = null;
+        try {
+            Open();
+
+            String selection = Vinho.COLUNA_CODIGO + " = ? AND " + Vinho.COLUNA_ID + " != ?";
+            String[] selectionArgs = {codigo, id};
+
+            Cursor cursor = db.query(Vinho.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                vinho = new Vinho();
+                vinho.setId(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_ID)));
+                vinho.setNome(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_NOME)));
+                vinho.setTipo(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_TIPO)));
+                vinho.setSafra(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)) ? null : cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)));
+                vinho.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(Vinho.COLUNA_PRECO)));
+                vinho.setEstoque(cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_ESTOQUE)));
+                vinho.setCodigo(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_CODIGO)) ? null : cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_CODIGO)));
                 vinho.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_USER_ID)));  // Retrieve user ID
             }
             if (cursor != null) {
@@ -92,6 +158,7 @@ public class VinhoDAO extends AbstrataDAO {
             contentValues.put(Vinho.COLUNA_SAFRA, vinho.getSafra());
             contentValues.put(Vinho.COLUNA_PRECO, vinho.getPreco());
             contentValues.put(Vinho.COLUNA_ESTOQUE, vinho.getEstoque());
+            contentValues.put(Vinho.COLUNA_CODIGO, vinho.getCodigo());
             contentValues.put(Vinho.COLUNA_USER_ID, vinho.getUserId());  // Update user ID
 
             rowsAffected = db.update(Vinho.TABLE_NAME, contentValues, Vinho.COLUNA_ID + " = ?",
@@ -133,6 +200,7 @@ public class VinhoDAO extends AbstrataDAO {
                     vinho.setSafra(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)) ? null : cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_SAFRA)));
                     vinho.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(Vinho.COLUNA_PRECO)));
                     vinho.setEstoque(cursor.getInt(cursor.getColumnIndexOrThrow(Vinho.COLUNA_ESTOQUE)));
+                    vinho.setCodigo(cursor.isNull(cursor.getColumnIndexOrThrow(Vinho.COLUNA_CODIGO)) ? null : cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_CODIGO)));
                     vinho.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Vinho.COLUNA_USER_ID)));  // Set user ID
                     vinhos.add(vinho);
                 }

@@ -15,6 +15,7 @@ public class Vinho {
             COLUNA_SAFRA = "safra",
             COLUNA_PRECO = "preco",
             COLUNA_ESTOQUE = "estoque",
+            COLUNA_CODIGO = "codigo",
             COLUNA_USER_ID = "user_id";  // New column for foreign key
 
     public static final String
@@ -25,6 +26,7 @@ public class Vinho {
             COLUNA_SAFRA + " INTEGER, " +
             COLUNA_PRECO + " REAL NOT NULL, " +
             COLUNA_ESTOQUE + " INTEGER NOT NULL, " +
+            COLUNA_CODIGO + " TEXT, " +
             COLUNA_USER_ID + " TEXT, " +
             "FOREIGN KEY (" + COLUNA_USER_ID + ") REFERENCES " + User.TABLE_NAME + "(" + User.COLUNA_ID + ") ON DELETE CASCADE" +
             ");";
@@ -38,6 +40,7 @@ public class Vinho {
     private Integer safra;  // Nullable, for non-vintage wines
     private double preco;
     private int estoque;
+    private String codigo;
     private String userId;  // Foreign key to User
 
     // Constructor to automatically generate UUID
@@ -45,23 +48,25 @@ public class Vinho {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Vinho(String nome, String tipo, Integer safra, double preco, int estoque, String userId) {
+    public Vinho(String nome, String tipo, Integer safra, double preco, int estoque, String codigo, String userId) {
         this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.tipo = tipo;
         this.safra = safra;  // Can be null
         this.preco = preco;
         this.estoque = estoque;
+        this.codigo = codigo;
         this.userId = userId;  // Set the foreign key
     }
 
-    public Vinho(String id, String nome, String tipo, Integer safra, double preco, int estoque, String userId) {
+    public Vinho(String id, String nome, String tipo, Integer safra, double preco, int estoque, String codigo, String userId) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.safra = safra;  // Can be null
         this.preco = preco;
         this.estoque = estoque;
+        this.codigo = codigo;
         this.userId = userId;  // Set the foreign key
     }
 
@@ -116,6 +121,14 @@ public class Vinho {
 
     public String getUserId() {
         return userId;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getCodigo() {
+        return codigo;
     }
 
     public void setUserId(String userId) {

@@ -76,7 +76,13 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
         String price = String.valueOf(vinho.getPreco());
         String maskedPrice = MaskHandler.applyPriceMask(price);
         text_vinho_preco.setText(maskedPrice);
-        text_vinho_safra.setText("Safra " + String.valueOf(vinho.getSafra()));
+        if (vinho.getSafra() > 0) {
+            text_vinho_safra.setText("Safra " + String.valueOf(vinho.getSafra()));
+        }
+        else {
+            text_vinho_safra.setText("Não-safrado");
+        }
+
 
         return convertView;
     }
