@@ -29,7 +29,7 @@ public class CadastrarVinhoFragment extends Fragment {
 
     private EditText editNome, editSafra, editPreco, editEstoque, editCodigo;
     private Spinner spinnerTipo;
-    private Button btnCadastrar, btnScanCodigo;
+    private Button btnCadastrar, btnScanCodigo, btnVoltar;
 
     public CadastrarVinhoFragment() {
         // Required empty public constructor
@@ -52,6 +52,14 @@ public class CadastrarVinhoFragment extends Fragment {
         MaskHandler mask = new MaskHandler();
         editPreco = view.findViewById(R.id.editPreco);
         mask.MaskPrice(editPreco);
+
+        btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
         btnCadastrar = view.findViewById(R.id.btnCadastrar);
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +148,7 @@ public class CadastrarVinhoFragment extends Fragment {
 
         VinhoDAO vinhoDAO = new VinhoDAO(getContext());
         Vinho v = vinhoDAO.selectByCodigo(codigo);
-        if (v != null) {
+        if (v != null && !codigo.isEmpty()) {
             editCodigo.setError("Já existe vinho com este código!");
             isOkay = false;
         }

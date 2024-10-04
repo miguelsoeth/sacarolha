@@ -1,5 +1,6 @@
 package com.example.sacarolha;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -23,6 +24,7 @@ import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
+import com.example.sacarolha.util.handlers.AlertHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.handlers.SpinnerHandler;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -33,7 +35,7 @@ public class EditarVinhoFragment extends Fragment {
     private static final String ARG_VINHO_ID = "vinhoId";
     private EditText editNome, editSafra, editPreco, editEstoque, editCodigo;
     private Spinner spinnerTipo;
-    private Button btnSalvar, btnScanCodigo;
+    private Button btnSalvar, btnScanCodigo, btnVoltar;
     boolean seedingUpdate = true;
 
     private String mVinhoId;
@@ -105,37 +107,29 @@ public class EditarVinhoFragment extends Fragment {
             public void onClick(View view) {
                 if (ValidFields()) {
 
-                    String nome = editNome.getText().toString().trim();
-                    Integer safra;
-                    if ( editSafra.getText() != null && !editSafra.getText().toString().isEmpty() ) {
-                        safra = Integer.parseInt(editSafra.getText().toString().trim());
-                    }
-                    else {
-                        safra = 0;
-                    }
-                    String preco = editPreco.getText().toString().trim();
-                    Integer estoque = Integer.parseInt(editEstoque.getText().toString().trim());
-                    String tipo = spinnerTipo.getSelectedItem().toString();
-                    String codigo = editCodigo.getText().toString().trim();
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    String userId = preferences.getString(Shared.KEY_USER_ID, "");
+                    AlertHandler.showSimpleAlert(getContext(), "Salvar alterações?", "", "Sim", new AlertHandler.AlertCallback() {
+                        @Override
+                        public void onPositiveButtonClicked() {
+                            insertValues();
+                        }
 
-                    preco = MaskHandler.removePunctuation(preco);
-                    preco = preco.substring(0, preco.length() - 2) + "." + preco.substring(preco.length() - 2);
-                    Double parsedPreco = Double.parseDouble(preco);
+                        @Override
+                        public void onNegativeButtonClicked() {
 
-                    Vinho vinho = new Vinho(mVinhoId, nome, tipo, safra, parsedPreco, estoque, codigo, userId);
-
-                    VinhoDAO vinhoDAO = new VinhoDAO(getContext());
-                    long result = vinhoDAO.update(vinho);
-
-                    if (result > 0) {
-                        Toast.makeText(getContext(), "Vinho salvo com sucesso!", Toast.LENGTH_SHORT).show();
-                        requireActivity().getSupportFragmentManager().popBackStack();
-                    }
+                        }
+                    });
                 }
             }
         });
+
+        btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
 
         btnScanCodigo = view.findViewById(R.id.btnScanCodigo);
         btnScanCodigo.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +143,37 @@ public class EditarVinhoFragment extends Fragment {
         handler.MaskPrice(editPreco);
 
         return view;
+    }
+
+    private void insertValues() {
+        String nome = editNome.getText().toString().trim();
+        Integer safra;
+        if ( editSafra.getText() != null && !editSafra.getText().toString().isEmpty() ) {
+            safra = Integer.parseInt(editSafra.getText().toString().trim());
+        }
+        else {
+            safra = 0;
+        }
+        String preco = editPreco.getText().toString().trim();
+        Integer estoque = Integer.parseInt(editEstoque.getText().toString().trim());
+        String tipo = spinnerTipo.getSelectedItem().toString();
+        String codigo = editCodigo.getText().toString().trim();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String userId = preferences.getString(Shared.KEY_USER_ID, "");
+
+        preco = MaskHandler.removePunctuation(preco);
+        preco = preco.substring(0, preco.length() - 2) + "." + preco.substring(preco.length() - 2);
+        Double parsedPreco = Double.parseDouble(preco);
+
+        Vinho vinho = new Vinho(mVinhoId, nome, tipo, safra, parsedPreco, estoque, codigo, userId);
+
+        VinhoDAO vinhoDAO = new VinhoDAO(getContext());
+        long result = vinhoDAO.update(vinho);
+
+        if (result > 0) {
+            Toast.makeText(getContext(), "Vinho salvo com sucesso!", Toast.LENGTH_SHORT).show();
+            requireActivity().getSupportFragmentManager().popBackStack();
+        }
     }
 
     private boolean ValidFields() {
@@ -189,7 +214,7 @@ public class EditarVinhoFragment extends Fragment {
 
         VinhoDAO vinhoDAO = new VinhoDAO(getContext());
         Vinho v = vinhoDAO.selectByCodigoWithId(codigo, mVinhoId);
-        if (v != null) {
+        if (v != null && !codigo.isEmpty()) {
             editCodigo.setError("Já existe vinho com este código!");
             isOkay = false;
         }

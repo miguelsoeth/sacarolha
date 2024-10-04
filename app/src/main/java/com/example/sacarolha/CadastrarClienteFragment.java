@@ -32,7 +32,7 @@ public class CadastrarClienteFragment extends Fragment {
 
     private EditText editNome, editMail, editDocumento, editTelefone, editCidade, editRua, editBairro, editNumero, editComplemento;
     private Spinner spinnerEstado;
-    Button btnCadastrar;
+    Button btnCadastrar, btnVoltar;
 
     public CadastrarClienteFragment() {
         // Required empty public constructor
@@ -56,6 +56,14 @@ public class CadastrarClienteFragment extends Fragment {
 
         spinnerEstado = view.findViewById(R.id.spinnerEstado);
         configureSpinnerWithEnumWithFieldDisabling(spinnerEstado, EstadosEnum.class);
+
+        btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
         btnCadastrar = view.findViewById(R.id.btnCadastrar);
         btnCadastrar.setOnClickListener(new View.OnClickListener() {

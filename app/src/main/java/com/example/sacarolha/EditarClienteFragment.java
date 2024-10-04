@@ -21,6 +21,7 @@ import com.example.sacarolha.database.dao.ClienteDAO;
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.EstadosEnum;
+import com.example.sacarolha.util.handlers.AlertHandler;
 import com.example.sacarolha.util.handlers.DocumentHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
 
@@ -33,7 +34,7 @@ public class EditarClienteFragment extends Fragment {
     private static final String ARG_CLIENTE_ID = "clienteId";
     private EditText editNome, editMail, editDocumento, editTelefone, editCidade, editRua, editBairro, editNumero, editComplemento;
     private Spinner spinnerEstado;
-    Button btnSalvar;
+    Button btnSalvar, btnVoltar;
     boolean seedingUpdate = true;
 
     private String mClienteId;
@@ -105,33 +106,26 @@ public class EditarClienteFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (ValidFields()) {
+                    AlertHandler.showSimpleAlert(getContext(), "Salvar alterações?", "", "Sim", new AlertHandler.AlertCallback() {
+                        @Override
+                        public void onPositiveButtonClicked() {
+                            insertValues();
+                        }
 
-                    String documento = editDocumento.getText().toString().trim();
-                    String nome = editNome.getText().toString().trim();
-                    String email = editMail.getText().toString().trim();
-                    String telefone = editTelefone.getText().toString().trim();
-                    String cidade = editCidade.getText().toString().trim();
-                    String rua = editRua.getText().toString().trim();
-                    String bairro = editBairro.getText().toString().trim();
-                    String numero = editNumero.getText().toString().trim();
-                    String complemento = editComplemento.getText().toString().trim();
-                    String estado = spinnerEstado.getSelectedItem().toString();
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    String userId = preferences.getString(Shared.KEY_USER_ID, "");
+                        @Override
+                        public void onNegativeButtonClicked() {
 
-                    documento = MaskHandler.removePunctuation(documento);
-                    telefone = MaskHandler.removePunctuation(telefone);
-
-                    Cliente cliente = new Cliente(mClienteId, nome, documento, telefone, rua, bairro, complemento, numero, cidade, estado, email, userId);
-
-                    ClienteDAO clienteDAO = new ClienteDAO(getContext());
-                    long result = clienteDAO.update(cliente);
-
-                    if (result > 0) {
-                        Toast.makeText(getContext(), "Cliente salvo com sucesso!", Toast.LENGTH_SHORT).show();
-                        requireActivity().getSupportFragmentManager().popBackStack();
-                    }
+                        }
+                    });
                 }
+            }
+        });
+
+        btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
@@ -189,6 +183,35 @@ public class EditarClienteFragment extends Fragment {
         }
 
         return isOkay;
+    }
+
+    private void insertValues() {
+
+        String documento = editDocumento.getText().toString().trim();
+        String nome = editNome.getText().toString().trim();
+        String email = editMail.getText().toString().trim();
+        String telefone = editTelefone.getText().toString().trim();
+        String cidade = editCidade.getText().toString().trim();
+        String rua = editRua.getText().toString().trim();
+        String bairro = editBairro.getText().toString().trim();
+        String numero = editNumero.getText().toString().trim();
+        String complemento = editComplemento.getText().toString().trim();
+        String estado = spinnerEstado.getSelectedItem().toString();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String userId = preferences.getString(Shared.KEY_USER_ID, "");
+
+        documento = MaskHandler.removePunctuation(documento);
+        telefone = MaskHandler.removePunctuation(telefone);
+
+        Cliente cliente = new Cliente(mClienteId, nome, documento, telefone, rua, bairro, complemento, numero, cidade, estado, email, userId);
+
+        ClienteDAO clienteDAO = new ClienteDAO(getContext());
+        long result = clienteDAO.update(cliente);
+
+        if (result > 0) {
+            Toast.makeText(getContext(), "Cliente salvo com sucesso!", Toast.LENGTH_SHORT).show();
+            requireActivity().getSupportFragmentManager().popBackStack();
+        }
     }
 
     private <E extends Enum<E>> void configureSpinnerWithEnum(Spinner spinner, Class<E> enumClass) {
