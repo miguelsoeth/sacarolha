@@ -7,41 +7,41 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link VenderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.sacarolha.database.dao.VinhoDAO;
+import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.SaleItem;
+import com.example.sacarolha.util.adapters.VendaItemAdapter;
+import com.example.sacarolha.util.adapters.VinhoAdapter;
+
+import java.util.List;
+
 public class VenderFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
+    Button btnContinuar;
+    ListView listView;
+    VinhoDAO vinhoDAO;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
 
     public VenderFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment VenderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static VenderFragment newInstance(String param1, String param2) {
+
+    public static VenderFragment newInstance(String param1) {
         VenderFragment fragment = new VenderFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,7 +51,6 @@ public class VenderFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -59,6 +58,35 @@ public class VenderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_vender, container, false);
+        View view = inflater.inflate(R.layout.fragment_vender, container, false);
+
+        vinhoDAO = new VinhoDAO(getActivity());
+        List<Vinho> vinhos = vinhoDAO.selectAll();
+        VendaItemAdapter adapter = new VendaItemAdapter(getActivity(), vinhos, getFragmentManager());
+
+        listView = view.findViewById(R.id.listview);
+        listView.setAdapter(adapter);
+
+        btnContinuar = view.findViewById(R.id.btnContinuar);
+        btnContinuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<SaleItem> selectedVinhos = adapter.getSelectedVinhos(listView);
+
+                if (!selectedVinhos.isEmpty()) {
+                    StringBuilder selectedProducts = new StringBuilder();
+                    for (SaleItem item : selectedVinhos) {
+                        selectedProducts.append(item.getNome())
+                                .append(" - Quantity: ")
+                                .append(item.getQuantity()) // Make sure to have this method or field
+                                .append("\n");
+                    }
+                    Toast.makeText(getActivity(), selectedProducts.toString(), Toast.LENGTH_LONG).show();
+                    System.out.println(selectedVinhos.toString());
+                }
+            }
+        });
+
+        return view;
     }
 }

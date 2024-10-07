@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.User;
+import com.example.sacarolha.database.model.Venda;
+import com.example.sacarolha.database.model.VendaItem;
 import com.example.sacarolha.database.model.Vinho;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
@@ -26,6 +28,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(User.CREATE_TABLE);
         db.execSQL(Vinho.CREATE_TABLE);
         db.execSQL(Cliente.CREATE_TABLE);
+        db.execSQL(Venda.CREATE_TABLE);
+        db.execSQL(VendaItem.CREATE_TABLE);
     }
 
     @Override
