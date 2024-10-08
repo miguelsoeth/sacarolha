@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.example.sacarolha.R;
-import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.handlers.CarrinhoHandler;
+import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.model.Carrinho;
 
@@ -19,8 +17,11 @@ import java.util.List;
 
 public class CarrinhoAdapter extends ArrayAdapter<Carrinho> {
 
+    private CarrinhoHandler carrinhoHandler;
+
     public CarrinhoAdapter(Context context, List<Carrinho> carrinho) {
         super(context, 0, carrinho);
+        carrinhoHandler = new CarrinhoHandler(getContext());
     }
 
     @Override
@@ -38,14 +39,42 @@ public class CarrinhoAdapter extends ArrayAdapter<Carrinho> {
         text_vinho_nome.setText(item.getNome());
         text_vinho_quantidade.setText(String.valueOf(item.getQuantidade()));
 
-        String priceUnt = String.valueOf(item.getPreco());
-        String maskedPriceUnt = MaskHandler.applyPriceMask(priceUnt);
+        String maskedPriceUnt = MaskHandler.applyPriceMask(String.valueOf(item.getPreco()));
         text_vinho_preco_unt.setText(maskedPriceUnt);
 
         Double total = item.getPreco() * item.getQuantidade();
-        String priceTotal = String.valueOf(total);
-        String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
+        String maskedPriceTotal = MaskHandler.applyPriceMask(String.valueOf(total));
         text_vinho_preco_total.setText(maskedPriceTotal);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHandler dialogHandler = new DialogHandler();
+                dialogHandler.showItemDetailsDialog(getContext(), item, new DialogHandler.ItemDetailsListener() {
+                    @Override
+                    public void onEditedItem(Carrinho editedItem) {
+                        text_vinho_nome.setText(editedItem.getNome());
+                        text_vinho_quantidade.setText(String.valueOf(editedItem.getQuantidade()));
+
+                        String maskedPriceUnt = MaskHandler.applyPriceMask(String.valueOf(editedItem.getPreco()));
+                        text_vinho_preco_unt.setText(maskedPriceUnt);
+
+                        Double total = editedItem.getPreco() * editedItem.getQuantidade();
+                        String maskedPriceTotal = MaskHandler.applyPriceMask(String.valueOf(total));
+                        text_vinho_preco_total.setText(maskedPriceTotal);
+
+                        notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onDeletedItem() {
+                        carrinhoHandler.RemoverDoCarrinho(item);
+                        remove(item);
+
+                    }
+                });
+            }
+        });
 
         return convertView;
     }

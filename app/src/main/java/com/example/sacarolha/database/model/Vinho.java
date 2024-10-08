@@ -1,6 +1,7 @@
 package com.example.sacarolha.database.model;
 
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
+import com.example.sacarolha.util.model.Carrinho;
 
 import java.util.UUID;
 
@@ -57,6 +58,17 @@ public class Vinho {
         this.estoque = estoque;
         this.codigo = codigo;
         this.userId = userId;  // Set the foreign key
+    }
+
+    public Vinho(Carrinho item) {
+        this.id = item.getId();
+        this.nome = item.getNome();
+        this.tipo = item.getTipo();
+        this.safra = item.getSafra();  // Can be null
+        this.preco = item.getPreco();
+        this.estoque = item.getEstoque();
+        this.codigo = item.getCodigo();
+        this.userId = item.getUserId();  // Set the foreign key
     }
 
     public Vinho(String id, String nome, String tipo, Integer safra, double preco, int estoque, String codigo, String userId) {

@@ -1,5 +1,6 @@
 package com.example.sacarolha;
 
+import android.database.DataSetObserver;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.adapters.CarrinhoAdapter;
+import com.example.sacarolha.util.handlers.AlertHandler;
 import com.example.sacarolha.util.handlers.CarrinhoHandler;
 import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
@@ -29,15 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CarrinhoFragment extends Fragment implements DialogHandler.QuantitySelectorListener  {
+public class CarrinhoFragment extends Fragment {
 
-    private Button btnScanCodigo;
+    private Button btnScanCodigo, btnFecharPedido;
     private TextView btnPesquisarVinho;
     ImageView btnClearCart;
     private String scanCode;
     ListView listview;
     CarrinhoAdapter adapter;
-    Double total = 0.0;
     TextView totalCarrinho;
 
     private CarrinhoHandler carrinhoHandler;
@@ -58,9 +59,16 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
 
         carrinho = carrinhoHandler.LerCarrinho();
         adapter = new CarrinhoAdapter(getActivity(), carrinho);
+        adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                atualizarTotal();
+            }
+        });
 
         totalCarrinho = view.findViewById(R.id.totalCarrinho);
-        totalCarrinho.setText(carrinhoHandler.LerTotalCarrinho());
+        atualizarTotal();
 
         listview = view.findViewById(R.id.listview);
         listview.setAdapter(adapter);
@@ -69,10 +77,23 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
         btnClearCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                carrinhoHandler.LimparCarrinho();
-                carrinho = carrinhoHandler.LerCarrinho();
-                totalCarrinho.setText(carrinhoHandler.LerTotalCarrinho());
-                adapter.notifyDataSetChanged();
+                if (carrinho.isEmpty()) return;
+                AlertHandler.showSimpleAlert(getContext(), "Deseja excluir o carrinho?", "A ação não pode ser desfeita", "Sim", new AlertHandler.AlertCallback() {
+                    @Override
+                    public void onPositiveButtonClicked() {
+                        carrinhoHandler.LimparCarrinho();
+                        carrinho.clear();
+                        carrinho.addAll(carrinhoHandler.LerCarrinho());
+                        totalCarrinho.setText(carrinhoHandler.ValorVazio());
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onNegativeButtonClicked() {
+
+                    }
+                });
+
             }
         });
 
@@ -82,8 +103,8 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
             public void onClick(View view) {
                 ItemVendaFragment itemVendaFragment = new ItemVendaFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.hide(CarrinhoFragment.this);
-                transaction.add(R.id.frame_layout, itemVendaFragment);
+                //transaction.hide(CarrinhoFragment.this);
+                transaction.replace(R.id.frame_layout, itemVendaFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -96,6 +117,15 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
                 ScanCode();
             }
         });
+
+        btnFecharPedido = view.findViewById(R.id.btnFecharPedido);
+        btnFecharPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), totalCarrinho.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return view;
     }
@@ -124,7 +154,26 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
                 }
                 else {
                     DialogHandler dialogHandler = new DialogHandler();
-                    dialogHandler.showQuantitySelectorDialog(getContext(), v, this);
+                    dialogHandler.showQuantitySelectorDialog(getContext(), v, new DialogHandler.QuantitySelectorListener() {
+                        @Override
+                        public void onQuantitySelected(Vinho vinho, int quantity) {
+                            String text = "Selected Vinho: " + vinho.getNome() + ", Quantity: " + quantity;
+                            Carrinho item = new Carrinho(vinho, quantity);
+
+                            carrinho.add(item);
+                            carrinhoHandler.SalvarCarrinho(carrinho);
+
+//                            Double precoTotal = item.getPreco() * item.getQuantidade();
+//                            Double total = carrinhoHandler.LerValorTotalCarrinho();
+//                            total = total + precoTotal;
+//                            String priceTotal = String.valueOf(total);
+//                            String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
+//                            totalCarrinho.setText(maskedPriceTotal);
+//                            carrinhoHandler.SalvarTotalCarrinho(maskedPriceTotal);
+
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
                 }
             }
             else {
@@ -133,21 +182,15 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
         }
     });
 
-    @Override
-    public void onQuantitySelected(Vinho vinho, int quantity) {
-        String text = "Selected Vinho: " + vinho.getNome() + ", Quantity: " + quantity;
-        Carrinho item = new Carrinho(vinho, quantity);
-
-        carrinho.add(item);
-        carrinhoHandler.SalvarCarrinho(carrinho);
-
-        Double precoTotal = item.getPreco() * item.getQuantidade();
-        total = total + precoTotal;
-        String priceTotal = String.valueOf(total);
+    private void atualizarTotal() {
+        Double TotalDouble = 0.0;
+        for (int pos2 = 0; pos2 < adapter.getCount(); pos2++) {
+            Carrinho item = adapter.getItem(pos2);
+            Double precoTotal = item.getPreco() * item.getQuantidade();
+            TotalDouble = TotalDouble + precoTotal;
+        }
+        String priceTotal = String.valueOf(TotalDouble);
         String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
         totalCarrinho.setText(maskedPriceTotal);
-        carrinhoHandler.SalvarTotalCarrinho(maskedPriceTotal);
-
-        adapter.notifyDataSetChanged();
     }
 }

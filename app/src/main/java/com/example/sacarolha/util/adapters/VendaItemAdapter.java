@@ -27,19 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class VendaItemAdapter extends ArrayAdapter<Vinho> implements DialogHandler.QuantitySelectorListener {
+public class VendaItemAdapter extends ArrayAdapter<Vinho> {
     private FragmentManager fragmentManager;
 
     private CarrinhoHandler carrinhoHandler;
     List<Carrinho> carrinho;
-    String total;
 
     public VendaItemAdapter(Context context, List<Vinho> vinhos, FragmentManager fragmentManager) {
         super(context, 0, vinhos);
         this.fragmentManager = fragmentManager;
         carrinhoHandler = new CarrinhoHandler(getContext());
         carrinho = carrinhoHandler.LerCarrinho();
-        total = carrinhoHandler.LerTotalCarrinho();
     }
 
     @Override
@@ -80,29 +78,30 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> implements DialogHandl
                 }
                 else {
                     DialogHandler dialogHandler = new DialogHandler();
-                    dialogHandler.showQuantitySelectorDialog(getContext(), vinho, VendaItemAdapter.this);
+                    dialogHandler.showQuantitySelectorDialog(getContext(), vinho, new DialogHandler.QuantitySelectorListener() {
+                        @Override
+                        public void onQuantitySelected(Vinho vinho, int quantity) {
+                            Carrinho item = new Carrinho(vinho, quantity);
+                            carrinho.add(item);
+                            carrinhoHandler.SalvarCarrinho(carrinho);
+
+//                            Double precoTotal = item.getPreco() * item.getQuantidade();
+//                            Double totalValue = MaskHandler.getPriceValue(total);
+//                            totalValue = totalValue + precoTotal;
+//
+//                            String priceTotal = String.valueOf(totalValue);
+//                            String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
+//                            carrinhoHandler.SalvarTotalCarrinho(maskedPriceTotal);
+
+                            fragmentManager.popBackStack();
+
+                        }
+                    });
                 }
             }
         });
 
 
         return convertView;
-    }
-
-    @Override
-    public void onQuantitySelected(Vinho vinho, int quantity) {
-
-        Carrinho item = new Carrinho(vinho, quantity);
-        carrinho.add(item);
-        carrinhoHandler.SalvarCarrinho(carrinho);
-
-        Double precoTotal = item.getPreco() * item.getQuantidade();
-        Double totalValue = MaskHandler.getPriceValue(total);
-        totalValue = totalValue + precoTotal;
-
-        String priceTotal = String.valueOf(totalValue);
-        String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
-        carrinhoHandler.SalvarTotalCarrinho(maskedPriceTotal);
-
     }
 }

@@ -30,6 +30,12 @@ public class CarrinhoHandler {
         gson = new Gson();
     }
 
+    public void RemoverDoCarrinho(Carrinho item) {
+        List<Carrinho> carrinho = LerCarrinho();
+        carrinho.remove(item);
+        SalvarCarrinho(carrinho);
+    }
+
     public void SalvarCarrinho(List<Carrinho> carrinho) {
         String json = gson.toJson(carrinho);
         SharedPreferences.Editor edit = preferences.edit();
@@ -54,8 +60,13 @@ public class CarrinhoHandler {
         edit.apply();
     }
 
-    public String LerTotalCarrinho() {
-        return preferences.getString(USER_CART_TOTAL, "R$ 0,00");
+    public String ValorVazio() {
+        return "R$ 0,00";
+    }
+
+    public Double LerValorTotalCarrinho() {
+        String totalString = preferences.getString(USER_CART_TOTAL, "R$ 0,00");
+        return MaskHandler.getPriceValue(totalString);
     }
 
     public void LimparCarrinho() {

@@ -35,7 +35,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Itens da venda"
+                        android:text="Adicionar itens"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="30sp"/>
 
