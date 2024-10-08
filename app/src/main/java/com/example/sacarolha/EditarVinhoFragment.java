@@ -25,6 +25,7 @@ import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
 import com.example.sacarolha.util.handlers.AlertHandler;
+import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.handlers.SpinnerHandler;
 import com.journeyapps.barcodescanner.ScanContract;

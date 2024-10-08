@@ -1,4 +1,4 @@
-package com.example.sacarolha.util;
+package com.example.sacarolha.util.model;
 
 public class SaleItem {
     private String id;  // UUID as a String

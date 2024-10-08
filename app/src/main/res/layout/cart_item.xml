@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bkg_light_purple_rounded"
+        android:weightSum="1"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5sp"
+            android:layout_height="wrap_content">
+
+
+
+            <TextView
+                android:id="@+id/text_vinho_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:fontFamily="@font/zain_regular"
+                android:text="Name"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:ellipsize="end"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.95"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:weightSum="1"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="0.65"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Quantidade"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/zain_bold"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textSize="15sp"
+                            />
+                        <TextView
+                            android:id="@+id/text_vinho_quantidade"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/zain_bold"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textSize="20sp"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Preço unitário"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/zain_bold"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textSize="15sp"
+                            />
+                        <TextView
+                            android:id="@+id/text_vinho_preco_unt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="R$ 10,00"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/zain_bold"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textSize="20sp"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <View
+                    android:layout_width="1sp"
+                    android:layout_height="match_parent"
+                    android:background="@color/light_gray"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="0.35"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|end"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/zain_bold"
+                    android:text="Preço total"
+                    android:textSize="15sp"
+                    />
+
+                <TextView
+                    android:id="@+id/text_vinho_preco_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/zain_bold"
+                    android:text="R$ 20,00"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="20sp"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

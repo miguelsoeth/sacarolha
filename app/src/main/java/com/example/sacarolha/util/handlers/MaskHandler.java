@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.NumberFormat;
 import java.util.Locale;

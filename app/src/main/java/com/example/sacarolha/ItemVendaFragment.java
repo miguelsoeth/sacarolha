@@ -8,20 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Vinho;
-import com.example.sacarolha.util.SaleItem;
+import com.example.sacarolha.util.model.SaleItem;
 import com.example.sacarolha.util.adapters.VendaItemAdapter;
-import com.example.sacarolha.util.adapters.VinhoAdapter;
 
 import java.util.List;
 
-public class VenderFragment extends Fragment {
+public class ItemVendaFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
 
@@ -33,13 +30,13 @@ public class VenderFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
 
-    public VenderFragment() {
+    public ItemVendaFragment() {
         // Required empty public constructor
     }
 
 
-    public static VenderFragment newInstance(String param1) {
-        VenderFragment fragment = new VenderFragment();
+    public static ItemVendaFragment newInstance(String param1) {
+        ItemVendaFragment fragment = new ItemVendaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -58,7 +55,7 @@ public class VenderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_vender, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_vendas, container, false);
 
         vinhoDAO = new VinhoDAO(getActivity());
         List<Vinho> vinhos = vinhoDAO.selectAll();

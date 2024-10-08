@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5sp"
+            android:layout_height="wrap_content">
+
+
+
+            <TextView
+                android:id="@+id/text_vinho_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:fontFamily="@font/zain_regular"
+                android:text="Name"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:ellipsize="end"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginBottom="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.95"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingVertical="10sp"
+                android:paddingHorizontal="25sp"
+                android:layout_width="0dp"
+                android:layout_weight="0.65"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                    <TextView
+                        android:id="@+id/text_vinho_tipo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo"
+                        android:fontFamily="@font/zain_bold"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/text_vinho_safra"
+                        android:fontFamily="@font/zain_regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Safra"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="0.35"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|end"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/text_vinho_preco"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/zain_bold"
+                    android:text="Price"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="20sp"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/text_vinho_estoque"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/zain_regular"
+        android:textSize="18sp"
+        android:text="Quantidade disponível"
+        android:textAlignment="center"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10sp">
+
+            <Button
+                android:id="@+id/quantMinus"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:background="@drawable/ic_remove_circle"
+                app:backgroundTint="@null"
+                />
+
+            <EditText
+                android:id="@+id/quantItem"
+                android:layout_width="60sp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:maxLength="5"
+                android:background="@null"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/zain_bold"
+                android:inputType="number"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/quantPlus"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:background="@drawable/ic_add_circle"
+                app:backgroundTint="@null"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10sp"
+            android:backgroundTint="@color/medium_purple"
+            android:text="Cancelar"/>
+
+
+        <Button
+            android:id="@+id/btnAdicionar"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10sp"
+            android:backgroundTint="@color/dark_purple"
+            android:text="Adicionar"/>
+
+    </LinearLayout>
+
+</LinearLayout>

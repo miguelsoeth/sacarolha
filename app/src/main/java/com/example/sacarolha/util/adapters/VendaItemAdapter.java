@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Vinho;
-import com.example.sacarolha.util.SaleItem;
+import com.example.sacarolha.util.model.SaleItem;
 import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;

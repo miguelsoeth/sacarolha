@@ -11,28 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.sacarolha.database.dao.ClienteDAO;
-import com.example.sacarolha.database.dao.VinhoDAO;
-import com.example.sacarolha.database.model.Cliente;
-import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.Shared;
-import com.example.sacarolha.util.enums.EstadosEnum;
-import com.example.sacarolha.util.enums.TiposVinhoEnum;
-import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView btnHome, btnClientes, btnVinhos, btnVender;
+    private ImageView btnHome, btnClientes, btnVinhos, btnVendas;
     TextView topbarUsername;
     LinearLayout perfilGroup;
 
@@ -70,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnVender = findViewById(R.id.btnVender);
-        btnVender.setOnClickListener(new View.OnClickListener() {
+        btnVendas = findViewById(R.id.btnVendas);
+        btnVendas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setActiveButton(btnVender);
-                replaceFragment(new VenderFragment());
+                setActiveButton(btnVendas);
+                replaceFragment(new VendasFragment());
             }
         });
 
@@ -132,6 +121,6 @@ public class MainActivity extends AppCompatActivity {
         btnHome.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
         btnClientes.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
         btnVinhos.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
-        btnVender.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
+        btnVendas.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
     }
 }

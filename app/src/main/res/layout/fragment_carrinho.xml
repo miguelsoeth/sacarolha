@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ClientesFragment">
+
+    <ScrollView
+        android:layout_marginVertical="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10sp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Carrinho"
+                        android:fontFamily="@font/zain_bold"
+                        android:textSize="30sp"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end">
+
+                        <TextView
+                            android:id="@+id/totalCarrinho"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingHorizontal="20sp"
+                            android:fontFamily="@font/zain_bold"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:text="A"/>
+
+                        <ImageView
+                            android:id="@+id/btnClearCart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30sp"
+                            android:paddingHorizontal="15sp"
+                            android:src="@drawable/ic_clear_shopping_cart"
+                            />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <ListView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/white"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp">
+
+                <LinearLayout
+                    android:id="@+id/codigoBar"
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="50sp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:background="@drawable/bkg_dark_purple_rounded">
+
+                    <TextView
+                        android:id="@+id/btnPesquisarVinho"
+                        android:layout_width="0sp"
+                        android:layout_weight="0.85"
+                        android:layout_height="50sp"
+                        android:padding="10sp"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/zain_regular"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
+                        android:text="Pesquisar vinho"
+                        />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnScanCodigo"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginHorizontal="20sp"
+                    android:fontFamily="@font/zain_regular"
+                    android:background="@drawable/ic_camera"
+                    app:backgroundTint="@null"
+                    android:layout_alignEnd="@id/codigoBar"
+                    android:layout_centerInParent="true"
+                    />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnFecharPedido"
+                android:fontFamily="@font/zain_regular"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bkg_light_green"
+                app:backgroundTint="@null"
+                android:text="Fechar pedido"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</FrameLayout>

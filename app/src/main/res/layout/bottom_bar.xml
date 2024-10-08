@@ -36,7 +36,7 @@
         app:tint="@color/vector_color_state"/>
 
     <ImageView
-        android:id="@+id/btnVender"
+        android:id="@+id/btnVendas"
         android:layout_width="60sp"
         android:layout_height="50sp"
         android:src="@drawable/bottombar_vender"
