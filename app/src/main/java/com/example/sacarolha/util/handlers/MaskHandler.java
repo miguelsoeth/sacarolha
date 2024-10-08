@@ -216,4 +216,10 @@ public class MaskHandler {
         String formatted = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(value / 100);
         return formatted;
     }
+
+    public static Double getPriceValue(String input) {
+        input = input.replaceAll("[^0-9]", "");
+        Double parsedValue = Double.parseDouble(input);
+        return (parsedValue/100);
+    }
 }

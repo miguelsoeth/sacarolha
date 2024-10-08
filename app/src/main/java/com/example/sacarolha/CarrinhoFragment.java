@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.adapters.CarrinhoAdapter;
+import com.example.sacarolha.util.handlers.CarrinhoHandler;
 import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.model.Carrinho;
@@ -39,6 +40,8 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
     Double total = 0.0;
     TextView totalCarrinho;
 
+    private CarrinhoHandler carrinhoHandler;
+
     List<Carrinho> carrinho;
 
     public CarrinhoFragment() {
@@ -51,17 +54,27 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_carrinho, container, false);
 
-        carrinho = new ArrayList<>();
+        carrinhoHandler = new CarrinhoHandler(getContext());
+
+        carrinho = carrinhoHandler.LerCarrinho();
         adapter = new CarrinhoAdapter(getActivity(), carrinho);
 
         totalCarrinho = view.findViewById(R.id.totalCarrinho);
-        String precoTotal = String.valueOf(total);
-        totalCarrinho.setText(MaskHandler.applyPriceMask(precoTotal));
-
-        btnClearCart = view.findViewById(R.id.btnClearCart);
+        totalCarrinho.setText(carrinhoHandler.LerTotalCarrinho());
 
         listview = view.findViewById(R.id.listview);
         listview.setAdapter(adapter);
+
+        btnClearCart = view.findViewById(R.id.btnClearCart);
+        btnClearCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                carrinhoHandler.LimparCarrinho();
+                carrinho = carrinhoHandler.LerCarrinho();
+                totalCarrinho.setText(carrinhoHandler.LerTotalCarrinho());
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         btnPesquisarVinho = view.findViewById(R.id.btnPesquisarVinho);
         btnPesquisarVinho.setOnClickListener(new View.OnClickListener() {
@@ -126,12 +139,14 @@ public class CarrinhoFragment extends Fragment implements DialogHandler.Quantity
         Carrinho item = new Carrinho(vinho, quantity);
 
         carrinho.add(item);
+        carrinhoHandler.SalvarCarrinho(carrinho);
 
         Double precoTotal = item.getPreco() * item.getQuantidade();
         total = total + precoTotal;
         String priceTotal = String.valueOf(total);
         String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
         totalCarrinho.setText(maskedPriceTotal);
+        carrinhoHandler.SalvarTotalCarrinho(maskedPriceTotal);
 
         adapter.notifyDataSetChanged();
     }

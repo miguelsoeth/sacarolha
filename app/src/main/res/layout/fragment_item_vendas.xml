@@ -50,18 +50,6 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnContinuar"
-                android:fontFamily="@font/zain_regular"
-                android:textSize="20sp"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bkg_light_green"
-                app:backgroundTint="@null"
-                android:text="Continuar"
-                />
-
         </LinearLayout>
 
     </ScrollView>

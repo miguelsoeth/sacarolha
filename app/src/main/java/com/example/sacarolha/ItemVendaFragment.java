@@ -64,26 +64,6 @@ public class ItemVendaFragment extends Fragment {
         listView = view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
 
-        btnContinuar = view.findViewById(R.id.btnContinuar);
-        btnContinuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                List<SaleItem> selectedVinhos = adapter.getSelectedVinhos(listView);
-
-                if (!selectedVinhos.isEmpty()) {
-                    StringBuilder selectedProducts = new StringBuilder();
-                    for (SaleItem item : selectedVinhos) {
-                        selectedProducts.append(item.getNome())
-                                .append(" - Quantity: ")
-                                .append(item.getQuantity()) // Make sure to have this method or field
-                                .append("\n");
-                    }
-                    Toast.makeText(getActivity(), selectedProducts.toString(), Toast.LENGTH_LONG).show();
-                    System.out.println(selectedVinhos.toString());
-                }
-            }
-        });
-
         return view;
     }
 }
