@@ -9,6 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.handlers.CarrinhoHandler;
 import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.model.Carrinho;
@@ -27,8 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class VendaItemAdapter extends ArrayAdapter<Vinho> {
+public class VendaItemAdapter extends ArrayAdapter<Vinho> implements Filterable {
     private FragmentManager fragmentManager;
+    private List<Vinho> originalVinhos;
+    private List<Vinho> filteredVinhos;
 
     private CarrinhoHandler carrinhoHandler;
     List<Carrinho> carrinho;
@@ -38,6 +43,18 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> {
         this.fragmentManager = fragmentManager;
         carrinhoHandler = new CarrinhoHandler(getContext());
         carrinho = carrinhoHandler.LerCarrinho();
+        this.filteredVinhos = vinhos;
+        this.originalVinhos = new ArrayList<>(vinhos);
+    }
+
+    @Override
+    public int getCount() {
+        return filteredVinhos.size();
+    }
+
+    @Override
+    public Vinho getItem(int position) {
+        return filteredVinhos.get(position);
     }
 
     @Override
@@ -103,5 +120,42 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> {
 
 
         return convertView;
+    }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+                List<Vinho> filteredList = new ArrayList<>();
+
+                String[] filterParts = constraint.toString().split(Shared.FILTER_SEPARATOR);
+                String filterName = !filterParts[0].equals(Shared.FILTER_NULL) ? filterParts[0].toLowerCase().trim() : "";
+                String filterType = !filterParts[1].equals(Shared.FILTER_NULL) ? filterParts[1].toLowerCase().trim() : "";
+
+                if (constraint == null || constraint.length() == 0) {
+                    filteredList.addAll(originalVinhos);
+                } else {
+                    for (Vinho vinho : originalVinhos) {
+                        boolean conditionName = filterName.equals("null") || vinho.getNome().toLowerCase().contains(filterName);
+                        boolean conditionType = filterType.equals("null") || vinho.getTipo().toLowerCase().contains(filterType);
+                        if (conditionName && conditionType) {
+                            filteredList.add(vinho);
+                        }
+                    }
+                }
+
+                results.values = filteredList;
+                results.count = filteredList.size();
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredVinhos.clear();
+                filteredVinhos.addAll((List) results.values);
+                notifyDataSetChanged();
+            }
+        };
     }
 }

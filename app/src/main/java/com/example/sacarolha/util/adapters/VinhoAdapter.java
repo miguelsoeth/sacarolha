@@ -18,6 +18,7 @@ import com.example.sacarolha.EditarVinhoFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;
@@ -56,6 +57,20 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
         TextView text_vinho_tipo = convertView.findViewById(R.id.text_vinho_tipo);
         TextView text_vinho_preco = convertView.findViewById(R.id.text_vinho_preco);
         TextView text_vinho_safra = convertView.findViewById(R.id.text_vinho_safra);
+
+        text_vinho_nome.setText(vinho.getNome());
+        text_vinho_tipo.setText(vinho.getTipo());
+        String price = String.valueOf(vinho.getPreco());
+        String maskedPrice = MaskHandler.applyPriceMask(price);
+        text_vinho_preco.setText(maskedPrice);
+        if (vinho.getSafra() > 0) {
+            text_vinho_safra.setText("Safra " + String.valueOf(vinho.getSafra()));
+        }
+        else {
+            text_vinho_safra.setText("Não-safrado");
+        }
+
+
         Button btnItem = convertView.findViewById(R.id.btnItem);
         btnItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,18 +86,6 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
             }
         });
 
-        text_vinho_nome.setText(vinho.getNome());
-        text_vinho_tipo.setText(vinho.getTipo());
-        String price = String.valueOf(vinho.getPreco());
-        String maskedPrice = MaskHandler.applyPriceMask(price);
-        text_vinho_preco.setText(maskedPrice);
-        if (vinho.getSafra() > 0) {
-            text_vinho_safra.setText("Safra " + String.valueOf(vinho.getSafra()));
-        }
-        else {
-            text_vinho_safra.setText("Não-safrado");
-        }
-
 
         return convertView;
     }
@@ -94,9 +97,9 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
                 FilterResults results = new FilterResults();
                 List<Vinho> filteredList = new ArrayList<>();
 
-                String[] filterParts = constraint.toString().split(";");
-                String filterName = !filterParts[0].isEmpty() ? filterParts[0].toLowerCase().trim() : "";
-                String filterType = !filterParts[1].isEmpty() ? filterParts[1].toLowerCase().trim() : "";
+                String[] filterParts = constraint.toString().split(Shared.FILTER_SEPARATOR);
+                String filterName = !filterParts[0].equals(Shared.FILTER_NULL) ? filterParts[0].toLowerCase().trim() : "";
+                String filterType = !filterParts[1].equals(Shared.FILTER_NULL) ? filterParts[1].toLowerCase().trim() : "";
 
                 if (constraint == null || constraint.length() == 0) {
                     filteredList.addAll(originalVinhos);

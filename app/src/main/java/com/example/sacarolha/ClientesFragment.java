@@ -24,7 +24,7 @@ public class ClientesFragment extends Fragment {
     Button btnCadastrar, btnFiltro;
     ListView listView;
     ClienteDAO clienteDAO;
-    EditText searchText;
+    String filtroString = null;
 
     public ClientesFragment() {
         // Required empty public constructor
@@ -58,9 +58,11 @@ public class ClientesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DialogHandler dialogHandler = new DialogHandler();
-                dialogHandler.showClientFiltersDialog(getContext(), new DialogHandler.getFilterListener() {
+                dialogHandler.showClientFiltersDialog(getContext(), filtroString, new DialogHandler.getFilterListener() {
                     @Override
-                    public void onFilterSelected(String filter) {
+                    public void onFilterSelected(String filter, int quantity) {
+                        btnFiltro.setText(quantity != 0 ? "Filtros(" + quantity + ")" : "Filtros");
+                        filtroString = filter;
                         adapter.getFilter().filter(filter);
                     }
                 });

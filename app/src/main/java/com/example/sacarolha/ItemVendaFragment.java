@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.model.SaleItem;
 import com.example.sacarolha.util.adapters.VendaItemAdapter;
 
@@ -22,9 +23,10 @@ public class ItemVendaFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
 
-    Button btnContinuar;
+    Button btnFiltro;
     ListView listView;
     VinhoDAO vinhoDAO;
+    String filtroString;
 
 
     // TODO: Rename and change types of parameters
@@ -63,6 +65,22 @@ public class ItemVendaFragment extends Fragment {
 
         listView = view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
+
+        btnFiltro = view.findViewById(R.id.btnFiltro);
+        btnFiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHandler dialogHandler = new DialogHandler();
+                dialogHandler.showVinhosFiltersDialog(getContext(), filtroString, new DialogHandler.getFilterListener() {
+                    @Override
+                    public void onFilterSelected(String filter, int quantity) {
+                        btnFiltro.setText(quantity != 0 ? "Filtros(" + quantity + ")" : "Filtros");
+                        filtroString = filter;
+                        adapter.getFilter().filter(filter);
+                    }
+                });
+            }
+        });
 
         return view;
     }

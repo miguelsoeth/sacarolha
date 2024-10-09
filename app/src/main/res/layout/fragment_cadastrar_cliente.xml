@@ -81,6 +81,7 @@
                         android:layout_height="50sp"
                         android:layout_marginBottom="10sp"
                         android:padding="10sp"
+                        android:singleLine="true"
                         android:hint="Nome completo"
                         android:fontFamily="@font/zain_regular"
                         android:textSize="20sp"
@@ -90,6 +91,7 @@
                         />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/editDocumento"
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
@@ -106,6 +108,7 @@
                         />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/editTelefone"
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
@@ -121,6 +124,7 @@
                         />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/editMail"
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
@@ -173,6 +177,7 @@
                         />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/editCidade"
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
@@ -187,6 +192,7 @@
                         />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/editRua"
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
@@ -201,6 +207,7 @@
                         />
 
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/editBairro"
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
@@ -221,6 +228,8 @@
                         android:weightSum="1">
 
                         <EditText
+                            android:singleLine="true"
+                            android:maxLength="6"
                             android:id="@+id/editNumero"
                             android:layout_width="0dp"
                             android:layout_weight="0.25"
@@ -238,6 +247,7 @@
                             />
 
                         <EditText
+                            android:singleLine="true"
                             android:id="@+id/editComplemento"
                             android:layout_width="0dp"
                             android:layout_weight="0.75"

@@ -18,6 +18,7 @@ import com.example.sacarolha.CadastrarClienteFragment;
 import com.example.sacarolha.EditarClienteFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Cliente;
+import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;
@@ -83,12 +84,17 @@ public class ClienteAdapter extends ArrayAdapter<Cliente> implements Filterable 
                 FilterResults results = new FilterResults();
                 List<Cliente> filteredList = new ArrayList<>();
 
+                String[] filterParts = constraint.toString().split(Shared.FILTER_SEPARATOR);
+                String filterName = !filterParts[0].equals(Shared.FILTER_NULL) ? filterParts[0].toLowerCase().trim() : "";
+                String filterDocument = !filterParts[1].equals(Shared.FILTER_NULL) ? filterParts[1].toLowerCase().trim() : "";
+
                 if (constraint == null || constraint.length() == 0) {
                     filteredList.addAll(originalClientes);
                 } else {
-                    String filterPattern = constraint.toString().toLowerCase().trim();
                     for (Cliente cliente : originalClientes) {
-                        if (cliente.getNome().toLowerCase().contains(filterPattern)) {
+                        boolean conditionName = filterName.equals("null") || cliente.getNome().toLowerCase().contains(filterName);
+                        boolean conditionType = filterDocument.equals("null") || cliente.getDocumento().toLowerCase().contains(filterDocument);
+                        if (conditionName && conditionType) {
                             filteredList.add(cliente);
                         }
                     }

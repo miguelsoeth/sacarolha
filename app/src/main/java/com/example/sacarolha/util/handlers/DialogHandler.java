@@ -6,12 +6,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.Shared;
+import com.example.sacarolha.util.enums.TiposVinhoEnum;
 import com.example.sacarolha.util.model.Carrinho;
 
 import java.util.ArrayList;
@@ -19,7 +23,7 @@ import java.util.List;
 
 public class DialogHandler {
 
-    private TextView editNome;
+    private TextView editNome, editDocumento;
 
     public interface QuantitySelectorListener {
         void onQuantitySelected(Vinho vinho, int quantity);
@@ -35,7 +39,7 @@ public class DialogHandler {
     }
 
     public interface getFilterListener {
-        void onFilterSelected(String filter);
+        void onFilterSelected(String filter, int quantity);
     }
 
 
@@ -331,7 +335,7 @@ public class DialogHandler {
         dialog.show();
     }
 
-    public void showClientFiltersDialog(Context context, getFilterListener listener) {
+    public void showClientFiltersDialog(Context context, String filtroAtual, getFilterListener listener) {
         Dialog dialog = new Dialog(context);
 
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_filtrar_cliente, null);
@@ -339,6 +343,7 @@ public class DialogHandler {
         dialog.setContentView(view);
 
         editNome = view.findViewById(R.id.editNome);
+        editDocumento = view.findViewById(R.id.editDocumento);
 
         Button btnCancelar = view.findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
@@ -349,25 +354,40 @@ public class DialogHandler {
             public void onClick(View view) {
                 List<String> strings = new ArrayList<String>();
 
-                strings.add(editNome.getText().toString().trim());
+                strings.add(editNome.getText().toString().isEmpty() ? Shared.FILTER_NULL : editNome.getText().toString().trim());
+                strings.add(editDocumento.getText().toString().isEmpty() ? Shared.FILTER_NULL : editDocumento.getText().toString().trim());
 
-                listener.onFilterSelected(getFilterString(strings));
+                long quantity = strings.stream().filter(s -> !s.isEmpty() && !s.equals(Shared.FILTER_NULL)).count();
+
+                listener.onFilterSelected(getFilterString(strings), (int) quantity);
                 dialog.dismiss();
             }
         });
 
+        if (filtroAtual != null) {
+            String[] filtrosAtuais = getFilterValues(filtroAtual);
+            if (!filtrosAtuais[0].equals(Shared.FILTER_NULL)) editNome.setText(filtrosAtuais[0]);
+            if (!filtrosAtuais[1].equals(Shared.FILTER_NULL)) editDocumento.setText(filtrosAtuais[1]);
+        }
+
         dialog.show();
     }
 
-    public void showVinhosFiltersDialog(Context context, getFilterListener listener) {
+    public void showVinhosFiltersDialog(Context context, String filtroAtual, getFilterListener listener) {
         Dialog dialog = new Dialog(context);
 
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_filtrar_vinho, null);
 
         dialog.setContentView(view);
 
+        EditText filtrarNome = view.findViewById(R.id.filtrarNome);
+
         Button btnCancelar = view.findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+        Spinner filtrarTipo = view.findViewById(R.id.filtrarTipo);
+        SpinnerHandler spinner = new SpinnerHandler();
+        spinner.configureSpinnerWithEnum_light(filtrarTipo, TiposVinhoEnum.class, context);
 
         Button btnFiltrar = view.findViewById(R.id.btnFiltrar);
         btnFiltrar.setOnClickListener(new View.OnClickListener() {
@@ -375,16 +395,32 @@ public class DialogHandler {
             public void onClick(View view) {
                 List<String> strings = new ArrayList<String>();
 
-                listener.onFilterSelected(getFilterString(strings));
+                strings.add(filtrarNome.getText().toString().isEmpty() ? Shared.FILTER_NULL : filtrarNome.getText().toString());
+                strings.add(filtrarTipo.getSelectedItemPosition() == 0 ? Shared.FILTER_NULL : filtrarTipo.getSelectedItem().toString());
+
+                long quantity = strings.stream().filter(s -> !s.isEmpty() && !s.equals(Shared.FILTER_NULL)).count();
+
+                listener.onFilterSelected(getFilterString(strings), (int) quantity);
                 dialog.dismiss();
             }
         });
+
+        if (filtroAtual != null) {
+            String[] filtrosAtuais = getFilterValues(filtroAtual);
+            if (!filtrosAtuais[0].equals(Shared.FILTER_NULL)) filtrarNome.setText(filtrosAtuais[0]);
+            if (!filtrosAtuais[1].equals(Shared.FILTER_NULL)) filtrarTipo.setSelection(TiposVinhoEnum.getPosition(filtrosAtuais[1]));
+        }
 
         dialog.show();
     }
 
     private String getFilterString(List<String> strings) {
-        return String.join(";", strings);
+        return String.join(Shared.FILTER_SEPARATOR, strings);
+    }
+
+    private String[] getFilterValues(String filtroAtual) {
+        String[] filterParts = filtroAtual.split(Shared.FILTER_SEPARATOR);
+        return filterParts;
     }
 
 }

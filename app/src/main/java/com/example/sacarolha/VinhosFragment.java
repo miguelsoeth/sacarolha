@@ -25,10 +25,7 @@ public class VinhosFragment extends Fragment {
     Button btnCadastrar, btnFiltro;
     ListView listView;
     VinhoDAO vinhoDAO;
-    EditText searchText;
-    Spinner filtrarTipo;
-
-    String filterName = null, filterType = null;
+    String filtroString = null;
 
     public VinhosFragment() {
         // Required empty public constructor
@@ -64,9 +61,11 @@ public class VinhosFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DialogHandler dialogHandler = new DialogHandler();
-                dialogHandler.showClientFiltersDialog(getContext(), new DialogHandler.getFilterListener() {
+                dialogHandler.showVinhosFiltersDialog(getContext(), filtroString, new DialogHandler.getFilterListener() {
                     @Override
-                    public void onFilterSelected(String filter) {
+                    public void onFilterSelected(String filter, int quantity) {
+                        btnFiltro.setText(quantity != 0 ? "Filtros(" + quantity + ")" : "Filtros");
+                        filtroString = filter;
                         adapter.getFilter().filter(filter);
                     }
                 });
