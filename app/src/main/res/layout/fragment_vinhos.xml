@@ -27,54 +27,33 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="10sp">
+                    android:paddingHorizontal="10sp"
+                    android:weightSum="1">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Vinhos"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="40sp"/>
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5sp"
-                        android:weightSum="1">
+                    <Button
+                        android:id="@+id/btnFiltro"
+                        android:layout_width="160sp"
+                        android:layout_height="40sp"
 
-                        <EditText
-                            android:id="@+id/searchText"
-                            android:layout_width="0dp"
-                            android:layout_weight="0.48"
-                            android:hint="Pesquisar por nome"
-                            android:textColorHint="@color/light_gray"
-                            android:textColor="@color/dark_purple"
-                            android:singleLine="true"
-                            android:padding="8sp"
-                            android:layout_height="40sp"
-                            android:fontFamily="@font/zain_regular"
-                            android:layout_gravity="center"
-                            android:background="@drawable/bkg_light_purple_rounded"/>
+                        android:text="Filtros"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/zain_bold"
+                        android:layout_gravity="center"
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_weight="0.04"
-                            android:layout_height="match_parent"/>
-
-                        <Spinner
-                            android:id="@+id/filtrarTipo"
-                            android:layout_width="0dp"
-                            android:layout_weight="0.48"
-                            android:layout_height="40sp"
-                            android:background="@drawable/bkg_light_purple_rounded"
-                            android:fontFamily="@font/zain_bold"
-                            />
-
-                    </LinearLayout>
+                        android:background="@drawable/bkg_light_purple_rounded"
+                        app:background="@null"
+                        />
 
                 </LinearLayout>
 

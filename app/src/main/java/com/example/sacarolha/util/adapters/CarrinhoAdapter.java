@@ -70,7 +70,6 @@ public class CarrinhoAdapter extends ArrayAdapter<Carrinho> {
                     public void onDeletedItem() {
                         carrinhoHandler.RemoverDoCarrinho(item);
                         remove(item);
-
                     }
                 });
             }

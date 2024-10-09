@@ -40,16 +40,19 @@
                         android:fontFamily="@font/zain_bold"
                         android:textSize="40sp"/>
 
-                    <EditText
-                        android:id="@+id/searchText"
+                    <Button
+                        android:id="@+id/btnFiltro"
                         android:layout_width="160sp"
-                        android:hint="Pesquisar por nome"
-                        android:singleLine="true"
-                        android:padding="8sp"
                         android:layout_height="40sp"
+
+                        android:text="Filtros"
+                        android:textSize="16sp"
                         android:fontFamily="@font/zain_bold"
                         android:layout_gravity="center"
-                        android:background="@drawable/bkg_light_purple_rounded"/>
+
+                        android:background="@drawable/bkg_light_purple_rounded"
+                        app:background="@null"
+                        />
 
                 </LinearLayout>
 

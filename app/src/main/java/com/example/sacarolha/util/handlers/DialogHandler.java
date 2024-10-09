@@ -2,7 +2,6 @@ package com.example.sacarolha.util.handlers;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,11 +14,12 @@ import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.model.Carrinho;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class DialogHandler {
+
+    private TextView editNome;
 
     public interface QuantitySelectorListener {
         void onQuantitySelected(Vinho vinho, int quantity);
@@ -32,6 +32,10 @@ public class DialogHandler {
     public interface ItemDetailsListener {
         void onEditedItem(Carrinho item);
         void onDeletedItem();
+    }
+
+    public interface getFilterListener {
+        void onFilterSelected(String filter);
     }
 
 
@@ -309,7 +313,7 @@ public class DialogHandler {
         btnDeletar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertHandler.showSimpleAlert(view.getContext(), "Deseja excluir o item do carrinho?", "Sim", new AlertHandler.AlertCallback() {
+                AlertHandler.showSimpleAlert(view.getContext(), "Deseja excluir o item do carrinho?", "","Sim", new AlertHandler.AlertCallback() {
                     @Override
                     public void onPositiveButtonClicked() {
                         listener.onDeletedItem();
@@ -325,6 +329,62 @@ public class DialogHandler {
         });
 
         dialog.show();
+    }
+
+    public void showClientFiltersDialog(Context context, getFilterListener listener) {
+        Dialog dialog = new Dialog(context);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_filtrar_cliente, null);
+
+        dialog.setContentView(view);
+
+        editNome = view.findViewById(R.id.editNome);
+
+        Button btnCancelar = view.findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+        Button btnFiltrar = view.findViewById(R.id.btnFiltrar);
+        btnFiltrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> strings = new ArrayList<String>();
+
+                strings.add(editNome.getText().toString().trim());
+
+                listener.onFilterSelected(getFilterString(strings));
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    public void showVinhosFiltersDialog(Context context, getFilterListener listener) {
+        Dialog dialog = new Dialog(context);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_filtrar_vinho, null);
+
+        dialog.setContentView(view);
+
+        Button btnCancelar = view.findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+        Button btnFiltrar = view.findViewById(R.id.btnFiltrar);
+        btnFiltrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> strings = new ArrayList<String>();
+
+                listener.onFilterSelected(getFilterString(strings));
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private String getFilterString(List<String> strings) {
+        return String.join(";", strings);
     }
 
 }
