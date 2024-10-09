@@ -20,9 +20,9 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:textSize="40sp"
                 android:fontFamily="@font/zain_bold"
                 android:text="Filtrar Vinhos"
@@ -31,21 +31,13 @@
                 android:ellipsize="end"
                 />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginBottom="10sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:weightSum="1">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_weight="0.95"
-                android:layout_height="1dp"
-                android:background="@color/light_gray"/>
+            <ImageView
+                android:id="@+id/limparFiltros"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16sp"
+                android:src="@drawable/ic_clear_filter"
+                />
 
         </LinearLayout>
 
@@ -102,6 +94,7 @@
             <Button
                 android:id="@+id/btnCancelar"
                 android:layout_width="0dp"
+                android:minWidth="125sp"
                 android:layout_weight="0.4"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10sp"
@@ -111,6 +104,7 @@
             <Button
                 android:id="@+id/btnFiltrar"
                 android:layout_width="0dp"
+                android:minWidth="125sp"
                 android:layout_weight="0.4"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10sp"

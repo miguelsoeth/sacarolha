@@ -51,6 +51,32 @@ public class VinhoDAO extends AbstrataDAO {
         return insertRows;
     }
 
+    public int diminuirEstoque(String id, int quantidade) {
+        int rowsAffected = 0;
+        try {
+            Open();
+
+            Vinho vinho = selectById(id);
+            if (vinho != null) {
+                int estoqueAtual = vinho.getEstoque();
+                int novoEstoque = estoqueAtual - quantidade;
+
+                if (novoEstoque < 0) {
+                    novoEstoque = 0;
+                }
+
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(Vinho.COLUNA_ESTOQUE, novoEstoque);
+
+                rowsAffected = db.update(Vinho.TABLE_NAME, contentValues, Vinho.COLUNA_ID + " = ?", new String[]{id});
+            }
+        } finally {
+            Close();
+        }
+
+        return rowsAffected;
+    }
+
     // Get Vinho by ID
     public Vinho selectById(String id) {
         Vinho vinho = null;

@@ -1,5 +1,6 @@
 package com.example.sacarolha.database.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 public class VendaItem {
@@ -11,7 +12,8 @@ public class VendaItem {
             COLUNA_VENDA_ID = "venda_id",  // Foreign key to Venda
             COLUNA_PRODUTO_ID = "produto_id",  // Foreign key to Produto
             COLUNA_QUANTIDADE = "quantidade",  // Item quantity
-            COLUNA_PRECO = "preco";  // Item price
+            COLUNA_PRECO = "preco",
+            COLUNA_PRECO_TOTAL = "preco_total"; // Item price
 
     public static final String
             CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
@@ -20,6 +22,7 @@ public class VendaItem {
             COLUNA_PRODUTO_ID + " TEXT NOT NULL, " +  // Foreign key
             COLUNA_QUANTIDADE + " INTEGER NOT NULL, " +
             COLUNA_PRECO + " REAL NOT NULL, " +
+            COLUNA_PRECO_TOTAL + " REAL NOT NULL, " +
             "FOREIGN KEY (" + COLUNA_VENDA_ID + ") REFERENCES tb_venda(_id) ON DELETE CASCADE, " +
             "FOREIGN KEY (" + COLUNA_PRODUTO_ID + ") REFERENCES tb_produto(_id) ON DELETE CASCADE" +
             ");";
@@ -32,18 +35,20 @@ public class VendaItem {
     private String produtoId;  // Foreign key to Produto
     private int quantidade;
     private double preco;
+    private double precoTotal;
 
     // Constructor to automatically generate UUID
     public VendaItem() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public VendaItem(String vendaId, String produtoId, int quantidade, double preco) {
+    public VendaItem(String vendaId, String produtoId, int quantidade, double preco, double precoTotal) {
         this.id = UUID.randomUUID().toString();
         this.vendaId = vendaId;
         this.produtoId = produtoId;
         this.quantidade = quantidade;
         this.preco = preco;
+        this.precoTotal = precoTotal;
     }
 
     // Getters and Setters
@@ -85,5 +90,13 @@ public class VendaItem {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(double precoTotal) {
+        this.precoTotal = precoTotal;
     }
 }

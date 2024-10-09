@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CarrinhoHandler {
 
@@ -32,8 +33,14 @@ public class CarrinhoHandler {
 
     public void RemoverDoCarrinho(Carrinho item) {
         List<Carrinho> carrinho = LerCarrinho();
-        carrinho.remove(item);
-        SalvarCarrinho(carrinho);
+
+        for (Carrinho cartItem : carrinho) {
+            if (Objects.equals(cartItem.getId(), item.getId())) {
+                carrinho.remove(cartItem);
+                SalvarCarrinho(carrinho);
+                break;
+            }
+        }
     }
 
     public void SalvarCarrinho(List<Carrinho> carrinho) {

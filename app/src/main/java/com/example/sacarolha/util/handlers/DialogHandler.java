@@ -9,10 +9,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.sacarolha.R;
+import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
@@ -40,6 +43,10 @@ public class DialogHandler {
 
     public interface getFilterListener {
         void onFilterSelected(String filter, int quantity);
+    }
+
+    public interface ConfirmSaleListener {
+        void onSaleConfirmed();
     }
 
 
@@ -335,6 +342,50 @@ public class DialogHandler {
         dialog.show();
     }
 
+    public void showConfirmSaleDialog(Context context, Cliente cliente, List<Carrinho> carrinho, String total, ConfirmSaleListener listener) {
+        Dialog dialog = new Dialog(context);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_sale, null);
+
+        dialog.setContentView(view);
+
+        TextView textClienteNome = view.findViewById(R.id.text_cliente_nome);
+        TextView textPrecoTotal = view.findViewById(R.id.text_preco_total);
+
+        textClienteNome.setText(cliente.getNome());
+        textPrecoTotal.setText(total);
+
+        LinearLayout itemsContainer = view.findViewById(R.id.itemsContainer);
+        for (Carrinho c: carrinho) {
+
+            View itemView = LayoutInflater.from(context).inflate(R.layout.item_sale_review, null);
+            TextView textItemQuantidade = itemView.findViewById(R.id.text_item_quantidade);
+            TextView textItemNome = itemView.findViewById(R.id.text_item_nome);
+            TextView textItemPreco = itemView.findViewById(R.id.text_item_preco);
+
+            textItemQuantidade.setText(String.valueOf(c.getQuantidade()));
+            textItemNome.setText(c.getNome());
+            double valor = c.getPreco() * c.getQuantidade();
+            textItemPreco.setText(MaskHandler.applyPriceMask(String.valueOf(valor)));
+
+            itemsContainer.addView(itemView);
+        }
+
+        Button btnCancelar = view.findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+        Button btnConfirmar = view.findViewById(R.id.btnConfirmar);
+        btnConfirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onSaleConfirmed();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
     public void showClientFiltersDialog(Context context, String filtroAtual, getFilterListener listener) {
         Dialog dialog = new Dialog(context);
 
@@ -361,6 +412,16 @@ public class DialogHandler {
 
                 listener.onFilterSelected(getFilterString(strings), (int) quantity);
                 dialog.dismiss();
+            }
+        });
+
+        ImageView limparFiltros = view.findViewById(R.id.limparFiltros);
+        limparFiltros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editNome.setText("");
+                editDocumento.setText("");
+                btnFiltrar.callOnClick();
             }
         });
 
@@ -405,6 +466,18 @@ public class DialogHandler {
             }
         });
 
+
+
+        ImageView limparFiltros = view.findViewById(R.id.limparFiltros);
+        limparFiltros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filtrarNome.setText("");
+                filtrarTipo.setSelection(0);
+                btnFiltrar.callOnClick();
+            }
+        });
+
         if (filtroAtual != null) {
             String[] filtrosAtuais = getFilterValues(filtroAtual);
             if (!filtrosAtuais[0].equals(Shared.FILTER_NULL)) filtrarNome.setText(filtrosAtuais[0]);
@@ -422,5 +495,4 @@ public class DialogHandler {
         String[] filterParts = filtroAtual.split(Shared.FILTER_SEPARATOR);
         return filterParts;
     }
-
 }

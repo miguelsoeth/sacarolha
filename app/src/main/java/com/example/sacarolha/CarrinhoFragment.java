@@ -122,7 +122,12 @@ public class CarrinhoFragment extends Fragment {
         btnFecharPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), totalCarrinho.getText(), Toast.LENGTH_SHORT).show();
+                if(carrinho.isEmpty()) return;
+                EscolherClienteFragment escolherClienteFragment = EscolherClienteFragment.newInstance(totalCarrinho.getText().toString(), new ArrayList<>(carrinho));
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, escolherClienteFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

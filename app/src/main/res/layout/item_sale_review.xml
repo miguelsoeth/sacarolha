@@ -1,0 +1,78 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingVertical="10sp"
+        android:paddingHorizontal="15sp"
+        android:layout_width="0dp"
+        android:layout_weight="0.65"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_item_quantidade"
+                android:fontFamily="@font/zain_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textSize="20sp" />
+
+            <TextView
+                android:fontFamily="@font/zain_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4sp"
+                android:text="x"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/text_item_nome"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Vinho 1"
+                android:fontFamily="@font/zain_bold"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="20sp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.35"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|end"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/text_item_preco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:fontFamily="@font/zain_bold"
+            android:text="R$ 599,39"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="20sp"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

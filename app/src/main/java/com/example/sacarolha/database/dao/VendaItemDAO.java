@@ -16,7 +16,8 @@ public class VendaItemDAO extends AbstrataDAO {
             VendaItem.COLUNA_VENDA_ID,
             VendaItem.COLUNA_PRODUTO_ID,
             VendaItem.COLUNA_QUANTIDADE,
-            VendaItem.COLUNA_PRECO
+            VendaItem.COLUNA_PRECO,
+            VendaItem.COLUNA_PRECO_TOTAL
     };
 
     public VendaItemDAO(Context context) {
@@ -35,6 +36,7 @@ public class VendaItemDAO extends AbstrataDAO {
             contentValues.put(VendaItem.COLUNA_PRODUTO_ID, vendaItem.getProdutoId());
             contentValues.put(VendaItem.COLUNA_QUANTIDADE, vendaItem.getQuantidade());
             contentValues.put(VendaItem.COLUNA_PRECO, vendaItem.getPreco());
+            contentValues.put(VendaItem.COLUNA_PRECO_TOTAL, vendaItem.getPrecoTotal());
 
             insertRows = db.insert(VendaItem.TABLE_NAME, null, contentValues);
         } finally {
@@ -62,6 +64,7 @@ public class VendaItemDAO extends AbstrataDAO {
                 vendaItem.setProdutoId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRODUTO_ID)));
                 vendaItem.setQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_QUANTIDADE)));
                 vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO)));
+                vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
             }
             if (cursor != null) {
                 cursor.close();
@@ -84,6 +87,7 @@ public class VendaItemDAO extends AbstrataDAO {
             contentValues.put(VendaItem.COLUNA_PRODUTO_ID, vendaItem.getProdutoId());
             contentValues.put(VendaItem.COLUNA_QUANTIDADE, vendaItem.getQuantidade());
             contentValues.put(VendaItem.COLUNA_PRECO, vendaItem.getPreco());
+            contentValues.put(VendaItem.COLUNA_PRECO_TOTAL, vendaItem.getPrecoTotal());
 
             rowsAffected = db.update(VendaItem.TABLE_NAME, contentValues, VendaItem.COLUNA_ID + " = ?",
                     new String[]{vendaItem.getId()});
@@ -123,6 +127,7 @@ public class VendaItemDAO extends AbstrataDAO {
                     vendaItem.setProdutoId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRODUTO_ID)));
                     vendaItem.setQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_QUANTIDADE)));
                     vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO)));
+                    vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
                     vendaItems.add(vendaItem);
                 }
                 cursor.close();

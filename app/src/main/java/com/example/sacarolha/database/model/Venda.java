@@ -1,5 +1,6 @@
 package com.example.sacarolha.database.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 public class Venda {
@@ -51,6 +52,14 @@ public class Venda {
         this.data = data;
         this.total = total;
         this.clienteId = clienteId;
+        this.userId = userId;
+    }
+
+    public Venda(String data, double total, String userId) {
+        this.id = UUID.randomUUID().toString();
+        this.data = data;
+        this.total = total;
+        this.clienteId = null;
         this.userId = userId;
     }
 

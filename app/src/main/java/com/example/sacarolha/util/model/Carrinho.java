@@ -2,7 +2,9 @@ package com.example.sacarolha.util.model;
 
 import com.example.sacarolha.database.model.Vinho;
 
-public class Carrinho {
+import java.io.Serializable;
+
+public class Carrinho implements Serializable {
 
     private String id;  // UUID as a String
     private String nome;
