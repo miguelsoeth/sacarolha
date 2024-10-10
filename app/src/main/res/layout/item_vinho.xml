@@ -28,6 +28,7 @@
                 android:fontFamily="@font/zain_regular"
                 android:text="Name"
                 android:textAlignment="center"
+                android:layout_marginHorizontal="10sp"
                 android:textStyle="bold"
                 android:singleLine="true"
                 android:ellipsize="end"
@@ -60,7 +61,6 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:paddingVertical="10sp"
                 android:paddingHorizontal="25sp"
                 android:layout_width="0dp"
                 android:layout_weight="0.65"
