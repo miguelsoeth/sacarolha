@@ -36,13 +36,5 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnItem"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/bkg_dark_purple_rounded"
-            android:text="Selecionar"
-            android:textSize="15sp"/>
-
     </LinearLayout>
 </LinearLayout>

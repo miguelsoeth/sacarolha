@@ -6,6 +6,7 @@ import android.database.Cursor;
 
 import com.example.sacarolha.database.DBOpenHelper;
 import com.example.sacarolha.database.model.Cliente;
+import com.example.sacarolha.database.model.Venda;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,22 @@ public class ClienteDAO extends AbstrataDAO {
 
     public ClienteDAO(Context context) {
         db_helper = new DBOpenHelper(context);
+    }
+
+    public Cliente getClienteForVenda(Venda venda) {
+        Cliente cliente = null;
+        try {
+            Open();
+
+            String clienteId = venda.getClienteId();
+            if (clienteId != null && !clienteId.isEmpty()) {
+                cliente = selectById(clienteId);
+            }
+        } finally {
+            Close(); // Close the database connection
+        }
+
+        return cliente;
     }
 
     // Insert method, including foreign key reference for user_id

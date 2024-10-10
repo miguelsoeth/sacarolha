@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -20,8 +19,6 @@
             android:layout_marginTop="5sp"
             android:layout_weight="1"
             android:layout_height="wrap_content">
-
-
 
             <TextView
                 android:id="@+id/text_vinho_nome"
@@ -74,8 +71,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-
-
                     <TextView
                         android:id="@+id/text_vinho_tipo"
                         android:layout_width="match_parent"
@@ -88,7 +83,7 @@
                     <TextView
                         android:id="@+id/text_vinho_safra"
                         android:fontFamily="@font/zain_regular"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Safra"
                         android:textSize="20sp" />
@@ -108,23 +103,15 @@
                 <TextView
                     android:id="@+id/text_vinho_preco"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:textAlignment="center"
+                    android:gravity="center"
                     android:fontFamily="@font/zain_bold"
                     android:text="Price"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:textSize="20sp"
                     />
-
-                <Button
-                    android:id="@+id/btnAdicionar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bkg_dark_purple_rounded"
-                    android:fontFamily="@font/zain_bold"
-                    android:text="Adicionar"
-                    android:textSize="20sp"/>
 
             </LinearLayout>
 

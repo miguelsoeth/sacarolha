@@ -9,13 +9,9 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.sacarolha.CadastrarClienteFragment;
-import com.example.sacarolha.EditarClienteFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.util.Shared;
@@ -56,13 +52,12 @@ public class ClienteVendaAdapter extends ArrayAdapter<Cliente> implements Filter
     public View getView(int position, View convertView, ViewGroup parent) {
         Cliente cliente = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.cliente_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_venda_cliente, parent, false);
         }
 
         TextView text1 = convertView.findViewById(R.id.text_cliente_nome);
         TextView text2 = convertView.findViewById(R.id.text_cliente_documento);
-        Button btnItem = convertView.findViewById(R.id.btnItem);
-        btnItem.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (callback != null) {

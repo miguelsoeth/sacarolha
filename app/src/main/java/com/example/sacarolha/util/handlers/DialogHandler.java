@@ -15,7 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.sacarolha.R;
+import com.example.sacarolha.database.dao.VendaDAO;
+import com.example.sacarolha.database.dao.VendaItemDAO;
+import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Cliente;
+import com.example.sacarolha.database.model.Venda;
+import com.example.sacarolha.database.model.VendaItem;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
@@ -382,6 +387,49 @@ public class DialogHandler {
                 dialog.dismiss();
             }
         });
+
+        dialog.show();
+    }
+
+    public void showReviewSaleDialog(Context context, Cliente cliente, Venda venda) {
+        Dialog dialog = new Dialog(context);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_review_sale, null);
+
+        dialog.setContentView(view);
+
+        TextView textClienteNome = view.findViewById(R.id.text_cliente_nome);
+        TextView textPrecoTotal = view.findViewById(R.id.text_preco_total);
+
+        textClienteNome.setText(cliente.getNome());
+        textPrecoTotal.setText(MaskHandler.applyPriceMask(String.valueOf(venda.getTotal())));
+
+        LinearLayout itemsContainer = view.findViewById(R.id.itemsContainer);
+        VendaItemDAO vendaItemDAO = new VendaItemDAO(context);
+        List<VendaItem> vendaItems = vendaItemDAO.selectAllByVendaId(venda.getId());
+
+        VinhoDAO vinhoDAO = new VinhoDAO(context);
+
+        for (VendaItem vendaItem: vendaItems) {
+
+            View itemView = LayoutInflater.from(context).inflate(R.layout.item_sale_review, null);
+            TextView textItemQuantidade = itemView.findViewById(R.id.text_item_quantidade);
+            TextView textItemNome = itemView.findViewById(R.id.text_item_nome);
+            TextView textItemPreco = itemView.findViewById(R.id.text_item_preco);
+
+            textItemQuantidade.setText(String.valueOf(vendaItem.getQuantidade()));
+            Vinho vinho = vinhoDAO.selectById(vendaItem.getProdutoId());
+
+            textItemNome.setText(vinho.getNome());
+
+            double valor = vendaItem.getPreco() * vendaItem.getQuantidade();
+            textItemPreco.setText(MaskHandler.applyPriceMask(String.valueOf(valor)));
+
+            itemsContainer.addView(itemView);
+        }
+
+        Button btnCancelar = view.findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

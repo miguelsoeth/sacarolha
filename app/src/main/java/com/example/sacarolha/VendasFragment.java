@@ -9,10 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+
+import com.example.sacarolha.database.dao.VendaDAO;
+import com.example.sacarolha.database.model.Venda;
+import com.example.sacarolha.util.adapters.VendasAdapter;
+
+import java.util.List;
 
 public class VendasFragment extends Fragment {
 
     private Button btnNovaVenda;
+    private ListView listView;
 
     public VendasFragment() {
         // Required empty public constructor
@@ -36,6 +44,11 @@ public class VendasFragment extends Fragment {
             }
         });
 
+        listView = view.findViewById(R.id.listView);
+        VendaDAO vendaDAO = new VendaDAO(getContext());
+        List<Venda> vendasList = vendaDAO.selectAll();
+        VendasAdapter adapter = new VendasAdapter(getContext(), vendasList);
+        listView.setAdapter(adapter);
 
         return view;
     }

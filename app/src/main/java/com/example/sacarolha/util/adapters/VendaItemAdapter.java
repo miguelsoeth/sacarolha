@@ -2,16 +2,12 @@ package com.example.sacarolha.util.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +19,6 @@ import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.handlers.CarrinhoHandler;
 import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.model.Carrinho;
-import com.example.sacarolha.util.model.SaleItem;
 import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;
@@ -61,7 +56,7 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> implements Filterable 
     public View getView(int position, View convertView, ViewGroup parent) {
         Vinho vinho = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.sale_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_sale_item, parent, false);
         }
 
         TextView text_vinho_nome = convertView.findViewById(R.id.text_vinho_nome);
@@ -82,8 +77,7 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> implements Filterable 
             text_vinho_safra.setText("Não-safrado");
         }
 
-        Button btnAdicionar = convertView.findViewById(R.id.btnAdicionar);
-        btnAdicionar.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

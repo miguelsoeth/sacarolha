@@ -13,10 +13,8 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.sacarolha.EditarClienteFragment;
 import com.example.sacarolha.EditarVinhoFragment;
 import com.example.sacarolha.R;
-import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.handlers.MaskHandler;
@@ -50,7 +48,7 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
         Vinho vinho = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.vinho_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_vinho, parent, false);
         }
 
         TextView text_vinho_nome = convertView.findViewById(R.id.text_vinho_nome);
@@ -70,9 +68,7 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
             text_vinho_safra.setText("Não-safrado");
         }
 
-
-        Button btnItem = convertView.findViewById(R.id.btnItem);
-        btnItem.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

@@ -64,7 +64,7 @@ public class VendaItemDAO extends AbstrataDAO {
                 vendaItem.setProdutoId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRODUTO_ID)));
                 vendaItem.setQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_QUANTIDADE)));
                 vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO)));
-                vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
+                vendaItem.setPrecoTotal(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
             }
             if (cursor != null) {
                 cursor.close();
@@ -74,6 +74,45 @@ public class VendaItemDAO extends AbstrataDAO {
         }
 
         return vendaItem;
+    }
+
+    public List<VendaItem> selectAllByVendaId(String id) {
+        List<VendaItem> vendaItems = new ArrayList<>();
+        Cursor cursor = null;
+        try {
+            Open();
+
+            // Define the selection and arguments for the query
+            String selection = VendaItem.COLUNA_VENDA_ID + " = ?";
+            String[] selectionArgs = {id};
+
+            // Perform the query
+            cursor = db.query(VendaItem.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
+
+            // If the cursor has rows, iterate over each row and add to the list
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    VendaItem vendaItem = new VendaItem();
+                    vendaItem.setId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_ID)));
+                    vendaItem.setVendaId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_VENDA_ID)));
+                    vendaItem.setProdutoId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRODUTO_ID)));
+                    vendaItem.setQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_QUANTIDADE)));
+                    vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO)));
+                    vendaItem.setPrecoTotal(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
+
+                    // Add the vendaItem to the list
+                    vendaItems.add(vendaItem);
+                } while (cursor.moveToNext()); // Move to the next row
+            }
+        } finally {
+            // Close the cursor if it's not null
+            if (cursor != null) {
+                cursor.close();
+            }
+            Close();
+        }
+
+        return vendaItems; // Return the list of vendaItems
     }
 
     // Update method for VendaItem
