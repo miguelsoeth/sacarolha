@@ -16,6 +16,7 @@ import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.handlers.StringHandler;
 
+import java.util.Collections;
 import java.util.List;
 
 public class VendasAdapter extends ArrayAdapter<Venda> {
@@ -29,6 +30,7 @@ public class VendasAdapter extends ArrayAdapter<Venda> {
         super(context, 0, vendas);
         this.context = context;
         this.vendas = vendas;
+        Collections.reverse(this.vendas);
         this.clienteDAO = new ClienteDAO(getContext());
     }
 

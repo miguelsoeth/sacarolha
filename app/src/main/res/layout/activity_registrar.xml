@@ -91,21 +91,6 @@
                     android:hint="@string/digite_seu_nome"/>
 
                 <EditText
-                    android:id="@+id/editUser"
-                    android:singleLine="true"
-                    android:layout_width="match_parent"
-                    android:fontFamily="@font/zain_regular"
-                    android:layout_height="50sp"
-                    android:maxLines="1"
-                    android:layout_marginBottom="10sp"
-                    android:textSize="20sp"
-                    android:padding="10sp"
-                    android:textColorHint="@color/transparent_white"
-                    android:textColor="@color/white"
-                    android:background="@drawable/bkg_dark_purple_rounded"
-                    android:hint="@string/digite_seu_usuario"/>
-
-                <EditText
                     android:id="@+id/editEmail"
                     android:layout_width="match_parent"
                     android:fontFamily="@font/zain_regular"
@@ -120,6 +105,21 @@
                     android:textColor="@color/white"
                     android:background="@drawable/bkg_dark_purple_rounded"
                     android:hint="Digite seu email"/>
+
+                <EditText
+                    android:id="@+id/editUser"
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/zain_regular"
+                    android:layout_height="50sp"
+                    android:maxLines="1"
+                    android:layout_marginBottom="10sp"
+                    android:textSize="20sp"
+                    android:padding="10sp"
+                    android:textColorHint="@color/transparent_white"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bkg_dark_purple_rounded"
+                    android:hint="@string/digite_seu_usuario"/>
 
                 <EditText
                     android:id="@+id/editPassword"

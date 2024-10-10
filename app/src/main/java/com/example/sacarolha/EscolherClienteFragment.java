@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -129,7 +131,9 @@ public class EscolherClienteFragment extends Fragment {
 
                         CarrinhoHandler carrinhoHandler = new CarrinhoHandler(getContext());
                         carrinhoHandler.LimparCarrinho();
-                        requireActivity().getSupportFragmentManager().popBackStack();
+
+                        requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
                     }
                 });
             }
@@ -182,5 +186,4 @@ public class EscolherClienteFragment extends Fragment {
             vendaItems.add(vendaItem);
         }
     }
-
 }
