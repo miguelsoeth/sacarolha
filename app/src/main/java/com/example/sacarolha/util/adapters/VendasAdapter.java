@@ -100,6 +100,7 @@ public class VendasAdapter extends ArrayAdapter<Venda> implements Filterable {
                     filteredList.addAll(originalVendas);
                 } else {
                     for (Venda venda : originalVendas) {
+                        cliente = clienteDAO.getClienteForVenda(venda);
                         boolean conditionName = filterName.equals("null") || cliente.getNome().toLowerCase().contains(filterName);
                         boolean conditionData = filterData.equals("null") || StringHandler.convertToDefaultShortDate(venda.getData()).contains(filterData);
                         if (conditionName && conditionData) {
