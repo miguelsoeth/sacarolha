@@ -66,6 +66,14 @@ public class ItemVendaFragment extends Fragment {
         listView = view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
 
+        Button btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
         btnFiltro = view.findViewById(R.id.btnFiltro);
         btnFiltro.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,18 +1,24 @@
 package com.example.sacarolha.util.handlers;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.dao.VendaDAO;
@@ -26,7 +32,9 @@ import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
 import com.example.sacarolha.util.model.Carrinho;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DialogHandler {
@@ -400,9 +408,11 @@ public class DialogHandler {
 
         TextView textClienteNome = view.findViewById(R.id.text_cliente_nome);
         TextView textPrecoTotal = view.findViewById(R.id.text_preco_total);
+        TextView text_cliente_documento = view.findViewById(R.id.text_cliente_documento);
 
         textClienteNome.setText(cliente.getNome());
         textPrecoTotal.setText(MaskHandler.applyPriceMask(String.valueOf(venda.getTotal())));
+        text_cliente_documento.setText(MaskHandler.applyDocumentMask(cliente.getDocumento()));
 
         LinearLayout itemsContainer = view.findViewById(R.id.itemsContainer);
         VendaItemDAO vendaItemDAO = new VendaItemDAO(context);
@@ -430,6 +440,22 @@ public class DialogHandler {
 
         Button btnCancelar = view.findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+        LinearLayout saleReview =view.findViewById(R.id.saleReview);
+        Button btnCompartilhar = view.findViewById(R.id.btnCompartilhar);
+        btnCompartilhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Bitmap bitmap = ImageHandler.getBitmapFromView(saleReview);
+                    Uri imageUri = ImageHandler.saveBitmapToFile(context, bitmap);
+                    ImageHandler.shareImage(context, imageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Não foi possível compartilhar a imagem.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         dialog.show();
     }
@@ -530,6 +556,72 @@ public class DialogHandler {
             String[] filtrosAtuais = getFilterValues(filtroAtual);
             if (!filtrosAtuais[0].equals(Shared.FILTER_NULL)) filtrarNome.setText(filtrosAtuais[0]);
             if (!filtrosAtuais[1].equals(Shared.FILTER_NULL)) filtrarTipo.setSelection(TiposVinhoEnum.getPosition(filtrosAtuais[1]));
+        }
+
+        dialog.show();
+    }
+
+    public void showVendasFiltersDialog(Context context, String filtroAtual, getFilterListener listener) {
+        Dialog dialog = new Dialog(context);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_filtrar_venda, null);
+
+        dialog.setContentView(view);
+
+        Button btnCancelar = view.findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+        EditText editNome = view.findViewById(R.id.editNome);
+        EditText editData = view.findViewById(R.id.editData);
+        editData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+                        (view, year1, month1, dayOfMonth) -> {
+                            // Set selected date to EditText
+                            editData.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1);
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        Button btnFiltrar = view.findViewById(R.id.btnFiltrar);
+        btnFiltrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> strings = new ArrayList<String>();
+
+                strings.add(editNome.getText().toString().isEmpty() ? Shared.FILTER_NULL : editNome.getText().toString());
+                strings.add(editData.getText().toString().isEmpty() ? Shared.FILTER_NULL : editData.getText().toString());
+
+                long quantity = strings.stream().filter(s -> !s.isEmpty() && !s.equals(Shared.FILTER_NULL)).count();
+
+                listener.onFilterSelected(getFilterString(strings), (int) quantity);
+                dialog.dismiss();
+            }
+        });
+
+
+
+        ImageView limparFiltros = view.findViewById(R.id.limparFiltros);
+        limparFiltros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editNome.setText("");
+                editData.setText("");
+                btnFiltrar.callOnClick();
+            }
+        });
+
+        if (filtroAtual != null) {
+            String[] filtrosAtuais = getFilterValues(filtroAtual);
+            if (!filtrosAtuais[0].equals(Shared.FILTER_NULL)) editNome.setText(filtrosAtuais[0]);
+            if (!filtrosAtuais[1].equals(Shared.FILTER_NULL)) editData.setText(filtrosAtuais[1]);
         }
 
         dialog.show();

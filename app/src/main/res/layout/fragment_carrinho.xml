@@ -7,7 +7,6 @@
     tools:context=".ClientesFragment">
 
     <ScrollView
-        android:layout_marginVertical="5sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -45,6 +44,14 @@
                         android:layout_height="match_parent"
                         android:gravity="center|end">
 
+                        <ImageView
+                            android:id="@+id/btnClearCart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30sp"
+                            android:paddingHorizontal="15sp"
+                            android:src="@drawable/ic_clear_shopping_cart"
+                            />
+
                         <TextView
                             android:id="@+id/totalCarrinho"
                             android:layout_width="wrap_content"
@@ -53,14 +60,16 @@
                             android:fontFamily="@font/zain_bold"
                             android:gravity="center"
                             android:textSize="20sp"
-                            android:text="A"/>
+                            android:text="A"
+                            />
 
-                        <ImageView
-                            android:id="@+id/btnClearCart"
-                            android:layout_width="wrap_content"
+                        <Button
+                            android:id="@+id/btnVoltar"
+                            android:layout_width="30sp"
                             android:layout_height="30sp"
-                            android:paddingHorizontal="15sp"
-                            android:src="@drawable/ic_clear_shopping_cart"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_arrow_back"
+                            app:backgroundTint="@null"
                             />
 
                     </LinearLayout>
@@ -80,43 +89,33 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10sp">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/codigoBar"
+                <TextView
+                    android:id="@+id/btnPesquisarVinho"
                     android:layout_width="match_parent"
-                    android:layout_marginHorizontal="50sp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1"
-                    android:background="@drawable/bkg_dark_purple_rounded">
-
-                    <TextView
-                        android:id="@+id/btnPesquisarVinho"
-                        android:layout_width="0sp"
-                        android:layout_weight="0.85"
-                        android:layout_height="50sp"
-                        android:padding="10sp"
-                        android:textAlignment="center"
-                        android:fontFamily="@font/zain_regular"
-                        android:textSize="20sp"
-                        android:textColor="@color/white"
-                        android:text="Pesquisar vinho"
-                        />
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnScanCodigo"
-                    android:layout_width="30sp"
-                    android:layout_height="30sp"
-                    android:layout_marginHorizontal="20sp"
+                    android:layout_height="50sp"
+                    android:background="@drawable/bkg_dark_purple"
+                    android:padding="10sp"
+                    android:textAlignment="center"
                     android:fontFamily="@font/zain_regular"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="Pesquisar vinho"
+                    />
+
+                <ImageView
+                    android:id="@+id/btnScanCodigo"
+                    android:layout_width="75sp"
+                    android:layout_height="50sp"
+                    android:layout_alignEnd="@id/btnPesquisarVinho"
+
+                    android:scaleX="0.375"
+                    android:scaleY="0.5"
+
                     android:background="@drawable/ic_camera"
                     app:backgroundTint="@null"
-                    android:layout_alignEnd="@id/codigoBar"
-                    android:layout_centerInParent="true"
+
                     />
 
             </RelativeLayout>

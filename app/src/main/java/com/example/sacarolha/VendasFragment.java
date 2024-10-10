@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.example.sacarolha.database.dao.VendaDAO;
 import com.example.sacarolha.database.model.Venda;
 import com.example.sacarolha.util.adapters.VendasAdapter;
+import com.example.sacarolha.util.handlers.DialogHandler;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class VendasFragment extends Fragment {
 
     private Button btnNovaVenda;
     private ListView listView;
+    private String filtroAtual = null;
 
     public VendasFragment() {
         // Required empty public constructor
@@ -49,6 +51,22 @@ public class VendasFragment extends Fragment {
         List<Venda> vendasList = vendaDAO.selectAll();
         VendasAdapter adapter = new VendasAdapter(getContext(), vendasList);
         listView.setAdapter(adapter);
+
+        Button btnFiltro = view.findViewById(R.id.btnFiltro);
+        btnFiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHandler dialogHandler = new DialogHandler();
+                dialogHandler.showVendasFiltersDialog(getContext(), filtroAtual, new DialogHandler.getFilterListener() {
+                    @Override
+                    public void onFilterSelected(String filter, int quantity) {
+                        btnFiltro.setText(quantity != 0 ? "Filtros(" + quantity + ")" : "Filtros");
+                        filtroAtual = filter;
+                        adapter.getFilter().filter(filter);
+                    }
+                });
+            }
+        });
 
         return view;
     }

@@ -33,9 +33,9 @@ import java.util.Objects;
 
 public class CarrinhoFragment extends Fragment {
 
-    private Button btnScanCodigo, btnFecharPedido;
+    private Button btnFecharPedido;
     private TextView btnPesquisarVinho;
-    ImageView btnClearCart;
+    ImageView btnClearCart, btnScanCodigo;
     private String scanCode;
     ListView listview;
     CarrinhoAdapter adapter;
@@ -110,6 +110,14 @@ public class CarrinhoFragment extends Fragment {
             }
         });
 
+        Button btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
         btnScanCodigo = view.findViewById(R.id.btnScanCodigo);
         btnScanCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +130,10 @@ public class CarrinhoFragment extends Fragment {
         btnFecharPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(carrinho.isEmpty()) return;
+                if(carrinho.isEmpty()) {
+                    Toast.makeText(getContext(), "Carrinho vazio! Adicione itens para prosseguir!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 EscolherClienteFragment escolherClienteFragment = EscolherClienteFragment.newInstance(totalCarrinho.getText().toString(), new ArrayList<>(carrinho));
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_layout, escolherClienteFragment);

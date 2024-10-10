@@ -26,4 +26,13 @@ public class StringHandler {
 
         return dateTime.format(outputFormatter);
     }
+
+    public static String convertToDefaultShortDate(String dateTimeStr) {
+
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, inputFormatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return dateTime.format(outputFormatter);
+    }
 }

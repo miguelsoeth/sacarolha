@@ -7,7 +7,6 @@
     tools:context=".ClientesFragment">
 
     <ScrollView
-        android:layout_marginVertical="5sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -37,23 +36,18 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Adicionar itens"
+                        android:text="Adicionar item"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="30sp"/>
 
                     <Button
-                        android:id="@+id/btnFiltro"
-                        android:layout_width="160sp"
-                        android:layout_height="40sp"
-
-                        android:text="Filtros"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/zain_bold"
-                        android:layout_gravity="center"
-
-                        android:background="@drawable/bkg_light_purple_rounded"
-                        app:background="@null"
-                        />
+                        android:id="@+id/btnVoltar"
+                        android:layout_width="30sp"
+                        android:layout_height="30sp"
+                        android:layout_gravity="center|end"
+                        android:gravity="center"
+                        android:background="@drawable/ic_arrow_back"
+                        app:backgroundTint="@null"/>
 
                 </LinearLayout>
 
@@ -65,6 +59,18 @@
                     android:divider="@color/white"/>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnFiltro"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filtros"
+                android:fontFamily="@font/zain_regular"
+                android:textSize="20sp"
+                android:background="@drawable/bkg_dark_purple"
+                app:backgroundTint="@null"
+                />
 
         </LinearLayout>
 
