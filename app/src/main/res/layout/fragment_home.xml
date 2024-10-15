@@ -36,7 +36,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Relatórios"
+                        android:text="Relatório mensal"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="40sp"/>
 
@@ -48,6 +48,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:divider="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@android:color/holo_blue_light"
+                        android:padding="16dp"
+                        android:layout_marginBottom="16dp">
+
+                        <EditText
+                        android:id="@+id/editData"
+                        android:layout_width="match_parent"
+                        android:layout_height="40sp"
+                        android:layout_marginVertical="10sp"
+                        android:padding="8sp"
+                        android:hint="Data"
+                        android:fontFamily="@font/zain_regular"
+                        android:background="@drawable/bkg_light_purple_rounded"
+                        android:textColorHint="@color/light_gray"
+                        android:textColor="@color/dark_purple"
+                        android:focusable="false"
+                        android:clickable="true"
+                        />
+
+                        <TextView
+                            android:id="@+id/text_total_vendas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Vendas: 0"
+                            android:textSize="18sp"
+                            android:textColor="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/text_valor_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Valor Total: R$ 0.00"
+                            android:textSize="18sp"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_vinho"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                 </LinearLayout>
 

@@ -7,7 +7,8 @@ import android.database.Cursor;
 import com.example.sacarolha.database.DBOpenHelper;
 import com.example.sacarolha.database.model.Venda;
 import com.example.sacarolha.database.model.VendaItem;
-import com.example.sacarolha.util.model.MonthlyReport;
+import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.model.VendaPorTipoVinho;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,35 +49,42 @@ public class VendaItemDAO extends AbstrataDAO {
         return insertRows;
     }
 
-    public MonthlyReport getMonthlyReport(int month, int year) {
-        MonthlyReport report = new MonthlyReport();
+    public List<VendaPorTipoVinho> getVendasPorTipoDeVinho(int month, int year) {
+        List<VendaPorTipoVinho> vendas = new ArrayList<>();
         Cursor cursor = null;
         try {
             Open();
 
-            // SQL query to sum quantities and total prices for the given month and year
-            String query = "SELECT SUM(" + VendaItem.COLUNA_QUANTIDADE + ") as totalQuantity, " +
-                    "SUM(" + VendaItem.COLUNA_PRECO_TOTAL + ") as totalRevenue " +
-                    "FROM " + VendaItem.TABLE_NAME + " vi " +
-                    "INNER JOIN " + Venda.TABLE_NAME + " v " +
-                    "ON vi." + VendaItem.COLUNA_VENDA_ID + " = v." + Venda.COLUNA_ID + " " +
-                    "WHERE strftime('%m', v." + Venda.COLUNA_DATA + ") = ? " +
-                    "AND strftime('%Y', v." + Venda.COLUNA_DATA + ") = ?";
+            // SQL query to get sales data grouped by wine type
+            String query = "SELECT " +
+                    "p." + Vinho.COLUNA_TIPO + " AS tipo_vinho, " +
+                    "SUM(iv." + VendaItem.COLUNA_QUANTIDADE + ") AS quantidade_vendida, " +
+                    "SUM(iv." + VendaItem.COLUNA_PRECO_TOTAL + ") AS valor_total " +
+                    "FROM " + VendaItem.TABLE_NAME + " iv " +
+                    "JOIN " + Vinho.TABLE_NAME + " p ON iv." + VendaItem.COLUNA_PRODUTO_ID + " = p." + Vinho.COLUNA_ID + " " +
+                    "JOIN " + Venda.TABLE_NAME + " pe ON iv." + VendaItem.COLUNA_VENDA_ID + " = pe." + Venda.COLUNA_ID + " " +
+                    "WHERE strftime('%Y', pe." + Venda.COLUNA_DATA + ") = ? AND " +
+                    "strftime('%m', pe." + Venda.COLUNA_DATA + ") = ? " +
+                    "GROUP BY p." + Vinho.COLUNA_TIPO + " " +
+                    "ORDER BY quantidade_vendida DESC;";
 
-            // Format the month and year to two-digit format for the query
-            String[] selectionArgs = {String.format("%02d", month), String.valueOf(year)};
+            // Format the year and month for the query
+            String[] selectionArgs = {String.valueOf(year), String.format("%02d", month)};
 
             // Execute the query
             cursor = db.rawQuery(query, selectionArgs);
 
-            // Process the result
+            // Process the results
             if (cursor != null && cursor.moveToFirst()) {
-                int totalQuantity = cursor.getInt(cursor.getColumnIndexOrThrow("totalQuantity"));
-                double totalRevenue = cursor.getDouble(cursor.getColumnIndexOrThrow("totalRevenue"));
+                do {
+                    String tipoVinho = cursor.getString(cursor.getColumnIndexOrThrow("tipo_vinho"));
+                    int quantidadeVendida = cursor.getInt(cursor.getColumnIndexOrThrow("quantidade_vendida"));
+                    double valorTotal = cursor.getDouble(cursor.getColumnIndexOrThrow("valor_total"));
 
-                // Set the values in the report object
-                report.setTotalQuantity(totalQuantity);
-                report.setTotalRevenue(totalRevenue);
+                    // Create a new VendaPorTipoVinho object to hold the results
+                    VendaPorTipoVinho vendaPorTipo = new VendaPorTipoVinho(tipoVinho, quantidadeVendida, valorTotal);
+                    vendas.add(vendaPorTipo);
+                } while (cursor.moveToNext());
             }
         } finally {
             // Close the cursor and database connection
@@ -86,7 +94,7 @@ public class VendaItemDAO extends AbstrataDAO {
             Close();
         }
 
-        return report; // Return the report object
+        return vendas; // Return the list of sales by wine type
     }
 
     // Get VendaItem by ID
