@@ -5,7 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.example.sacarolha.database.DBOpenHelper;
+import com.example.sacarolha.database.model.Venda;
 import com.example.sacarolha.database.model.VendaItem;
+import com.example.sacarolha.util.model.MonthlyReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,47 @@ public class VendaItemDAO extends AbstrataDAO {
         }
 
         return insertRows;
+    }
+
+    public MonthlyReport getMonthlyReport(int month, int year) {
+        MonthlyReport report = new MonthlyReport();
+        Cursor cursor = null;
+        try {
+            Open();
+
+            // SQL query to sum quantities and total prices for the given month and year
+            String query = "SELECT SUM(" + VendaItem.COLUNA_QUANTIDADE + ") as totalQuantity, " +
+                    "SUM(" + VendaItem.COLUNA_PRECO_TOTAL + ") as totalRevenue " +
+                    "FROM " + VendaItem.TABLE_NAME + " vi " +
+                    "INNER JOIN " + Venda.TABLE_NAME + " v " +
+                    "ON vi." + VendaItem.COLUNA_VENDA_ID + " = v." + Venda.COLUNA_ID + " " +
+                    "WHERE strftime('%m', v." + Venda.COLUNA_DATA + ") = ? " +
+                    "AND strftime('%Y', v." + Venda.COLUNA_DATA + ") = ?";
+
+            // Format the month and year to two-digit format for the query
+            String[] selectionArgs = {String.format("%02d", month), String.valueOf(year)};
+
+            // Execute the query
+            cursor = db.rawQuery(query, selectionArgs);
+
+            // Process the result
+            if (cursor != null && cursor.moveToFirst()) {
+                int totalQuantity = cursor.getInt(cursor.getColumnIndexOrThrow("totalQuantity"));
+                double totalRevenue = cursor.getDouble(cursor.getColumnIndexOrThrow("totalRevenue"));
+
+                // Set the values in the report object
+                report.setTotalQuantity(totalQuantity);
+                report.setTotalRevenue(totalRevenue);
+            }
+        } finally {
+            // Close the cursor and database connection
+            if (cursor != null) {
+                cursor.close();
+            }
+            Close();
+        }
+
+        return report; // Return the report object
     }
 
     // Get VendaItem by ID
