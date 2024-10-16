@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ClientesFragment">
+    tools:context=".fragment.ClientesFragment">
 
     <ScrollView
         android:layout_marginVertical="5sp"
@@ -80,20 +80,17 @@
 
             </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnFiltrar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="50sp"
-                    android:layout_marginVertical="10sp"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/zain_regular"
-                    android:background="@drawable/bkg_dark_purple_rounded"
-                    app:backgroundTint="@null"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:text="Filtros"
-                    />
+            <Button
+                android:id="@+id/btnFiltrar"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filtros"
+                android:fontFamily="@font/zain_regular"
+                android:textSize="20sp"
+                android:background="@drawable/bkg_dark_purple"
+                app:backgroundTint="@null"
+                />
 
         </LinearLayout>
 

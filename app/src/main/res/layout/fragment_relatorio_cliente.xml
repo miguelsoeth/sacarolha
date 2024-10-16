@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.ClientesFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="5sp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Relatório"
+                android:fontFamily="@font/zain_bold"
+                android:textSize="30sp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|end">
+
+                <ImageView
+                    android:id="@+id/btnVoltar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="15sp"
+                    android:src="@drawable/ic_arrow_back"
+                    />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:id="@+id/clientReportContent"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10sp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="20sp"
+                        android:layout_marginVertical="10sp"
+                        android:src="@drawable/title"
+                        />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textNome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ana Laura"
+                            android:fontFamily="@font/zain_bold"
+                            android:textSize="30sp"/>
+
+                        <TextView
+                            android:id="@+id/textDocumento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Documento: 13.850.666-0001/80"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="20sp"/>
+
+                        <TextView
+                            android:id="@+id/textNumero"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Telefone: (48) 99845-2242"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="20sp"/>
+
+                        <TextView
+                            android:id="@+id/textEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email: anacoan@gmail.com"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="20sp"/>
+
+                        <TextView
+                            android:id="@+id/textEndereco"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Santa Catarina - Criciúma"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="20sp"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="10sp"
+                        android:background="@color/light_gray"/>
+
+                    <TextView
+                        android:id="@+id/textTotalAdquirido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/zain_regular"
+                        android:textSize="20sp"
+                        android:text="Total de vinhos adquiridos: 990 garrafas"
+                        />
+
+                    <TextView
+                        android:id="@+id/textTotalGasto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Valor total gasto: R$ 12.930,40"
+                        android:fontFamily="@font/zain_regular"
+                        android:textSize="20sp"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="10sp"
+                        android:background="@color/light_gray"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btnCompartilhar"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Compartilhar"
+            android:fontFamily="@font/zain_regular"
+            android:textSize="20sp"
+            android:background="@drawable/bkg_dark_purple"
+            app:backgroundTint="@null"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

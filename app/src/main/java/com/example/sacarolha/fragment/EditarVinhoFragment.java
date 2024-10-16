@@ -1,6 +1,5 @@
-package com.example.sacarolha;
+package com.example.sacarolha.fragment;
 
-import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -17,15 +16,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sacarolha.database.dao.ClienteDAO;
+import com.example.sacarolha.CaptureActivity;
+import com.example.sacarolha.R;
 import com.example.sacarolha.database.dao.VinhoDAO;
-import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.Shared;
-import com.example.sacarolha.util.enums.EstadosEnum;
 import com.example.sacarolha.util.enums.TiposVinhoEnum;
 import com.example.sacarolha.util.handlers.AlertHandler;
-import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.handlers.SpinnerHandler;
 import com.journeyapps.barcodescanner.ScanContract;

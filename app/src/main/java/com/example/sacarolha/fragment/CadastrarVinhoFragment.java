@@ -1,4 +1,4 @@
-package com.example.sacarolha;
+package com.example.sacarolha.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sacarolha.CaptureActivity;
+import com.example.sacarolha.R;
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.Shared;

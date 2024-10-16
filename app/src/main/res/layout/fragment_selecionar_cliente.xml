@@ -30,36 +30,39 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="10sp"
-                    android:weightSum="1">
-
+                    android:paddingHorizontal="10sp">
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vendas"
+                        android:text="Escolha o cliente"
                         android:fontFamily="@font/zain_bold"
-                        android:textSize="40sp"/>
+                        android:textSize="30sp"/>
 
-                    <Button
-                        android:id="@+id/btnFiltro"
-                        android:layout_width="160sp"
-                        android:layout_height="40sp"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end">
 
-                        android:text="Filtros"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/zain_bold"
-                        android:layout_gravity="center"
+                        <ImageView
+                            android:id="@+id/btnBackToCart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30sp"
+                            android:layout_gravity="center"
+                            android:paddingHorizontal="15sp"
+                            android:src="@drawable/ic_arrow_back"
+                            />
 
-                        android:background="@drawable/bkg_light_purple_rounded"
-                        app:background="@null"
-                        />
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
 
                 <ListView
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/listView"
+                    android:id="@+id/listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:divider="@color/white"/>
@@ -67,15 +70,15 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btnNovaVenda"
-                android:fontFamily="@font/zain_regular"
-                android:textSize="20sp"
+                android:id="@+id/btnFiltrar"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bkg_light_green"
+                android:text="Filtros"
+                android:fontFamily="@font/zain_regular"
+                android:textSize="20sp"
+                android:background="@drawable/bkg_dark_purple"
                 app:backgroundTint="@null"
-                android:text="Nova venda"
                 />
 
         </LinearLayout>

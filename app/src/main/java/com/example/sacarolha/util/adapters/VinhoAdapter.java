@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.sacarolha.EditarVinhoFragment;
+import com.example.sacarolha.fragment.EditarVinhoFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.Shared;

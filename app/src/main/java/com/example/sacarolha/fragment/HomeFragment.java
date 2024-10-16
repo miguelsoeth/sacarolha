@@ -1,42 +1,31 @@
-package com.example.sacarolha;
+package com.example.sacarolha.fragment;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.sacarolha.R;
 import com.example.sacarolha.database.dao.VendaItemDAO;
-import com.example.sacarolha.util.adapters.ReportTipoAdapter;
-import com.example.sacarolha.util.adapters.VinhoAdapter;
-import com.example.sacarolha.util.enums.MonthEnum;
 import com.example.sacarolha.util.enums.SortEnum;
 import com.example.sacarolha.util.handlers.DialogHandler;
 import com.example.sacarolha.util.handlers.SpinnerHandler;
 import com.example.sacarolha.util.handlers.StringHandler;
 import com.example.sacarolha.util.model.VendaPorTipoVinho;
 
-import java.time.Month;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
@@ -92,6 +81,18 @@ public class HomeFragment extends Fragment {
                         sortDataByLeastRevenue();
                         break;
                 }
+            }
+        });
+
+        Button btnRelatorioPorCliente = view.findViewById(R.id.btnRelatorioPorCliente);
+        btnRelatorioPorCliente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelecionarClienteFragment selecionarClienteFragment = new SelecionarClienteFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, selecionarClienteFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

@@ -17,6 +17,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.sacarolha.fragment.ClientesFragment;
+import com.example.sacarolha.fragment.HomeFragment;
+import com.example.sacarolha.fragment.VendasFragment;
+import com.example.sacarolha.fragment.VinhosFragment;
 import com.example.sacarolha.util.Shared;
 
 public class MainActivity extends AppCompatActivity {

@@ -1,11 +1,10 @@
-package com.example.sacarolha;
+package com.example.sacarolha.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -17,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sacarolha.R;
 import com.example.sacarolha.database.dao.ClienteDAO;
 import com.example.sacarolha.database.dao.VendaDAO;
 import com.example.sacarolha.database.dao.VendaItemDAO;
@@ -37,7 +37,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EscolherClienteFragment extends Fragment {
+public class ConfirmarVendaFragment extends Fragment {
 
     private static final String ARG_TOTAL = "total";
     private static final String ARG_CARRINHO = "carrinho";
@@ -55,12 +55,12 @@ public class EscolherClienteFragment extends Fragment {
     Venda venda;
     List<VendaItem> vendaItems;
 
-    public EscolherClienteFragment() {
+    public ConfirmarVendaFragment() {
         // Required empty public constructor
     }
 
-    public static EscolherClienteFragment newInstance(String total, ArrayList<Carrinho> carrinho) {
-        EscolherClienteFragment fragment = new EscolherClienteFragment();
+    public static ConfirmarVendaFragment newInstance(String total, ArrayList<Carrinho> carrinho) {
+        ConfirmarVendaFragment fragment = new ConfirmarVendaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TOTAL, total);
         args.putSerializable(ARG_CARRINHO, carrinho);

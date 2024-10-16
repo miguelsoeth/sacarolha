@@ -9,24 +9,27 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.sacarolha.fragment.EditarClienteFragment;
 import com.example.sacarolha.R;
 import com.example.sacarolha.database.model.Cliente;
+import com.example.sacarolha.fragment.EditarClienteFragment;
+import com.example.sacarolha.fragment.RelatorioClienteFragment;
 import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.handlers.MaskHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteAdapter extends ArrayAdapter<Cliente> implements Filterable {
+public class ClienteRelatorioAdapter extends ArrayAdapter<Cliente> implements Filterable {
+
     private List<Cliente> originalClientes;
     private List<Cliente> filteredClientes;
     private FragmentManager fragmentManager;
 
-    public ClienteAdapter(Context context, List<Cliente> clientes, FragmentManager fragmentManager) {
+    public ClienteRelatorioAdapter(Context context, List<Cliente> clientes, FragmentManager fragmentManager) {
         super(context, 0, clientes);
         this.originalClientes = new ArrayList<>(clientes);
         this.filteredClientes = clientes;
@@ -58,9 +61,9 @@ public class ClienteAdapter extends ArrayAdapter<Cliente> implements Filterable 
 
                 String clienteId = cliente.getId();
 
-                EditarClienteFragment editarClienteFragment = EditarClienteFragment.newInstance(clienteId);
+                RelatorioClienteFragment relatorioClienteFragment = RelatorioClienteFragment.newInstance(clienteId);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frame_layout, editarClienteFragment);
+                transaction.replace(R.id.frame_layout, relatorioClienteFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

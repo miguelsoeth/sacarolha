@@ -1,4 +1,4 @@
-package com.example.sacarolha;
+package com.example.sacarolha.fragment;
 
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sacarolha.CaptureActivity;
+import com.example.sacarolha.R;
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.adapters.CarrinhoAdapter;
@@ -101,10 +103,10 @@ public class CarrinhoFragment extends Fragment {
         btnPesquisarVinho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemVendaFragment itemVendaFragment = new ItemVendaFragment();
+                AdicionarItemFragment adicionarItemFragment = new AdicionarItemFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 //transaction.hide(CarrinhoFragment.this);
-                transaction.replace(R.id.frame_layout, itemVendaFragment);
+                transaction.replace(R.id.frame_layout, adicionarItemFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -134,9 +136,9 @@ public class CarrinhoFragment extends Fragment {
                     Toast.makeText(getContext(), "Carrinho vazio! Adicione itens para prosseguir!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                EscolherClienteFragment escolherClienteFragment = EscolherClienteFragment.newInstance(totalCarrinho.getText().toString(), new ArrayList<>(carrinho));
+                ConfirmarVendaFragment confirmarVendaFragment = ConfirmarVendaFragment.newInstance(totalCarrinho.getText().toString(), new ArrayList<>(carrinho));
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, escolherClienteFragment);
+                transaction.replace(R.id.frame_layout, confirmarVendaFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

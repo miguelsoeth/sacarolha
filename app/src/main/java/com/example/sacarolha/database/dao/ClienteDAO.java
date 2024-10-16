@@ -7,6 +7,9 @@ import android.database.Cursor;
 import com.example.sacarolha.database.DBOpenHelper;
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Venda;
+import com.example.sacarolha.database.model.VendaItem;
+import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.model.ProdutoTotal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,45 @@ public class ClienteDAO extends AbstrataDAO {
         }
 
         return cliente;
+    }
+
+    public List<ProdutoTotal> getProdutosTotalGastoByCliente(String clienteId) {
+        List<ProdutoTotal> produtosTotais = new ArrayList<>();
+
+        String query = "SELECT v.nome AS produto_nome, " +
+                "SUM(iv.quantidade) AS total_quantidade, " +
+                "iv.preco AS preco_unitario, " +
+                "SUM(iv.preco_total) AS total_gasto " +
+                "FROM " + Venda.TABLE_NAME + " pe " +
+                "JOIN " + VendaItem.TABLE_NAME + " iv ON pe." + Venda.COLUNA_ID + " = iv." + VendaItem.COLUNA_VENDA_ID + " " +
+                "JOIN " + Vinho.TABLE_NAME + " v ON iv." + VendaItem.COLUNA_PRODUTO_ID + " = v." + Vinho.COLUNA_ID + " " +
+                "WHERE pe." + Venda.COLUNA_CLIENTE_ID + " = ? " +
+                "GROUP BY v." + Vinho.COLUNA_ID + ", iv." + VendaItem.COLUNA_PRECO;
+
+        Cursor cursor = null;
+
+        try {
+            Open();
+            cursor = db.rawQuery(query, new String[]{clienteId});
+
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    ProdutoTotal produtoTotal = new ProdutoTotal();
+                    produtoTotal.setProdutoNome(cursor.getString(cursor.getColumnIndexOrThrow("produto_nome")));
+                    produtoTotal.setTotalQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow("total_quantidade")));
+                    produtoTotal.setPrecoUnitario(cursor.getDouble(cursor.getColumnIndexOrThrow("preco_unitario")));
+                    produtoTotal.setTotalGasto(cursor.getDouble(cursor.getColumnIndexOrThrow("total_gasto")));
+                    produtosTotais.add(produtoTotal);
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            Close();
+        }
+
+        return produtosTotais;
     }
 
     // Insert method, including foreign key reference for user_id

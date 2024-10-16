@@ -1,4 +1,4 @@
-package com.example.sacarolha;
+package com.example.sacarolha.fragment;
 
 import android.os.Bundle;
 
@@ -9,17 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.sacarolha.R;
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.handlers.DialogHandler;
-import com.example.sacarolha.util.model.SaleItem;
 import com.example.sacarolha.util.adapters.VendaItemAdapter;
 
 import java.util.List;
 
-public class ItemVendaFragment extends Fragment {
+public class AdicionarItemFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
 
@@ -32,13 +31,13 @@ public class ItemVendaFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
 
-    public ItemVendaFragment() {
+    public AdicionarItemFragment() {
         // Required empty public constructor
     }
 
 
-    public static ItemVendaFragment newInstance(String param1) {
-        ItemVendaFragment fragment = new ItemVendaFragment();
+    public static AdicionarItemFragment newInstance(String param1) {
+        AdicionarItemFragment fragment = new AdicionarItemFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -57,7 +56,7 @@ public class ItemVendaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_item_vendas, container, false);
+        View view = inflater.inflate(R.layout.fragment_adicionar_item, container, false);
 
         vinhoDAO = new VinhoDAO(getActivity());
         List<Vinho> vinhos = vinhoDAO.selectAll();

@@ -1,4 +1,4 @@
-package com.example.sacarolha;
+package com.example.sacarolha.fragment;
 
 import android.os.Bundle;
 
@@ -9,10 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 
+import com.example.sacarolha.R;
 import com.example.sacarolha.database.dao.VinhoDAO;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.adapters.VinhoAdapter;
