@@ -15,6 +15,10 @@ import java.util.List;
 
 public class SpinnerHandler {
 
+    public interface SpinnerItemListener {
+        void onSpinnerItemSelected(int pos);
+    }
+
     public <E extends Enum<E>> void configureSpinnerWithEnum(Spinner spinner, Class<E> enumClass, Context context) {
 
         List<E> enumList = new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
@@ -56,6 +60,27 @@ public class SpinnerHandler {
                 } else {
                     ((TextView) view).setTextColor(context.getResources().getColor(R.color.dark_purple));
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    public static <E extends Enum<E>> void configureSpinnerWithEnum_basic(Spinner spinner, Class<E> enumClass, Context context, SpinnerItemListener listener) {
+
+        List<E> enumList = new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
+        ArrayAdapter<E> adapter = new ArrayAdapter<>(context, R.layout.spinner_basic, enumList);
+        adapter.setDropDownViewResource(R.layout.spinner_basic_item);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(0);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                listener.onSpinnerItemSelected(i);
             }
 
             @Override

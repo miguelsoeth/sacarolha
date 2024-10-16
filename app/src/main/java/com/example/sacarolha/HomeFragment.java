@@ -11,20 +11,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sacarolha.database.dao.VendaItemDAO;
 import com.example.sacarolha.util.adapters.ReportTipoAdapter;
 import com.example.sacarolha.util.adapters.VinhoAdapter;
 import com.example.sacarolha.util.enums.MonthEnum;
+import com.example.sacarolha.util.enums.SortEnum;
+import com.example.sacarolha.util.handlers.DialogHandler;
+import com.example.sacarolha.util.handlers.SpinnerHandler;
 import com.example.sacarolha.util.handlers.StringHandler;
 import com.example.sacarolha.util.model.VendaPorTipoVinho;
 
 import java.time.Month;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,7 +42,10 @@ public class HomeFragment extends Fragment {
 
     private TextView textTotalVendas;
     private TextView textValorTotal;
-    private RecyclerView recyclerView;
+    private double valorTotal = 0.0;
+    private int totalVendas = 0;
+    List<VendaPorTipoVinho> initialReport;
+    LinearLayout linearLayoutVinho;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,64 +58,102 @@ public class HomeFragment extends Fragment {
 
         textTotalVendas = view.findViewById(R.id.text_total_vendas);
         textValorTotal = view.findViewById(R.id.text_valor_total);
-        recyclerView = view.findViewById(R.id.recycler_view_vinho);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        linearLayoutVinho = view.findViewById(R.id.linear_layout_vinho);
 
+        EditText editData = view.findViewById(R.id.editData);
+        DialogHandler dialogHandler = new DialogHandler();
+        dialogHandler.showMonthSelectorDialog(getContext(), editData, new DialogHandler.MonthChangeListener() {
+            @Override
+            public void OnMonthChanged(String monthName, int selectedMonth, int selectedYear) {
+                editData.setText(StringHandler.capitalize(monthName) + " de " + selectedYear);
+                getValues(selectedMonth, selectedYear);
+            }
+        });
+
+        int month = Calendar.getInstance().get(Calendar.MONTH) + 1; // Set to current month
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        getValues(month, year);
+
+        Spinner spinnerOrder = view.findViewById(R.id.spinnerOrder);
+        SpinnerHandler.configureSpinnerWithEnum_basic(spinnerOrder, SortEnum.class, getContext(), new SpinnerHandler.SpinnerItemListener() {
+            @Override
+            public void onSpinnerItemSelected(int pos) {
+                switch (pos) {
+                    case 0: // Mais vendidos
+                        sortDataByMostSold();
+                        break;
+                    case 1: // Menos vendidos
+                        sortDataByLeastSold();
+                        break;
+                    case 2: // Maior receita
+                        sortDataByMostRevenue();
+                        break;
+                    case 3: // Menor receita
+                        sortDataByLeastRevenue();
+                        break;
+                }
+            }
+        });
+
+        return view;
+    }
+
+    private void getValues(int month, int year) {
         VendaItemDAO vendaItemDAO = new VendaItemDAO(getContext());
-        List<VendaPorTipoVinho> report = vendaItemDAO.getVendasPorTipoDeVinho(10, 2024);
+        initialReport = vendaItemDAO.getVendasPorTipoDeVinho(month, year);
 
-        double valorTotal = 0.0;
-        int totalVendas = 0;
+        valorTotal = 0.0;
+        totalVendas = 0;
 
-        for (VendaPorTipoVinho tipo : report) {
+        for (VendaPorTipoVinho tipo : initialReport) {
             valorTotal += tipo.getValorTotal();
             totalVendas += tipo.getQuantidadeVendida();
         }
 
-        textTotalVendas.setText("Total Vendas: " + totalVendas);
-        textValorTotal.setText("Valor Total: R$ " + String.format("%.2f", valorTotal));
+        textTotalVendas.setText("Total Vendido: "+totalVendas+" Vinhos este Mês");
+        textValorTotal.setText("Receita Total: R$ " +String.format("%.2f", valorTotal)+ " em Vendas!");
+        setReport(initialReport);
+    }
 
-        EditText editData = view.findViewById(R.id.editData);
-        editData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create a custom dialog
-                Dialog dialog = new Dialog(getContext());
-                dialog.setContentView(R.layout.dialog_month_year_picker); // Create a custom layout for the dialog
+    private void setReport(List<VendaPorTipoVinho> report) {
+        linearLayoutVinho.removeAllViews();
 
-                NumberPicker monthPicker = dialog.findViewById(R.id.monthPicker);
-                NumberPicker yearPicker = dialog.findViewById(R.id.yearPicker);
-                Button buttonOk = dialog.findViewById(R.id.buttonOk);
+        for (VendaPorTipoVinho venda : report) {
+            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_report_tipo, linearLayoutVinho, false);
 
-                // Set up the month picker
-                monthPicker.setMinValue(1); // Months are 1-12
-                monthPicker.setMaxValue(12);
-                monthPicker.setValue(Calendar.getInstance().get(Calendar.MONTH) + 1); // Set to current month
+            TextView textTipoVinho = itemView.findViewById(R.id.text_tipo_vinho);
+            TextView textQuantidadeVendida = itemView.findViewById(R.id.text_quantidade_vendida);
+            TextView textValorTotal = itemView.findViewById(R.id.text_valor_total);
 
-                // Set up the year picker
-                yearPicker.setMinValue(1900); // Set your desired min year
-                yearPicker.setMaxValue(2100); // Set your desired max year
-                yearPicker.setValue(Calendar.getInstance().get(Calendar.YEAR)); // Set to current year
+            textTipoVinho.setText(venda.getTipoVinho());
+            textQuantidadeVendida.setText("Quantidade Vendida: " + venda.getQuantidadeVendida());
+            textValorTotal.setText("Valor Total: R$ " + String.format("%.2f", venda.getValorTotal()));
 
-                // Handle button click
-                buttonOk.setOnClickListener(view1 -> {
-                    int selectedMonthNumber = monthPicker.getValue();
-                    int selectedYear = yearPicker.getValue();
+            linearLayoutVinho.addView(itemView);
+        }
+    }
 
-                    String monthName = Month.of(selectedMonthNumber).getDisplayName(java.time.format.TextStyle.FULL, Locale.getDefault());
+    private void sortDataByMostSold() {
+        List<VendaPorTipoVinho> orderedReport = initialReport;
+        Collections.sort(orderedReport, Comparator.comparingInt(VendaPorTipoVinho::getQuantidadeVendida).reversed());
+        setReport(orderedReport);
+    }
 
-                    editData.setText(StringHandler.capitalize(monthName) + " de " + selectedYear);
-                    dialog.dismiss();
-                });
+    private void sortDataByLeastSold() {
+        List<VendaPorTipoVinho> orderedReport = initialReport;
+        Collections.sort(orderedReport, Comparator.comparingInt(VendaPorTipoVinho::getQuantidadeVendida));
+        setReport(orderedReport);
+    }
 
-                dialog.show();
-            }
-        });
+    private void sortDataByMostRevenue() {
+        List<VendaPorTipoVinho> orderedReport = initialReport;
+        Collections.sort(orderedReport, Comparator.comparingDouble(VendaPorTipoVinho::getValorTotal).reversed());
+        setReport(orderedReport);
+    }
 
-        // Set up RecyclerView with adapter to display each tipo de vinho
-        ReportTipoAdapter adapter = new ReportTipoAdapter(report);
-        recyclerView.setAdapter(adapter);
-
-        return view;
+    private void sortDataByLeastRevenue() {
+        List<VendaPorTipoVinho> orderedReport = initialReport;
+        Collections.sort(orderedReport, Comparator.comparingDouble(VendaPorTipoVinho::getValorTotal));
+        setReport(orderedReport);
     }
 }

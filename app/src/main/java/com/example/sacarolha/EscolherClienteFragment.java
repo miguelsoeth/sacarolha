@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sacarolha.database.dao.ClienteDAO;
 import com.example.sacarolha.database.dao.VendaDAO;
@@ -131,6 +132,8 @@ public class EscolherClienteFragment extends Fragment {
 
                         CarrinhoHandler carrinhoHandler = new CarrinhoHandler(getContext());
                         carrinhoHandler.LimparCarrinho();
+
+                        Toast.makeText(getContext(), "Venda realizada com sucesso!", Toast.LENGTH_SHORT).show();
 
                         requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 

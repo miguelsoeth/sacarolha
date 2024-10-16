@@ -6,98 +6,125 @@
     android:layout_height="match_parent"
     tools:context=".ClientesFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:paddingVertical="5sp"
-        >
-
         <LinearLayout
             android:orientation="vertical"
             android:weightSum="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-
+                android:layout_weight="1"
+                >
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="10sp"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Relatório mensal"
-                        android:fontFamily="@font/zain_bold"
-                        android:textSize="40sp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/defaultContent"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@color/white">
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10sp"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Relatório mensal"
+                            android:fontFamily="@font/zain_bold"
+                            android:textSize="40sp"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:background="@android:color/holo_blue_light"
-                        android:padding="16dp"
+                        android:background="@drawable/bkg_light_purple_rounded"
+                        android:padding="8dp"
+                        android:layout_margin="5sp"
                         android:layout_marginBottom="16dp">
 
-                        <EditText
-                        android:id="@+id/editData"
-                        android:layout_width="match_parent"
-                        android:layout_height="40sp"
-                        android:layout_marginVertical="10sp"
-                        android:padding="8sp"
-                        android:hint="Data"
-                        android:fontFamily="@font/zain_regular"
-                        android:background="@drawable/bkg_light_purple_rounded"
-                        android:textColorHint="@color/light_gray"
-                        android:textColor="@color/dark_purple"
-                        android:focusable="false"
-                        android:clickable="true"
-                        />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/editData"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/zain_bold"
+                                android:background="@null"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:text="MONTH OF YYYY"
+                                android:textSize="35sp" />
+
+                            <ImageView
+                                android:layout_width="30sp"
+                                android:layout_height="30sp"
+                                android:layout_alignEnd="@id/editData"
+                                android:layout_marginTop="7sp"
+                                android:background="@drawable/ic_calendar"
+                                />
+                        </RelativeLayout>
+
+
 
                         <TextView
                             android:id="@+id/text_total_vendas"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Vendas: 0"
-                            android:textSize="18sp"
-                            android:textColor="@android:color/white" />
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="22sp"
+                            android:text="Total Vendido: 0 Vinhos este Mês"
+                            />
 
                         <TextView
                             android:id="@+id/text_valor_total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Valor Total: R$ 0.00"
-                            android:textSize="18sp"
-                            android:textColor="@android:color/white" />
+                            android:text="Receita Total: R$ 0,00 em Vendas!"
+                            android:fontFamily="@font/zain_regular"
+                            android:textSize="22sp"
+                            />
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_view_vinho"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:padding="8dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Ranking"
+                            android:fontFamily="@font/zain_bold"
+                            android:textSize="25sp"
+                            />
+
+                        <Spinner
+                            android:id="@+id/spinnerOrder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@null"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_vinho"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
-
-            </LinearLayout>
+            </ScrollView>
 
             <Button
                 android:id="@+id/btnCadastrar"
@@ -111,9 +138,5 @@
                 android:text="Relatório por cliente" />
 
         </LinearLayout>
-
-    </ScrollView>
-
-
 
 </FrameLayout>

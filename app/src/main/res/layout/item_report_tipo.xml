@@ -2,23 +2,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/text_tipo_vinho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+<!--    <LinearLayout-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_weight="0.3"-->
+<!--        android:layout_height="match_parent">-->
 
-    <TextView
-        android:id="@+id/text_quantidade_vendida"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:src="@drawable/placeholder"/>-->
 
-    <TextView
-        android:id="@+id/text_valor_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.7"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_tipo_vinho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ABC"
+            android:textSize="26sp"
+            android:fontFamily="@font/zain_bold"
+            android:textAlignment="center"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginBottom="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.95"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_quantidade_vendida"
+            android:layout_width="match_parent"
+            android:text="ABC"
+            android:paddingHorizontal="10sp"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/zain_regular"
+            />
+
+        <TextView
+            android:id="@+id/text_valor_total"
+            android:layout_width="match_parent"
+            android:text="ABC"
+            android:paddingHorizontal="10sp"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/zain_regular"
+            />
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,9 +34,11 @@ import com.example.sacarolha.util.enums.TiposVinhoEnum;
 import com.example.sacarolha.util.model.Carrinho;
 
 import java.io.IOException;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class DialogHandler {
 
@@ -62,6 +65,9 @@ public class DialogHandler {
         void onSaleConfirmed();
     }
 
+    public interface MonthChangeListener {
+        void OnMonthChanged(String monthName, int selectedMonth, int selectedYear);
+    }
 
     private void showQuantitySelectorDialog(Context context, Carrinho item, EditCartListener listener) {
         Dialog dialog = new Dialog(context);
@@ -625,6 +631,47 @@ public class DialogHandler {
         }
 
         dialog.show();
+    }
+
+    public void showMonthSelectorDialog(Context context, EditText edit, MonthChangeListener listener) {
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        String monthName = Month.of(currentMonth).getDisplayName(java.time.format.TextStyle.FULL, Locale.getDefault());
+        edit.setText(StringHandler.capitalize(monthName) + " de " + currentYear);
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a custom dialog
+                Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog_month_year_picker); // Create a custom layout for the dialog
+
+                NumberPicker monthPicker = dialog.findViewById(R.id.monthPicker);
+                NumberPicker yearPicker = dialog.findViewById(R.id.yearPicker);
+                Button buttonOk = dialog.findViewById(R.id.buttonOk);
+
+                // Set up the month picker
+                monthPicker.setMinValue(1); // Months are 1-12
+                monthPicker.setMaxValue(12);
+                monthPicker.setValue(Calendar.getInstance().get(Calendar.MONTH) + 1); // Set to current month
+
+                // Set up the year picker
+                yearPicker.setMinValue(1900); // Set your desired min year
+                yearPicker.setMaxValue(2100); // Set your desired max year
+                yearPicker.setValue(Calendar.getInstance().get(Calendar.YEAR)); // Set to current year
+
+                // Handle button click
+                buttonOk.setOnClickListener(view1 -> {
+                    int selectedMonthNumber = monthPicker.getValue();
+                    int selectedYear = yearPicker.getValue();
+                    String monthName = Month.of(selectedMonthNumber).getDisplayName(java.time.format.TextStyle.FULL, Locale.getDefault());
+                    listener.OnMonthChanged(monthName, selectedMonthNumber, selectedYear);
+                    dialog.dismiss();
+                });
+
+                dialog.show();
+            }
+        });
     }
 
     private String getFilterString(List<String> strings) {

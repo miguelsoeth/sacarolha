@@ -10,5 +10,4 @@
     android:text="TESTE"
     android:singleLine="true"
     android:ellipsize="end"
-    android:textColor="@color/light_gray"
     android:background="@drawable/bkg_light_purple_rounded"/>
