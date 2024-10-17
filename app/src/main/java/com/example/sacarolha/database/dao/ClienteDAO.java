@@ -11,6 +11,8 @@ import com.example.sacarolha.database.model.VendaItem;
 import com.example.sacarolha.database.model.Vinho;
 import com.example.sacarolha.util.model.ProdutoTotal;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,15 +56,14 @@ public class ClienteDAO extends AbstrataDAO {
     public List<ProdutoTotal> getProdutosTotalGastoByCliente(String clienteId) {
         List<ProdutoTotal> produtosTotais = new ArrayList<>();
 
-        String query = "SELECT v.nome AS produto_nome, " +
-                "SUM(iv.quantidade) AS total_quantidade, " +
-                "iv.preco AS preco_unitario, " +
-                "SUM(iv.preco_total) AS total_gasto " +
-                "FROM " + Venda.TABLE_NAME + " pe " +
-                "JOIN " + VendaItem.TABLE_NAME + " iv ON pe." + Venda.COLUNA_ID + " = iv." + VendaItem.COLUNA_VENDA_ID + " " +
-                "JOIN " + Vinho.TABLE_NAME + " v ON iv." + VendaItem.COLUNA_PRODUTO_ID + " = v." + Vinho.COLUNA_ID + " " +
-                "WHERE pe." + Venda.COLUNA_CLIENTE_ID + " = ? " +
-                "GROUP BY v." + Vinho.COLUNA_ID + ", iv." + VendaItem.COLUNA_PRECO;
+        String query = "SELECT tvinho.nome AS produto_nome, " +
+                "SUM(titemv.quantidade) AS total_quantidade, " +
+                "SUM(titemv.preco_total) AS total_gasto " +
+                "FROM " + VendaItem.TABLE_NAME + " titemv " +
+                "JOIN " + Venda.TABLE_NAME + " tvenda ON tvenda." + Venda.COLUNA_ID + " = titemv." + VendaItem.COLUNA_VENDA_ID + " " +
+                "JOIN " + Vinho.TABLE_NAME + " tvinho ON tvinho." + Vinho.COLUNA_ID + " = titemv." + VendaItem.COLUNA_PRODUTO_ID + " " +
+                "WHERE tvenda." + Venda.COLUNA_CLIENTE_ID + " = ? " +
+                "GROUP BY " + VendaItem.COLUNA_PRODUTO_ID;
 
         Cursor cursor = null;
 
@@ -75,8 +76,11 @@ public class ClienteDAO extends AbstrataDAO {
                     ProdutoTotal produtoTotal = new ProdutoTotal();
                     produtoTotal.setProdutoNome(cursor.getString(cursor.getColumnIndexOrThrow("produto_nome")));
                     produtoTotal.setTotalQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow("total_quantidade")));
-                    produtoTotal.setPrecoUnitario(cursor.getDouble(cursor.getColumnIndexOrThrow("preco_unitario")));
-                    produtoTotal.setTotalGasto(cursor.getDouble(cursor.getColumnIndexOrThrow("total_gasto")));
+
+                    double totalGastoRaw = cursor.getDouble(cursor.getColumnIndexOrThrow("total_gasto"));
+                    BigDecimal totalGastoRounded = new BigDecimal(totalGastoRaw).setScale(2, RoundingMode.HALF_UP);
+
+                    produtoTotal.setTotalGasto(totalGastoRounded.doubleValue());
                     produtosTotais.add(produtoTotal);
                 }
             }

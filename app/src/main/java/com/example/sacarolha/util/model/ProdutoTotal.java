@@ -3,7 +3,6 @@ package com.example.sacarolha.util.model;
 public class ProdutoTotal {
     private String produtoNome;
     private int totalQuantidade;
-    private double precoUnitario;
     private double totalGasto;
 
     // Getters and Setters
@@ -21,14 +20,6 @@ public class ProdutoTotal {
 
     public void setTotalQuantidade(int totalQuantidade) {
         this.totalQuantidade = totalQuantidade;
-    }
-
-    public double getPrecoUnitario() {
-        return precoUnitario;
-    }
-
-    public void setPrecoUnitario(double precoUnitario) {
-        this.precoUnitario = precoUnitario;
     }
 
     public double getTotalGasto() {

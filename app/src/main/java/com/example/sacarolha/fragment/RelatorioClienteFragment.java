@@ -21,6 +21,7 @@ import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.util.handlers.ImageHandler;
 import com.example.sacarolha.util.handlers.MaskHandler;
 import com.example.sacarolha.util.model.ProdutoTotal;
+import com.example.sacarolha.util.model.VendaPorTipoVinho;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,7 +36,10 @@ public class RelatorioClienteFragment extends Fragment {
     private ImageView btnVoltar;
     private TextView textNome, textDocumento, textNumero, textEmail, textEndereco, textTotalAdquirido, textTotalGasto;
     private Button btnCompartilhar;
-    private LinearLayout clientReportContent;
+    private LinearLayout clientReportContent, produtoTotalContent;
+
+    int totalVinhosAdquiridos = 0;
+    double valorTotalGasto = 0.0;
 
     public RelatorioClienteFragment() {
         // Required empty public constructor
@@ -100,9 +104,37 @@ public class RelatorioClienteFragment extends Fragment {
         Cliente c = clienteDAO.selectById(mClienteId);
         setClienteValues(c);
 
+        produtoTotalContent = view.findViewById(R.id.produtoTotalContent);
         List<ProdutoTotal> report = clienteDAO.getProdutosTotalGastoByCliente(mClienteId);
+        setReport(report);
 
         return view;
+    }
+
+    private void setReport(List<ProdutoTotal> report) {
+        produtoTotalContent.removeAllViews();
+        valorTotalGasto = 0.0;
+        totalVinhosAdquiridos = 0;
+
+        for (ProdutoTotal produto : report) {
+            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_report_tipo, produtoTotalContent, false);
+
+            TextView textTipoVinho = itemView.findViewById(R.id.text_tipo_vinho);
+            TextView textQuantidadeVendida = itemView.findViewById(R.id.text_quantidade_vendida);
+            TextView textValorTotal = itemView.findViewById(R.id.text_valor_total);
+
+            textTipoVinho.setText(produto.getProdutoNome());
+            textQuantidadeVendida.setText("Quantidade Obtida: " + produto.getTotalQuantidade());
+            textValorTotal.setText("Valor Total: R$ " + String.format("%.2f", produto.getTotalGasto()));
+
+            produtoTotalContent.addView(itemView);
+
+            valorTotalGasto = valorTotalGasto + produto.getTotalGasto();
+            totalVinhosAdquiridos = totalVinhosAdquiridos + produto.getTotalQuantidade();
+        }
+
+        textTotalGasto.setText("Valor total gasto: "+MaskHandler.applyPriceMask(String.valueOf(valorTotalGasto)));
+        textTotalAdquirido.setText("Total adquirido: "+totalVinhosAdquiridos);
     }
 
     private void setClienteValues(Cliente c) {
