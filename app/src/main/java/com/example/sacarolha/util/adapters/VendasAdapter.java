@@ -39,7 +39,7 @@ public class VendasAdapter extends ArrayAdapter<Venda> implements Filterable {
 
     @Override
     public Venda getItem(int position) {
-        return originalVendas.get(position);
+        return filteredVendas.get(position);
     }
 
     // Constructor
