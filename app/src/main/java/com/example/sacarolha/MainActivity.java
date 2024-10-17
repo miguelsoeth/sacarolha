@@ -25,7 +25,8 @@ import com.example.sacarolha.util.Shared;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView btnHome, btnClientes, btnVinhos, btnVendas;
+    private ImageView iconRelatorios, iconClientes, iconVinhos, iconVender;
+    private LinearLayout btnRelatorios, btnClientes, btnVinhos, btnVender;
     TextView topbarUsername;
     LinearLayout perfilGroup;
 
@@ -35,39 +36,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         replaceFragment(new HomeFragment());
 
-        btnHome = findViewById(R.id.btnHome);
-        btnHome.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
-        btnHome.setOnClickListener(new View.OnClickListener() {
+        btnRelatorios = findViewById(R.id.btnRelatorios);
+        btnClientes = findViewById(R.id.btnClientes);
+        btnVinhos = findViewById(R.id.btnVinhos);
+        btnVender = findViewById(R.id.btnVender);
+
+        iconRelatorios = findViewById(R.id.iconRelatorios);
+        iconRelatorios.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
+        btnRelatorios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setActiveButton(btnHome);
+                setActiveButton(iconRelatorios);
                 replaceFragment(new HomeFragment());
             }
         });
 
-        btnClientes = findViewById(R.id.btnClientes);
+        iconClientes = findViewById(R.id.iconClientes);
         btnClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setActiveButton(btnClientes);
+                setActiveButton(iconClientes);
                 replaceFragment(new ClientesFragment());
             }
         });
 
-        btnVinhos = findViewById(R.id.btnVinhos);
+        iconVinhos = findViewById(R.id.iconVinhos);
         btnVinhos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setActiveButton(btnVinhos);
+                setActiveButton(iconVinhos);
                 replaceFragment(new VinhosFragment());
             }
         });
 
-        btnVendas = findViewById(R.id.btnVendas);
-        btnVendas.setOnClickListener(new View.OnClickListener() {
+        iconVender = findViewById(R.id.iconVender);
+        btnVender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setActiveButton(btnVendas);
+                setActiveButton(iconVender);
                 replaceFragment(new VendasFragment());
             }
         });
@@ -122,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
         activeButton.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.light_gray));
     }
     private void resetButtonColorState() {
-        btnHome.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
-        btnClientes.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
-        btnVinhos.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
-        btnVendas.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
+        iconRelatorios.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
+        iconClientes.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
+        iconVinhos.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
+        iconVender.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.black));
     }
 }

@@ -3,44 +3,116 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="60sp"
+    android:layout_height="65sp"
     android:background="@color/white"
     android:gravity="center">
 
-    <!-- Example Menu Buttons -->
-    <ImageView
-        android:id="@+id/btnHome"
+    <LinearLayout
+        android:id="@+id/btnRelatorios"
+        android:orientation="vertical"
         android:layout_width="60sp"
         android:layout_height="50sp"
-        android:src="@drawable/bottombar_inicio"
-        android:contentDescription="Home"
-        android:layout_marginHorizontal="10sp"
-        app:tint="@color/vector_color_state" />
+        android:layout_marginHorizontal="10sp">
 
-    <ImageView
-        android:id="@+id/btnClientes"
-        android:layout_width="60sp"
-        android:layout_height="50sp"
-        android:src="@drawable/bottombar_clientes"
-        android:contentDescription="Clientes"
-        android:layout_marginHorizontal="10sp"
-        app:tint="@color/vector_color_state"/>
+        <ImageView
+            android:id="@+id/iconRelatorios"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_gravity="center"
+            android:src="@drawable/bottombar_relatorios"
+            android:contentDescription="Home"
+            app:tint="@color/vector_color_state"/>
 
-    <ImageView
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Relatórios"
+            android:textAlignment="center"
+            android:fontFamily="@font/zain_regular"
+            app:tint="@color/vector_color_state"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/btnVinhos"
+        android:orientation="vertical"
         android:layout_width="60sp"
         android:layout_height="50sp"
-        android:src="@drawable/bottombar_vinhos"
-        android:contentDescription="Vinhos"
-        android:layout_marginHorizontal="10sp"
-        app:tint="@color/vector_color_state"/>
+        android:layout_marginHorizontal="10sp">
 
-    <ImageView
-        android:id="@+id/btnVendas"
+        <ImageView
+            android:id="@+id/iconVinhos"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_gravity="center"
+            android:src="@drawable/bottombar_vinhos"
+            android:contentDescription="Home"
+            app:tint="@color/vector_color_state"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vinhos"
+            android:textAlignment="center"
+            android:fontFamily="@font/zain_regular"
+            app:tint="@color/vector_color_state"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnClientes"
+        android:orientation="vertical"
         android:layout_width="60sp"
         android:layout_height="50sp"
-        android:src="@drawable/bottombar_vender"
-        android:contentDescription="Vender"
-        android:layout_marginHorizontal="10sp"
-        app:tint="@color/vector_color_state"/>
+        android:layout_marginHorizontal="10sp">
+
+        <ImageView
+            android:id="@+id/iconClientes"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_gravity="center"
+            android:src="@drawable/bottombar_clientes"
+            android:contentDescription="Home"
+            app:tint="@color/vector_color_state"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clientes"
+            android:textAlignment="center"
+            android:fontFamily="@font/zain_regular"
+            app:tint="@color/vector_color_state"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnVender"
+        android:orientation="vertical"
+        android:layout_width="60sp"
+        android:layout_height="50sp"
+        android:layout_marginHorizontal="10sp">
+
+        <ImageView
+            android:id="@+id/iconVender"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_gravity="center"
+            android:src="@drawable/bottombar_vender"
+            android:contentDescription="Home"
+            app:tint="@color/vector_color_state"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vender"
+            android:textAlignment="center"
+            android:fontFamily="@font/zain_regular"
+            app:tint="@color/vector_color_state"
+            />
+
+    </LinearLayout>
+
 </LinearLayout>
