@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.sacarolha.database.dao.UserDAO;
@@ -18,6 +19,8 @@ public class RegisterActivity  extends AppCompatActivity {
 
     EditText editUser, editPassword, editNome, editEmail;
 
+    TextView textEntrar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,14 @@ public class RegisterActivity  extends AppCompatActivity {
         editPassword = findViewById(R.id.editPassword);
         editNome = findViewById(R.id.editNome);
         editEmail = findViewById(R.id.editEmail);
+
+        textEntrar = findViewById(R.id.textEntrar);
+        textEntrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToLogin();
+            }
+        });
 
         btnRegistrar = findViewById(R.id.btnRegistrar);
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +92,12 @@ public class RegisterActivity  extends AppCompatActivity {
     }
 
     private void sendBackToLogin() {
+        Intent it = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(it);
+        finish();
+    }
+
+    private void goToLogin() {
         Intent it = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(it);
         finish();

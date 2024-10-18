@@ -15,81 +15,68 @@ public class MaskHandler {
     private String lastText = "";
 
     public void MaskTelefone(EditText textField) {
-
         textField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            private boolean isUpdating = false;
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (isUpdating) {
-                    isUpdating = false;
-                    return;
-                }
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if (isUpdating) return;
 
                 String unmaskedText = charSequence.toString().replaceAll("[^\\d]", "");
-
                 String formattedText = applyPhoneMask(unmaskedText);
 
-                isUpdating = true;
-                textField.setText(formattedText);
-                textField.setSelection(formattedText.length());
+                if (!formattedText.equals(charSequence.toString())) {
+                    isUpdating = true;
+                    textField.setText(formattedText);
+                    textField.setSelection(formattedText.length());
+                    isUpdating = false;
+                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {}
         });
-
     }
+
 
     public void MaskCPF_CNPJ(EditText textField) {
         textField.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String unmaskedText = charSequence.toString().replaceAll("[^\\d]", "");
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if (isUpdating) return;
+
+                String unmaskedText = charSequence.toString().replaceAll("[^\\d]", ""); // Remove non-numeric characters
+
+                if (unmaskedText.length() > 14) return;
+
                 String maskedText;
                 if (unmaskedText.length() <= 11) {
                     maskedText = applyCpfMask(unmaskedText);
                 } else {
                     maskedText = applyCnpjMask(unmaskedText);
                 }
-                lastText = maskedText;
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (isUpdating) {
+                if (!maskedText.equals(charSequence.toString())) {
+                    isUpdating = true;
+                    textField.setText(maskedText);
+                    textField.setSelection(maskedText.length());
                     isUpdating = false;
-                    return;
                 }
-
-                String unmaskedText = charSequence.toString().replaceAll("[^\\d]", "");  // Remove non-numeric characters
-
-                if (unmaskedText.length() > 14) {
-                    return;
-                }
-
-                String maskedText = "";
-
-                if (unmaskedText.length() <= 11) {
-                    maskedText = applyCpfMask(unmaskedText);
-                } else if (unmaskedText.length() <= 14) {
-                    maskedText = applyCnpjMask(unmaskedText);
-                }
-
-                isUpdating = true;
-                textField.setText(maskedText);
-                lastText = maskedText;
-                textField.setSelection(maskedText.length());
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
+            public void afterTextChanged(Editable editable) {}
         });
-
     }
+
 
     public void MaskPrice(EditText textField) {
 

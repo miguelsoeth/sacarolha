@@ -13,7 +13,8 @@ public class VendaItem {
             COLUNA_PRODUTO_ID = "produto_id",  // Foreign key to Produto
             COLUNA_QUANTIDADE = "quantidade",  // Item quantity
             COLUNA_PRECO = "preco",
-            COLUNA_PRECO_TOTAL = "preco_total"; // Item price
+            COLUNA_PRECO_TOTAL = "preco_total",
+            COLUNA_USER_ID = "user_id"; // Item price
 
     public static final String
             CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
@@ -23,8 +24,10 @@ public class VendaItem {
             COLUNA_QUANTIDADE + " INTEGER NOT NULL, " +
             COLUNA_PRECO + " REAL NOT NULL, " +
             COLUNA_PRECO_TOTAL + " REAL NOT NULL, " +
+            COLUNA_USER_ID + " TEXT, " +  // Foreign key to the user (seller)
             "FOREIGN KEY (" + COLUNA_VENDA_ID + ") REFERENCES tb_venda(_id) ON DELETE CASCADE, " +
-            "FOREIGN KEY (" + COLUNA_PRODUTO_ID + ") REFERENCES tb_produto(_id) ON DELETE CASCADE" +
+            "FOREIGN KEY (" + COLUNA_PRODUTO_ID + ") REFERENCES tb_produto(_id) ON DELETE CASCADE, " +
+            "FOREIGN KEY (" + COLUNA_USER_ID + ") REFERENCES " + User.TABLE_NAME + "(" + User.COLUNA_ID + ") ON DELETE CASCADE" +
             ");";
 
     public static final String
@@ -36,19 +39,21 @@ public class VendaItem {
     private int quantidade;
     private double preco;
     private double precoTotal;
+    private String userId;
 
     // Constructor to automatically generate UUID
     public VendaItem() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public VendaItem(String vendaId, String produtoId, int quantidade, double preco, double precoTotal) {
+    public VendaItem(String vendaId, String produtoId, int quantidade, double preco, double precoTotal, String userId) {
         this.id = UUID.randomUUID().toString();
         this.vendaId = vendaId;
         this.produtoId = produtoId;
         this.quantidade = quantidade;
         this.preco = preco;
         this.precoTotal = precoTotal;
+        this.userId = userId;
     }
 
     // Getters and Setters
@@ -98,5 +103,13 @@ public class VendaItem {
 
     public void setPrecoTotal(double precoTotal) {
         this.precoTotal = precoTotal;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

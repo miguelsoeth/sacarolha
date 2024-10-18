@@ -51,6 +51,7 @@ public class ConfirmarVendaFragment extends Fragment {
     private ImageView btnBackToCart;
     private ClienteDAO clienteDAO;
     String filtroString = null;
+    String userId;
 
     Venda venda;
     List<VendaItem> vendaItems;
@@ -75,6 +76,8 @@ public class ConfirmarVendaFragment extends Fragment {
             total = getArguments().getString(ARG_TOTAL);
             carrinho = (ArrayList<Carrinho>) getArguments().getSerializable(ARG_CARRINHO);
             clienteDAO = new ClienteDAO(getContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            userId = preferences.getString(Shared.KEY_USER_ID, "");
         }
     }
 
@@ -124,7 +127,8 @@ public class ConfirmarVendaFragment extends Fragment {
                                     item.getId(),
                                     item.getQuantidade(),
                                     item.getPreco(),
-                                    item.getPreco()*item.getQuantidade()
+                                    item.getPreco()*item.getQuantidade(),
+                                    userId
                             );
                             vendaItemDAO.insert(vendaItem);
                             vinhoDAO.diminuirEstoque(vendaItem.getProdutoId(), vendaItem.getQuantidade());
@@ -184,7 +188,8 @@ public class ConfirmarVendaFragment extends Fragment {
                     item.getId(),
                     item.getQuantidade(),
                     item.getPreco(),
-                    item.getPreco()*item.getQuantidade()
+                    item.getPreco()*item.getQuantidade(),
+                    userId
             );
             vendaItems.add(vendaItem);
         }

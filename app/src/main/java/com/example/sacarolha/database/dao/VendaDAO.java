@@ -2,10 +2,13 @@ package com.example.sacarolha.database.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 
 import com.example.sacarolha.database.DBOpenHelper;
 import com.example.sacarolha.database.model.Venda;
+import com.example.sacarolha.util.Shared;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +23,12 @@ public class VendaDAO extends AbstrataDAO {
             Venda.COLUNA_USER_ID
     };
 
+    String userId;
+
     public VendaDAO(Context context) {
         db_helper = new DBOpenHelper(context);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        userId = preferences.getString(Shared.KEY_USER_ID, "");
     }
 
     // Insert method for Venda
@@ -45,34 +52,37 @@ public class VendaDAO extends AbstrataDAO {
         return insertRows;
     }
 
-    // Get Venda by ID
-    public Venda selectById(String id) {
-        Venda venda = null;
+    // Get all Vendas
+    public List<Venda> selectAll() {
+        List<Venda> vendas = new ArrayList<>();
         try {
             Open();
 
-            String selection = Venda.COLUNA_ID + " = ?";
-            String[] selectionArgs = {id};
+            // Define the selection criteria (filter by userId)
+            String selection = Venda.COLUNA_USER_ID + " = ?";
+            String[] selectionArgs = {userId};
 
+            // Query the database
             Cursor cursor = db.query(Venda.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
 
-            if (cursor != null && cursor.moveToFirst()) {
-                venda = new Venda();
-                venda.setId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_ID)));
-                venda.setData(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_DATA)));
-                venda.setTotal(cursor.getDouble(cursor.getColumnIndexOrThrow(Venda.COLUNA_TOTAL)));
-                venda.setClienteId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_CLIENTE_ID)));
-                venda.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_USER_ID)));
-            }
-
+            // Process the results
             if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    Venda venda = new Venda();
+                    venda.setId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_ID)));
+                    venda.setData(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_DATA)));
+                    venda.setTotal(cursor.getDouble(cursor.getColumnIndexOrThrow(Venda.COLUNA_TOTAL)));
+                    venda.setClienteId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_CLIENTE_ID)));
+                    venda.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_USER_ID)));
+                    vendas.add(venda);
+                }
                 cursor.close();
             }
         } finally {
             Close();
         }
 
-        return venda;
+        return vendas;
     }
 
     // Update Venda
@@ -101,8 +111,13 @@ public class VendaDAO extends AbstrataDAO {
         int rowsDeleted = 0;
         try {
             Open();
-            rowsDeleted = db.delete(Venda.TABLE_NAME, Venda.COLUNA_ID + " = ?",
-                    new String[]{id});
+
+            // Define the selection criteria (filter by id and userId)
+            String whereClause = Venda.COLUNA_ID + " = ? AND " + Venda.COLUNA_USER_ID + " = ?";
+            String[] whereArgs = {id, userId};
+
+            // Perform the delete operation
+            rowsDeleted = db.delete(Venda.TABLE_NAME, whereClause, whereArgs);
         } finally {
             Close();
         }
@@ -110,29 +125,4 @@ public class VendaDAO extends AbstrataDAO {
         return rowsDeleted;
     }
 
-    // Get all Vendas
-    public List<Venda> selectAll() {
-        List<Venda> vendas = new ArrayList<>();
-        try {
-            Open();
-            Cursor cursor = db.query(Venda.TABLE_NAME, colunas, null, null, null, null, null);
-
-            if (cursor != null) {
-                while (cursor.moveToNext()) {
-                    Venda venda = new Venda();
-                    venda.setId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_ID)));
-                    venda.setData(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_DATA)));
-                    venda.setTotal(cursor.getDouble(cursor.getColumnIndexOrThrow(Venda.COLUNA_TOTAL)));
-                    venda.setClienteId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_CLIENTE_ID)));
-                    venda.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(Venda.COLUNA_USER_ID)));
-                    vendas.add(venda);
-                }
-                cursor.close();
-            }
-        } finally {
-            Close();
-        }
-
-        return vendas;
-    }
 }

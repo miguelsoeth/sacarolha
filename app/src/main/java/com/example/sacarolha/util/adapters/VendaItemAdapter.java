@@ -77,35 +77,39 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> implements Filterable 
             text_vinho_safra.setText("Não-safrado");
         }
 
+        Carrinho existingItem = carrinho.stream()
+                .filter(o -> Objects.equals(o.getId(), vinho.getId()))
+                .findFirst()
+                .orElse(null);
+
+        boolean alreadyInCart = existingItem != null;
+
+
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                boolean alreadyInCart = carrinho.stream().anyMatch(o -> Objects.equals(o.getId(), vinho.getId()));
-
+                DialogHandler dialogHandler = new DialogHandler();
                 if (alreadyInCart) {
-                    Toast.makeText(getContext(), "Produto já adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
-                    //Send to edit product
+                    Toast.makeText(getContext(), "Produto já no carrinho!", Toast.LENGTH_SHORT).show();
+                    dialogHandler.showQuantitySelectorDialog(getContext(), existingItem, new DialogHandler.EditCartListener() {
+                        @Override
+                        public void onItemEdited(Carrinho item) {
+                            carrinho.removeIf(o -> Objects.equals(o.getId(), vinho.getId()));
+                            carrinho.add(item);
+                            carrinhoHandler.SalvarCarrinho(carrinho);
+                            fragmentManager.popBackStack();
+                        }
+                    });
                 }
                 else {
-                    DialogHandler dialogHandler = new DialogHandler();
                     dialogHandler.showQuantitySelectorDialog(getContext(), vinho, new DialogHandler.QuantitySelectorListener() {
                         @Override
                         public void onQuantitySelected(Vinho vinho, int quantity) {
                             Carrinho item = new Carrinho(vinho, quantity);
                             carrinho.add(item);
                             carrinhoHandler.SalvarCarrinho(carrinho);
-
-//                            Double precoTotal = item.getPreco() * item.getQuantidade();
-//                            Double totalValue = MaskHandler.getPriceValue(total);
-//                            totalValue = totalValue + precoTotal;
-//
-//                            String priceTotal = String.valueOf(totalValue);
-//                            String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
-//                            carrinhoHandler.SalvarTotalCarrinho(maskedPriceTotal);
-
                             fragmentManager.popBackStack();
-
                         }
                     });
                 }

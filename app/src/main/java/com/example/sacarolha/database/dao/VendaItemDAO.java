@@ -2,12 +2,15 @@ package com.example.sacarolha.database.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 
 import com.example.sacarolha.database.DBOpenHelper;
 import com.example.sacarolha.database.model.Venda;
 import com.example.sacarolha.database.model.VendaItem;
 import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.model.VendaPorTipoVinho;
 
 import java.util.ArrayList;
@@ -23,8 +26,12 @@ public class VendaItemDAO extends AbstrataDAO {
             VendaItem.COLUNA_PRECO_TOTAL
     };
 
+    String userId;
+
     public VendaItemDAO(Context context) {
         db_helper = new DBOpenHelper(context);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        userId = preferences.getString(Shared.KEY_USER_ID, "");
     }
 
     // Insert method, including foreign keys venda_id and produto_id
@@ -40,6 +47,7 @@ public class VendaItemDAO extends AbstrataDAO {
             contentValues.put(VendaItem.COLUNA_QUANTIDADE, vendaItem.getQuantidade());
             contentValues.put(VendaItem.COLUNA_PRECO, vendaItem.getPreco());
             contentValues.put(VendaItem.COLUNA_PRECO_TOTAL, vendaItem.getPrecoTotal());
+            contentValues.put(VendaItem.COLUNA_USER_ID, vendaItem.getUserId());
 
             insertRows = db.insert(VendaItem.TABLE_NAME, null, contentValues);
         } finally {
@@ -64,12 +72,13 @@ public class VendaItemDAO extends AbstrataDAO {
                     "JOIN " + Vinho.TABLE_NAME + " p ON iv." + VendaItem.COLUNA_PRODUTO_ID + " = p." + Vinho.COLUNA_ID + " " +
                     "JOIN " + Venda.TABLE_NAME + " pe ON iv." + VendaItem.COLUNA_VENDA_ID + " = pe." + Venda.COLUNA_ID + " " +
                     "WHERE strftime('%Y', pe." + Venda.COLUNA_DATA + ") = ? AND " +
-                    "strftime('%m', pe." + Venda.COLUNA_DATA + ") = ? " +
+                    "strftime('%m', pe." + Venda.COLUNA_DATA + ") = ? AND " +
+                    "iv."+VendaItem.COLUNA_USER_ID + " = ? " +
                     "GROUP BY p." + Vinho.COLUNA_TIPO + " " +
                     "ORDER BY quantidade_vendida DESC;";
 
             // Format the year and month for the query
-            String[] selectionArgs = {String.valueOf(year), String.format("%02d", month)};
+            String[] selectionArgs = {String.valueOf(year), String.format("%02d", month), userId};
 
             // Execute the query
             cursor = db.rawQuery(query, selectionArgs);
@@ -102,9 +111,8 @@ public class VendaItemDAO extends AbstrataDAO {
         VendaItem vendaItem = null;
         try {
             Open();
-
-            String selection = VendaItem.COLUNA_ID + " = ?";
-            String[] selectionArgs = {id};
+            String selection = VendaItem.COLUNA_ID + " = ? AND "+ VendaItem.COLUNA_USER_ID + " = ? ";
+            String[] selectionArgs = {id, userId};
 
             Cursor cursor = db.query(VendaItem.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
 
@@ -116,6 +124,7 @@ public class VendaItemDAO extends AbstrataDAO {
                 vendaItem.setQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_QUANTIDADE)));
                 vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO)));
                 vendaItem.setPrecoTotal(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
+                vendaItem.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_USER_ID)));
             }
             if (cursor != null) {
                 cursor.close();
@@ -134,8 +143,8 @@ public class VendaItemDAO extends AbstrataDAO {
             Open();
 
             // Define the selection and arguments for the query
-            String selection = VendaItem.COLUNA_VENDA_ID + " = ?";
-            String[] selectionArgs = {id};
+            String selection = VendaItem.COLUNA_VENDA_ID + " = ? AND "+ VendaItem.COLUNA_USER_ID + " = ? ";
+            String[] selectionArgs = {id, userId};
 
             // Perform the query
             cursor = db.query(VendaItem.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
@@ -150,6 +159,7 @@ public class VendaItemDAO extends AbstrataDAO {
                     vendaItem.setQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_QUANTIDADE)));
                     vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO)));
                     vendaItem.setPrecoTotal(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
+                    vendaItem.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_USER_ID)));
 
                     // Add the vendaItem to the list
                     vendaItems.add(vendaItem);
@@ -178,6 +188,7 @@ public class VendaItemDAO extends AbstrataDAO {
             contentValues.put(VendaItem.COLUNA_QUANTIDADE, vendaItem.getQuantidade());
             contentValues.put(VendaItem.COLUNA_PRECO, vendaItem.getPreco());
             contentValues.put(VendaItem.COLUNA_PRECO_TOTAL, vendaItem.getPrecoTotal());
+            contentValues.put(VendaItem.COLUNA_USER_ID, vendaItem.getUserId());
 
             rowsAffected = db.update(VendaItem.TABLE_NAME, contentValues, VendaItem.COLUNA_ID + " = ?",
                     new String[]{vendaItem.getId()});
@@ -207,7 +218,11 @@ public class VendaItemDAO extends AbstrataDAO {
         List<VendaItem> vendaItems = new ArrayList<>();
         try {
             Open();
-            Cursor cursor = db.query(VendaItem.TABLE_NAME, colunas, null, null, null, null, null);
+
+            String selection = VendaItem.COLUNA_USER_ID + " = ?";
+            String[] selectionArgs = {userId};
+
+            Cursor cursor = db.query(VendaItem.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
 
             if (cursor != null) {
                 while (cursor.moveToNext()) {
@@ -217,7 +232,8 @@ public class VendaItemDAO extends AbstrataDAO {
                     vendaItem.setProdutoId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRODUTO_ID)));
                     vendaItem.setQuantidade(cursor.getInt(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_QUANTIDADE)));
                     vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO)));
-                    vendaItem.setPreco(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
+                    vendaItem.setPrecoTotal(cursor.getDouble(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_PRECO_TOTAL)));
+                    vendaItem.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(VendaItem.COLUNA_USER_ID)));
                     vendaItems.add(vendaItem);
                 }
                 cursor.close();

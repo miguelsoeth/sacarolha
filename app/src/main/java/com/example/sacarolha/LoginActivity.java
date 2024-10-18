@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnEntrar;
 
     EditText editUser, editPassword;
+    TextView textRegistrar;
     CheckBox checkLembrar;
 
     @Override
@@ -56,6 +58,14 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     acceptLogin();
                 }
+            }
+        });
+
+        textRegistrar = findViewById(R.id.textRegistrar);
+        textRegistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToRegister();
             }
         });
 
@@ -132,6 +142,11 @@ public class LoginActivity extends AppCompatActivity {
         Intent it = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(it);
         finish();
+    }
+
+    private void goToRegister() {
+        Intent it = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(it);
     }
 
     private void registerOnFirstRun() {

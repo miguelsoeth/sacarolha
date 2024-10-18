@@ -13,6 +13,8 @@
     <string name="cadastrar_cliente">Cadastrar cliente</string>
     <string name="dados_basicos">Dados básicos</string>
     <string name="endereco">Endereço</string>
+    <string name="underline_registrar_usuario"><u>Registrar usuário</u></string>
+    <string name="underline_ja_possui_conta"><u>Já possui conta?</u></string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

@@ -2,13 +2,16 @@ package com.example.sacarolha.database.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 
 import com.example.sacarolha.database.DBOpenHelper;
 import com.example.sacarolha.database.model.Cliente;
 import com.example.sacarolha.database.model.Venda;
 import com.example.sacarolha.database.model.VendaItem;
 import com.example.sacarolha.database.model.Vinho;
+import com.example.sacarolha.util.Shared;
 import com.example.sacarolha.util.model.ProdutoTotal;
 
 import java.math.BigDecimal;
@@ -33,8 +36,12 @@ public class ClienteDAO extends AbstrataDAO {
             Cliente.COLUNA_USER_ID // Foreign key to User table
     };
 
+    String userId;
+
     public ClienteDAO(Context context) {
         db_helper = new DBOpenHelper(context);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        userId = preferences.getString(Shared.KEY_USER_ID, "");
     }
 
     public Cliente getClienteForVenda(Venda venda) {
@@ -128,10 +135,11 @@ public class ClienteDAO extends AbstrataDAO {
         try {
             Open();
 
-            String selection = Cliente.COLUNA_ID + " = ?";
-            String[] selectionArgs = {id};
+            String selection = Cliente.COLUNA_ID + " = ? AND " + Cliente.COLUNA_USER_ID + " = ?";
+            String[] selectionArgs = {id, userId};
 
             Cursor cursor = db.query(Cliente.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
+
 
             if (cursor != null && cursor.moveToFirst()) {
                 cliente = new Cliente();
@@ -177,8 +185,10 @@ public class ClienteDAO extends AbstrataDAO {
             contentValues.put(Cliente.COLUNA_ESTADO, cliente.getEstado());
             contentValues.put(Cliente.COLUNA_USER_ID, cliente.getUserId()); // Update foreign key reference
 
-            rowsAffected = db.update(Cliente.TABLE_NAME, contentValues, Cliente.COLUNA_ID + " = ?",
-                    new String[]{cliente.getId()});
+            String whereClause = Cliente.COLUNA_ID + " = ? AND " + Cliente.COLUNA_USER_ID + " = ?";
+            String[] whereArgs = {cliente.getId(), userId};
+
+            rowsAffected = db.update(Cliente.TABLE_NAME, contentValues, whereClause, whereArgs);
         } finally {
             Close();
         }
@@ -191,8 +201,10 @@ public class ClienteDAO extends AbstrataDAO {
         int rowsDeleted = 0;
         try {
             Open();
-            rowsDeleted = db.delete(Cliente.TABLE_NAME, Cliente.COLUNA_ID + " = ?",
-                    new String[]{id});
+            String whereClause = Cliente.COLUNA_ID + " = ? AND " + Cliente.COLUNA_USER_ID + " = ?";
+            String[] whereArgs = {id, userId};
+
+            rowsDeleted = db.delete(Cliente.TABLE_NAME, whereClause, whereArgs);
         } finally {
             Close();
         }
@@ -205,7 +217,10 @@ public class ClienteDAO extends AbstrataDAO {
         List<Cliente> clientes = new ArrayList<>();
         try {
             Open();
-            Cursor cursor = db.query(Cliente.TABLE_NAME, colunas, null, null, null, null, null);
+            String selection = Cliente.COLUNA_USER_ID + " = ?";
+            String[] selectionArgs = {userId};
+
+            Cursor cursor = db.query(Cliente.TABLE_NAME, colunas, selection, selectionArgs, null, null, null);
 
             if (cursor != null) {
                 while (cursor.moveToNext()) {
