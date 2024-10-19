@@ -51,7 +51,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Descrição"
+                            android:text="@string/descri_o"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="30sp"/>
                     </LinearLayout>
@@ -64,7 +64,7 @@
                         android:layout_height="50sp"
                         android:layout_marginBottom="10sp"
                         android:padding="10sp"
-                        android:hint="Nome"
+                        android:hint="@string/nome"
                         android:singleLine="true"
                         android:fontFamily="@font/zain_regular"
                         android:textSize="20sp"
@@ -88,7 +88,7 @@
                         android:layout_height="50sp"
                         android:layout_marginBottom="10sp"
                         android:padding="10sp"
-                        android:hint="Ano da safra"
+                        android:hint="@string/ano_da_safra"
                         android:maxLength="4"
                         android:singleLine="true"
                         android:fontFamily="@font/zain_regular"
@@ -127,7 +127,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Dados de controle"
+                            android:text="@string/dados_de_controle"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="30sp"/>
                     </LinearLayout>
@@ -148,7 +148,7 @@
                             android:layout_gravity="start"
                             android:layout_marginBottom="10sp"
                             android:padding="10sp"
-                            android:hint="Preço"
+                            android:hint="@string/pre_o"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="20sp"
                             android:textColorHint="@color/transparent_white"
@@ -166,7 +166,7 @@
                             android:layout_gravity="start"
                             android:layout_marginBottom="10sp"
                             android:padding="10sp"
-                            android:hint="Estoque"
+                            android:hint="@string/estoque"
                             android:inputType="number"
                             android:singleLine="true"
                             android:fontFamily="@font/zain_regular"
@@ -197,7 +197,7 @@
                                 android:layout_weight="0.85"
                                 android:layout_height="50sp"
                                 android:padding="10sp"
-                                android:hint="Código do produto"
+                                android:hint="@string/codigo_do_produto"
                                 android:singleLine="true"
                                 android:background="@null"
                                 android:fontFamily="@font/zain_regular"
@@ -234,7 +234,7 @@
                 android:layout_width="250sp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/light_green"
-                android:text="Salvar" />
+                android:text="@string/salvar" />
 
         </LinearLayout>
 

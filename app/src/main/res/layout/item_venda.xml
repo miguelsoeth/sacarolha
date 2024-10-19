@@ -38,7 +38,7 @@
                         android:id="@+id/text_cliente_nome"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nome"
+                        android:text="@string/nome"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="25sp"
                         android:singleLine="true"
@@ -50,7 +50,7 @@
                         android:fontFamily="@font/zain_regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Data"
+                        android:text="@string/data"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -72,7 +72,7 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:fontFamily="@font/zain_bold"
-                    android:text="Price"
+                    android:text="@string/pre_o"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:textSize="20sp"

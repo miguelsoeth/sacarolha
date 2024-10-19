@@ -20,13 +20,12 @@
             android:layout_height="30sp"
             android:layout_gravity="center"
             android:src="@drawable/bottombar_relatorios"
-            android:contentDescription="Home"
             app:tint="@color/vector_color_state"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Relatórios"
+            android:text="@string/relat_rios"
             android:textAlignment="center"
             android:fontFamily="@font/zain_regular"
             app:tint="@color/vector_color_state"
@@ -47,13 +46,12 @@
             android:layout_height="30sp"
             android:layout_gravity="center"
             android:src="@drawable/bottombar_vinhos"
-            android:contentDescription="Home"
             app:tint="@color/vector_color_state"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vinhos"
+            android:text="@string/vinhos"
             android:textAlignment="center"
             android:fontFamily="@font/zain_regular"
             app:tint="@color/vector_color_state"
@@ -74,13 +72,12 @@
             android:layout_height="30sp"
             android:layout_gravity="center"
             android:src="@drawable/bottombar_clientes"
-            android:contentDescription="Home"
             app:tint="@color/vector_color_state"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Clientes"
+            android:text="@string/clientes"
             android:textAlignment="center"
             android:fontFamily="@font/zain_regular"
             app:tint="@color/vector_color_state"
@@ -101,13 +98,12 @@
             android:layout_height="30sp"
             android:layout_gravity="center"
             android:src="@drawable/bottombar_vender"
-            android:contentDescription="Home"
             app:tint="@color/vector_color_state"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vender"
+            android:text="@string/vender"
             android:textAlignment="center"
             android:fontFamily="@font/zain_regular"
             app:tint="@color/vector_color_state"

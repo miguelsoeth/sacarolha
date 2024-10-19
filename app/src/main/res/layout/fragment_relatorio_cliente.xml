@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Relatório"
+                android:text="@string/relat_rio"
                 android:fontFamily="@font/zain_bold"
                 android:textSize="30sp"/>
 
@@ -83,7 +83,7 @@
                             android:id="@+id/textNome"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Ana Laura"
+                            android:text="@string/nome"
                             android:textAlignment="center"
                             android:fontFamily="@font/zain_bold"
                             android:textSize="30sp"/>
@@ -98,7 +98,7 @@
                             android:id="@+id/textDocumento"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Documento: 13.850.666-0001/80"
+                            android:text="@string/documento"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="20sp"/>
 
@@ -106,7 +106,7 @@
                             android:id="@+id/textNumero"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Telefone: (48) 99845-2242"
+                            android:text="@string/telefone"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="20sp"/>
 
@@ -114,7 +114,7 @@
                             android:id="@+id/textEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Email: anacoan@gmail.com"
+                            android:text="@string/email"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="20sp"/>
 
@@ -122,7 +122,7 @@
                             android:id="@+id/textEndereco"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Santa Catarina - Criciúma"
+                            android:text="@string/estado_cidade"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="20sp"/>
 
@@ -141,14 +141,14 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/zain_bold"
                             android:textSize="20sp"
-                            android:text="Total de vinhos adquiridos: 990 garrafas"
+                            android:text="@string/total_vendido_0_vinhos_este_mes"
                             />
 
                         <TextView
                             android:id="@+id/textTotalGasto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Valor total gasto: R$ 12.930,40"
+                            android:text="@string/receita_total_rs_0_00_em_vendas"
                             android:fontFamily="@font/zain_bold"
                             android:textSize="20sp"
                             />
@@ -159,7 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
-                        android:text="Vinhos adquiridos"
+                        android:text="@string/vinhos_adquiridos"
                         android:layout_marginVertical="5sp"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="30sp"/>
@@ -185,7 +185,7 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Compartilhar"
+            android:text="@string/compartilhar"
             android:fontFamily="@font/zain_regular"
             android:textSize="20sp"
             android:background="@drawable/bkg_dark_purple"

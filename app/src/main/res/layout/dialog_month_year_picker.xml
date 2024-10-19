@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Escolha o Mês e o Ano"
+        android:text="@string/escolha_o_mes_e_o_ano"
         android:fontFamily="@font/zain_bold"
         android:textSize="30sp"/>
 
@@ -29,7 +29,7 @@
                 android:fontFamily="@font/zain_regular"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:text="Mês" />
+                android:text="@string/mes" />
 
             <NumberPicker
                 android:id="@+id/monthPicker"
@@ -50,7 +50,7 @@
                 android:fontFamily="@font/zain_regular"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:text="Ano"
+                android:text="@string/ano"
                 />
 
             <NumberPicker
@@ -66,5 +66,5 @@
         android:id="@+id/buttonOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OK" />
+        android:text="@string/ok" />
 </LinearLayout>

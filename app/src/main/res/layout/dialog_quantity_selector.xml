@@ -28,7 +28,7 @@
                 android:textAlignment="center"
                 android:textSize="22sp"
                 android:fontFamily="@font/zain_regular"
-                android:text="Name"
+                android:text="@string/nome"
                 android:textStyle="bold"
                 android:singleLine="true"
                 android:ellipsize="end"
@@ -78,7 +78,7 @@
                         android:id="@+id/text_vinho_tipo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tipo"
+                        android:text="@string/tipo"
                         android:fontFamily="@font/zain_bold"
                         android:singleLine="true"
                         android:ellipsize="end"
@@ -90,7 +90,7 @@
                         android:fontFamily="@font/zain_regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Safra"
+                        android:text="@string/safra"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:fontFamily="@font/zain_bold"
-                    android:text="Price"
+                    android:text="@string/price"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:textSize="20sp"
@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/zain_regular"
         android:textSize="18sp"
-        android:text="Quantidade disponível"
+        android:text="@string/quantidade_disponivel"
         android:textAlignment="center"
         />
 
@@ -160,7 +160,7 @@
                 android:layout_width="60sp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="0"
+                android:text="@string/zero"
                 android:maxLength="5"
                 android:background="@null"
                 android:textColor="@android:color/black"
@@ -192,7 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10sp"
             android:backgroundTint="@color/medium_purple"
-            android:text="Cancelar"/>
+            android:text="@string/cancelar"/>
 
 
         <Button
@@ -201,7 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10sp"
             android:backgroundTint="@color/dark_purple"
-            android:text="Adicionar"/>
+            android:text="@string/adicionar"/>
 
     </LinearLayout>
 

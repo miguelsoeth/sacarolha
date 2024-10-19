@@ -34,7 +34,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Relatório mensal"
+                            android:text="@string/relat_rio_mensal"
                             android:fontFamily="@font/zain_bold"
                             android:textSize="40sp"/>
 
@@ -61,7 +61,7 @@
                                 android:background="@null"
                                 android:clickable="true"
                                 android:focusable="false"
-                                android:text="MONTH OF YYYY"
+                                android:text="@string/data"
                                 android:textSize="35sp" />
 
                             <ImageView
@@ -81,14 +81,14 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="22sp"
-                            android:text="Total Vendido: 0 Vinhos este Mês"
+                            android:text="@string/total_vendido_0_vinhos_este_mes"
                             />
 
                         <TextView
                             android:id="@+id/text_valor_total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Receita Total: R$ 0,00 em Vendas!"
+                            android:text="@string/receita_total_rs_0_00_em_vendas"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="22sp"
                             />
@@ -104,7 +104,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Ranking"
+                            android:text="@string/ranking"
                             android:fontFamily="@font/zain_bold"
                             android:textSize="25sp"
                             />
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bkg_light_green"
                 app:backgroundTint="@null"
-                android:text="Relatório por cliente" />
+                android:text="@string/relat_rio_por_cliente" />
 
         </LinearLayout>
 

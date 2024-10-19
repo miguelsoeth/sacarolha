@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Revise o pedido"
+        android:text="@string/revise_o_pedido"
         android:fontFamily="@font/zain_bold"
         android:textSize="30sp"/>
 
@@ -26,7 +26,7 @@
             android:textAlignment="center"
             android:textSize="22sp"
             android:fontFamily="@font/zain_regular"
-            android:text="Marcos"
+            android:text=""
             android:textStyle="bold"
             android:singleLine="true"
             android:ellipsize="end"
@@ -88,7 +88,7 @@
             android:fontFamily="@font/zain_regular"
             android:singleLine="true"
             android:textSize="20sp"
-            android:text="Total:"
+            android:text="@string/total"
             android:textAlignment="textEnd"
 
             />
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:fontFamily="@font/zain_bold"
-                android:text="R$ 599,39"
+                android:text=""
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textSize="20sp"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10sp"
             android:backgroundTint="@color/medium_purple"
-            android:text="Cancelar"/>
+            android:text="@string/cancelar"/>
 
         <Button
             android:id="@+id/btnConfirmar"
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10sp"
             android:backgroundTint="@color/dark_purple"
-            android:text="Confirmar"/>
+            android:text="@string/confirmar"/>
 
     </LinearLayout>
 

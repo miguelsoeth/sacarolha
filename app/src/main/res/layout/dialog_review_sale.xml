@@ -32,7 +32,7 @@
                 android:textAlignment="center"
                 android:textSize="22sp"
                 android:fontFamily="@font/zain_regular"
-                android:text="Marcos"
+                android:text="@string/nome"
                 android:textStyle="bold"
                 android:singleLine="true"
                 android:ellipsize="end"
@@ -45,7 +45,7 @@
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:fontFamily="@font/zain_regular"
-                android:text="Marcos"
+                android:text="@string/documento"
                 android:singleLine="true"
                 android:ellipsize="end"
                 />
@@ -106,7 +106,7 @@
                 android:fontFamily="@font/zain_regular"
                 android:singleLine="true"
                 android:textSize="20sp"
-                android:text="Total:"
+                android:text="@string/total"
                 android:textAlignment="textEnd"
 
                 />
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:fontFamily="@font/zain_bold"
-                    android:text="R$ 599,39"
+                    android:text="@string/price"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:textSize="20sp"
@@ -151,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30sp"
             android:backgroundTint="@color/dark_purple"
-            android:text="Compartilhar"/>
+            android:text="@string/compartilhar"/>
 
         <Button
             android:id="@+id/btnCancelar"
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30sp"
             android:backgroundTint="@color/medium_purple"
-            android:text="Fechar"/>
+            android:text="@string/fechar"/>
 
     </LinearLayout>
 

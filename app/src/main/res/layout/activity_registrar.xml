@@ -22,7 +22,8 @@
             android:layout_width="match_parent">
 
             <ImageView
-                android:src="@drawable/wineglass_top"
+                android:src="@drawable/wineglass_full"
+                android:contentDescription="@string/logo_do_aplicativo"
                 android:layout_width="150sp"
                 android:layout_height="150sp"
                 android:layout_gravity="center_horizontal"/>
@@ -104,7 +105,7 @@
                     android:textColorHint="@color/transparent_white"
                     android:textColor="@color/white"
                     android:background="@drawable/bkg_dark_purple_rounded"
-                    android:hint="Digite seu email"/>
+                    android:hint="@string/digite_seu_email"/>
 
                 <EditText
                     android:id="@+id/editUser"

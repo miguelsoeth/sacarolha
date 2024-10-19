@@ -34,7 +34,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Carrinho"
+                        android:text="@string/carrinho"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="30sp"/>
 
@@ -60,7 +60,7 @@
                             android:fontFamily="@font/zain_bold"
                             android:gravity="center"
                             android:textSize="20sp"
-                            android:text="A"
+                            android:text="@string/price"
                             />
 
                         <Button
@@ -79,7 +79,6 @@
                 </LinearLayout>
 
                 <ListView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +100,7 @@
                     android:fontFamily="@font/zain_regular"
                     android:textSize="20sp"
                     android:textColor="@color/white"
-                    android:text="Pesquisar vinho"
+                    android:text="@string/pesquisar_vinho"
                     />
 
                 <ImageView
@@ -129,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bkg_light_green"
                 app:backgroundTint="@null"
-                android:text="Escolher Cliente"
+                android:text="@string/escolher_cliente"
                 />
 
         </LinearLayout>

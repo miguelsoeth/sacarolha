@@ -36,7 +36,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Vinhos"
+                        android:text="@string/vinhos"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="40sp"/>
 
@@ -45,7 +45,7 @@
                         android:layout_width="160sp"
                         android:layout_height="40sp"
 
-                        android:text="Filtros"
+                        android:text="@string/filtros"
                         android:textSize="16sp"
                         android:fontFamily="@font/zain_bold"
                         android:layout_gravity="center"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bkg_light_green"
                 app:backgroundTint="@null"
-                android:text="Cadastrar vinho"
+                android:text="@string/cadastrar_vinho"
                 />
 
         </LinearLayout>

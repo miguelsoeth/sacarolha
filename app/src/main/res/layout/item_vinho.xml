@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:fontFamily="@font/zain_regular"
-                android:text="Name"
+                android:text="@string/nome"
                 android:textAlignment="center"
                 android:layout_marginHorizontal="10sp"
                 android:textStyle="bold"
@@ -75,7 +75,7 @@
                         android:id="@+id/text_vinho_tipo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tipo"
+                        android:text="@string/tipo"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="20sp"
                         />
@@ -85,7 +85,7 @@
                         android:fontFamily="@font/zain_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Safra"
+                        android:text="@string/safra"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -107,7 +107,7 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:fontFamily="@font/zain_bold"
-                    android:text="Price"
+                    android:text="@string/pre_o"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:textSize="20sp"

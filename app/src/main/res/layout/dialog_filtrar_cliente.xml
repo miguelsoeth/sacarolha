@@ -20,12 +20,12 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="40sp"
                 android:fontFamily="@font/zain_bold"
-                android:text="Filtrar Clientes"
+                android:text="@string/filtrar_clientes"
                 android:textStyle="bold"
                 android:singleLine="true"
                 android:ellipsize="end"
@@ -59,7 +59,7 @@
             android:padding="8sp"
             android:singleLine="true"
 
-            android:hint="Nome"
+            android:hint="@string/nome"
 
             android:fontFamily="@font/zain_regular"
             android:background="@drawable/bkg_light_purple_rounded"
@@ -76,7 +76,7 @@
             android:padding="8sp"
             android:singleLine="true"
 
-            android:hint="Documento"
+            android:hint="@string/documento"
 
             android:maxLength="18"
             android:inputType="number"
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10sp"
                 android:backgroundTint="@color/dark_deep_red"
-                android:text="Cancelar"/>
+                android:text="@string/cancelar"/>
 
             <Button
                 android:id="@+id/btnFiltrar"
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10sp"
                 android:backgroundTint="@color/dark_purple"
-                android:text="Filtrar"/>
+                android:text="@string/filtrar"/>
 
         </LinearLayout>
 

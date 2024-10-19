@@ -6,12 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ClientesFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -36,7 +30,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Adicionar item"
+                        android:text="@string/adicionar_item"
                         android:fontFamily="@font/zain_bold"
                         android:textSize="30sp"/>
 
@@ -52,7 +46,6 @@
                 </LinearLayout>
 
                 <ListView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -65,7 +58,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Filtros"
+                android:text="@string/filtros"
                 android:fontFamily="@font/zain_regular"
                 android:textSize="20sp"
                 android:background="@drawable/bkg_dark_purple"
@@ -73,9 +66,5 @@
                 />
 
         </LinearLayout>
-
-    </ScrollView>
-
-
 
 </FrameLayout>

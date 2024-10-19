@@ -26,7 +26,7 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cadastrar Vinho"
+                    android:text="@string/cadastrar_vinho"
                     android:fontFamily="@font/zain_bold"
                     android:textSize="40sp"
                     android:layout_marginHorizontal="10sp"/>
@@ -66,7 +66,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Descrição"
+                            android:text="@string/descri_o"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="30sp"/>
                     </LinearLayout>
@@ -79,7 +79,7 @@
                         android:layout_height="50sp"
                         android:layout_marginBottom="10sp"
                         android:padding="10sp"
-                        android:hint="Nome"
+                        android:hint="@string/nome"
                         android:singleLine="true"
                         android:fontFamily="@font/zain_regular"
                         android:textSize="20sp"
@@ -103,7 +103,7 @@
                         android:layout_height="50sp"
                         android:layout_marginBottom="10sp"
                         android:padding="10sp"
-                        android:hint="Ano da safra"
+                        android:hint="@string/ano_da_safra"
                         android:singleLine="true"
                         android:maxLength="4"
                         android:fontFamily="@font/zain_regular"
@@ -142,7 +142,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Dados de controle"
+                            android:text="@string/dados_de_controle"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="30sp"/>
                     </LinearLayout>
@@ -162,7 +162,7 @@
                             android:layout_gravity="start"
                             android:layout_marginBottom="10sp"
                             android:padding="10sp"
-                            android:hint="Preço"
+                            android:hint="@string/pre_o"
                             android:singleLine="true"
                             android:fontFamily="@font/zain_regular"
                             android:textSize="20sp"
@@ -181,7 +181,7 @@
                             android:layout_gravity="start"
                             android:layout_marginBottom="10sp"
                             android:padding="10sp"
-                            android:hint="Estoque"
+                            android:hint="@string/estoque"
                             android:singleLine="true"
                             android:inputType="number"
                             android:fontFamily="@font/zain_regular"
@@ -212,7 +212,7 @@
                                 android:layout_weight="0.85"
                                 android:layout_height="50sp"
                                 android:padding="10sp"
-                                android:hint="Código do produto"
+                                android:hint="@string/c_digo_do_produto"
                                 android:background="@null"
                                 android:fontFamily="@font/zain_regular"
                                 android:singleLine="true"
@@ -249,7 +249,7 @@
                 android:layout_width="250sp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/light_green"
-                android:text="Cadastrar" />
+                android:text="@string/cadastrar" />
 
         </LinearLayout>
 
