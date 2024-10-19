@@ -23,7 +23,8 @@ public class VendaItemDAO extends AbstrataDAO {
             VendaItem.COLUNA_PRODUTO_ID,
             VendaItem.COLUNA_QUANTIDADE,
             VendaItem.COLUNA_PRECO,
-            VendaItem.COLUNA_PRECO_TOTAL
+            VendaItem.COLUNA_PRECO_TOTAL,
+            VendaItem.COLUNA_USER_ID
     };
 
     String userId;
