@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
         dialogHandler.showMonthSelectorDialog(getContext(), editData, new DialogHandler.MonthChangeListener() {
             @Override
             public void OnMonthChanged(String monthName, int selectedMonth, int selectedYear) {
-                editData.setText(StringHandler.capitalize(monthName) + " de " + selectedYear);
+                editData.setText(getString(R.string.report_month_year, StringHandler.capitalize(monthName), selectedYear));
                 getValues(selectedMonth, selectedYear);
             }
         });
@@ -111,8 +111,8 @@ public class HomeFragment extends Fragment {
             totalVendas += tipo.getQuantidadeVendida();
         }
 
-        textTotalVendas.setText("Total Vendido: "+totalVendas+" Vinhos este Mês");
-        textValorTotal.setText("Receita Total: R$ " +String.format("%.2f", valorTotal)+ " em Vendas!");
+        textTotalVendas.setText(getString(R.string.total_vendido, totalVendas));
+        textValorTotal.setText(getString(R.string.receita_total, valorTotal));
         setReport(initialReport);
     }
 
@@ -127,8 +127,8 @@ public class HomeFragment extends Fragment {
             TextView textValorTotal = itemView.findViewById(R.id.text_valor_total);
 
             textTipoVinho.setText(venda.getTipoVinho());
-            textQuantidadeVendida.setText("Quantidade Vendida: " + venda.getQuantidadeVendida());
-            textValorTotal.setText("Valor Total: R$ " + String.format("%.2f", venda.getValorTotal()));
+            textQuantidadeVendida.setText(getString(R.string.quantidade_vendida, venda.getQuantidadeVendida()));
+            textValorTotal.setText(getString(R.string.valor_total_venda, venda.getValorTotal()));
 
             linearLayoutVinho.addView(itemView);
         }

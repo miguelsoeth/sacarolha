@@ -67,7 +67,7 @@ public class SelecionarClienteFragment extends Fragment {
                 dialogHandler.showClientFiltersDialog(getContext(), filtroString, new DialogHandler.getFilterListener() {
                     @Override
                     public void onFilterSelected(String filter, int quantity) {
-                        btnFiltrar.setText(quantity != 0 ? "Filtros(" + quantity + ")" : "Filtros");
+                        btnFiltrar.setText(quantity != 0 ? String.format(getString(R.string.filtros_value), quantity) : getString(R.string.filtros));
                         filtroString = filter;
                         adapter.getFilter().filter(filter);
                     }

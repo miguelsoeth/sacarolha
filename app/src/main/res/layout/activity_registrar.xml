@@ -152,7 +152,7 @@
                     android:fontFamily="@font/zain_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/underline_registrar_usuario"
+                    android:text="@string/underline_ja_possui_conta"
                     android:textSize="16sp"
                     android:paddingHorizontal="30sp"
                     android:paddingVertical="10sp"

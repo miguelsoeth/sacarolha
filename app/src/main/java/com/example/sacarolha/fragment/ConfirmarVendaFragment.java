@@ -109,7 +109,7 @@ public class ConfirmarVendaFragment extends Fragment {
                         getVendaAndItens(cliente);
 
                         LocalDateTime now = LocalDateTime.now();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getString(R.string.full_date_format));
                         String data = now.format(formatter);
                         Double total = MaskHandler.getPriceValue(totalCarrinho.getText().toString());
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -137,7 +137,7 @@ public class ConfirmarVendaFragment extends Fragment {
                         CarrinhoHandler carrinhoHandler = new CarrinhoHandler(getContext());
                         carrinhoHandler.LimparCarrinho();
 
-                        Toast.makeText(getContext(), "Venda realizada com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.venda_realizada_com_sucesso), Toast.LENGTH_SHORT).show();
 
                         requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
@@ -159,7 +159,7 @@ public class ConfirmarVendaFragment extends Fragment {
                 dialogHandler.showClientFiltersDialog(getContext(), filtroString, new DialogHandler.getFilterListener() {
                     @Override
                     public void onFilterSelected(String filter, int quantity) {
-                        btnFiltrar.setText(quantity != 0 ? "Filtros(" + quantity + ")" : "Filtros");
+                        btnFiltrar.setText(quantity != 0 ? String.format(getString(R.string.filtros_value), quantity) : getString(R.string.filtros));
                         filtroString = filter;
                         adapter.getFilter().filter(filter);
                     }
@@ -173,7 +173,7 @@ public class ConfirmarVendaFragment extends Fragment {
 
     private void getVendaAndItens(Cliente cliente) {
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getString(R.string.full_date_format));
         String data = now.format(formatter);
         Double totalValue = MaskHandler.getPriceValue(total);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());

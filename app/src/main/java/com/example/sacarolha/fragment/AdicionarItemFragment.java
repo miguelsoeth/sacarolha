@@ -81,7 +81,7 @@ public class AdicionarItemFragment extends Fragment {
                 dialogHandler.showVinhosFiltersDialog(getContext(), filtroString, new DialogHandler.getFilterListener() {
                     @Override
                     public void onFilterSelected(String filter, int quantity) {
-                        btnFiltro.setText(quantity != 0 ? "Filtros(" + quantity + ")" : "Filtros");
+                        btnFiltro.setText(quantity != 0 ? String.format(getString(R.string.filtros_value), quantity) : getString(R.string.filtros));
                         filtroString = filter;
                         adapter.getFilter().filter(filter);
                     }

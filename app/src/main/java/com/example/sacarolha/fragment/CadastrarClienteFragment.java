@@ -94,7 +94,7 @@ public class CadastrarClienteFragment extends Fragment {
                     long result = clienteDAO.insert(cliente);
 
                     if (result > 0) {
-                        Toast.makeText(getContext(), "Cliente cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.cliente_cadastrado_com_sucesso), Toast.LENGTH_SHORT).show();
                         requireActivity().getSupportFragmentManager().popBackStack();
                     }
                 }

@@ -20,11 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sacarolha"
         tools:targetApi="31">
-        <activity
-            android:name=".CalendarActivity"
-            android:exported="false"
-            android:label="@string/title_activity_calendar"
-            android:theme="@style/Theme.Sacarolha" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

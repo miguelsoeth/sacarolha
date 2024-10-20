@@ -80,7 +80,7 @@ public class RelatorioClienteFragment extends Fragment {
                     ImageHandler.shareImage(getContext(), imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Não foi possível compartilhar a imagem.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.share_image_failed), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -124,8 +124,8 @@ public class RelatorioClienteFragment extends Fragment {
             TextView textValorTotal = itemView.findViewById(R.id.text_valor_total);
 
             textTipoVinho.setText(produto.getProdutoNome());
-            textQuantidadeVendida.setText("Quantidade Obtida: " + produto.getTotalQuantidade());
-            textValorTotal.setText("Valor Total: R$ " + String.format("%.2f", produto.getTotalGasto()));
+            textQuantidadeVendida.setText(getString(R.string.quantidade_obtida, produto.getTotalQuantidade()));
+            textValorTotal.setText(getString(R.string.valor_total_gasto, String.format("%.2f", produto.getTotalGasto())));
 
             produtoTotalContent.addView(itemView);
 
@@ -133,8 +133,8 @@ public class RelatorioClienteFragment extends Fragment {
             totalVinhosAdquiridos = totalVinhosAdquiridos + produto.getTotalQuantidade();
         }
 
-        textTotalGasto.setText("Valor total gasto: "+MaskHandler.applyPriceMask(String.valueOf(valorTotalGasto)));
-        textTotalAdquirido.setText("Total adquirido: "+totalVinhosAdquiridos);
+        textTotalGasto.setText(getString(R.string.valor_total_gasto_masked, MaskHandler.applyPriceMask(String.valueOf(valorTotalGasto))));
+        textTotalAdquirido.setText(getString(R.string.total_adquirido, totalVinhosAdquiridos));
     }
 
     private void setClienteValues(Cliente c) {
@@ -144,9 +144,8 @@ public class RelatorioClienteFragment extends Fragment {
         textEmail.setText(c.getEmail());
         if (Objects.equals(c.getCidade(), "")) {
             textEndereco.setText(c.getEstado());
-        }
-        else {
-            textEndereco.setText(String.format(getString(R.string.estado_cidade), c.getEstado(), !Objects.equals(c.getCidade(), "") ? c.getCidade() : "N/A"));
+        } else {
+            textEndereco.setText(String.format(getString(R.string.estado_cidade), c.getEstado(), !Objects.equals(c.getCidade(), "") ? c.getCidade() : getString(R.string.na)));
         }
     }
 }

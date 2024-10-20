@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         topbarUsername = findViewById(R.id.topbarUsername);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String username = preferences.getString(Shared.KEY_USERNAME, "");
-        topbarUsername.setText(username);
+        topbarUsername.setText(Html.fromHtml(String.format(getString(R.string.ola), username), Html.FROM_HTML_MODE_LEGACY));
 
         perfilGroup = findViewById(R.id.perfilGroup);
         perfilGroup.setOnClickListener(new View.OnClickListener() {

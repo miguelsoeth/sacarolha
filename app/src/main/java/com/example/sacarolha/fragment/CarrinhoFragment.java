@@ -80,7 +80,7 @@ public class CarrinhoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (carrinho.isEmpty()) return;
-                AlertHandler.showSimpleAlert(getContext(), "Deseja excluir o carrinho?", "A ação não pode ser desfeita", "Sim", new AlertHandler.AlertCallback() {
+                AlertHandler.showSimpleAlert(getContext(), getString(R.string.alert_excluir_carrinho), getString(R.string.alert_acao_nao_pode_ser_desfeita), getString(R.string.alert_sim), new AlertHandler.AlertCallback() {
                     @Override
                     public void onPositiveButtonClicked() {
                         carrinhoHandler.LimparCarrinho();
@@ -133,7 +133,7 @@ public class CarrinhoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(carrinho.isEmpty()) {
-                    Toast.makeText(getContext(), "Carrinho vazio! Adicione itens para prosseguir!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.alert_carrinho_vazio_adicionar_itens), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ConfirmarVendaFragment confirmarVendaFragment = ConfirmarVendaFragment.newInstance(totalCarrinho.getText().toString(), new ArrayList<>(carrinho));
@@ -150,7 +150,7 @@ public class CarrinhoFragment extends Fragment {
 
     private void ScanCode() {
         ScanOptions options = new ScanOptions();
-        options.setPrompt("Aumentar/Diminuir o volume para Ligar/Desligar o flash");
+        options.setPrompt(getString(R.string.scan_code_prompt));
         options.setBeepEnabled(false);
         options.setOrientationLocked(true);
         options.setCaptureActivity(CaptureActivity.class);
@@ -167,7 +167,7 @@ public class CarrinhoFragment extends Fragment {
                 boolean alreadyInCart = carrinho.stream().anyMatch(o -> Objects.equals(o.getCodigo(), scanCode));
 
                 if (alreadyInCart) {
-                    Toast.makeText(getContext(), "Produto já adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.produto_ja_adicionado_ao_carrinho), Toast.LENGTH_SHORT).show();
                     //Send to edit product
                 }
                 else {
@@ -175,27 +175,16 @@ public class CarrinhoFragment extends Fragment {
                     dialogHandler.showQuantitySelectorDialog(getContext(), v, new DialogHandler.QuantitySelectorListener() {
                         @Override
                         public void onQuantitySelected(Vinho vinho, int quantity) {
-                            String text = "Selected Vinho: " + vinho.getNome() + ", Quantity: " + quantity;
                             Carrinho item = new Carrinho(vinho, quantity);
-
                             carrinho.add(item);
                             carrinhoHandler.SalvarCarrinho(carrinho);
-
-//                            Double precoTotal = item.getPreco() * item.getQuantidade();
-//                            Double total = carrinhoHandler.LerValorTotalCarrinho();
-//                            total = total + precoTotal;
-//                            String priceTotal = String.valueOf(total);
-//                            String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
-//                            totalCarrinho.setText(maskedPriceTotal);
-//                            carrinhoHandler.SalvarTotalCarrinho(maskedPriceTotal);
-
                             adapter.notifyDataSetChanged();
                         }
                     });
                 }
             }
             else {
-                Toast.makeText(getContext(), "Produto não encontrado!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.produto_nao_encontrado), Toast.LENGTH_SHORT).show();
             }
         }
     });

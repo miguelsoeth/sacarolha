@@ -85,8 +85,7 @@ public class CadastrarVinhoFragment extends Fragment {
                     String userId = preferences.getString(Shared.KEY_USER_ID, "");
 
                     preco = MaskHandler.removePunctuation(preco);
-                    preco = preco.substring(0, preco.length() - 2) + "." + preco.substring(preco.length() - 2);
-                    Double parsedPreco = Double.parseDouble(preco);
+                    Double parsedPreco = MaskHandler.getPriceValue(preco);
 
                     Vinho vinho = new Vinho(nome, tipo, safra, parsedPreco, estoque, codigo, userId);
 
@@ -94,7 +93,7 @@ public class CadastrarVinhoFragment extends Fragment {
                     long result = vinhoDAO.insert(vinho);
 
                     if (result > 0) {
-                        Toast.makeText(getContext(), "Vinho cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.vinho_cadastrado_com_sucesso), Toast.LENGTH_SHORT).show();
                         requireActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
@@ -114,7 +113,7 @@ public class CadastrarVinhoFragment extends Fragment {
 
     private boolean ValidFields() {
         editNome.setError(null);
-        ((TextView)spinnerTipo.getSelectedView()).setError(null);
+        ((TextView) spinnerTipo.getSelectedView()).setError(null);
         editEstoque.setError(null);
         editPreco.setError(null);
         editCodigo.setError(null);
@@ -129,29 +128,29 @@ public class CadastrarVinhoFragment extends Fragment {
 
         // Validate each field and set error messages
         if (nome.isEmpty()) {
-            editNome.setError("Nome não pode estar vazio!");
+            editNome.setError(getString(R.string.error_nome_vazio));
             isOkay = false;
         }
 
         if (preco.isEmpty()) {
-            editPreco.setError("Preço não pode estar vazio!");
+            editPreco.setError(getString(R.string.error_preco_vazio));
             isOkay = false;
         }
 
         if (estoque.isEmpty()) {
-            editEstoque.setError("Estoque não pode estar vazio!");
+            editEstoque.setError(getString(R.string.error_estoque_vazio));
             isOkay = false;
         }
 
         if (spinnerTipo.getSelectedItem() == null || spinnerTipo.getSelectedItemPosition() == 0) {
-            ((TextView)spinnerTipo.getSelectedView()).setError("Selecione um tipo!");
+            ((TextView) spinnerTipo.getSelectedView()).setError(getString(R.string.error_selecionar_tipo));
             isOkay = false;
         }
 
         VinhoDAO vinhoDAO = new VinhoDAO(getContext());
         Vinho v = vinhoDAO.selectByCodigo(codigo);
         if (v != null && !codigo.isEmpty()) {
-            editCodigo.setError("Já existe vinho com este código!");
+            editCodigo.setError(getString(R.string.error_codigo_existente));
             isOkay = false;
         }
 
@@ -160,12 +159,13 @@ public class CadastrarVinhoFragment extends Fragment {
 
     private void ScanCode() {
         ScanOptions options = new ScanOptions();
-        options.setPrompt("Aumentar/Diminuir o volume para Ligar/Desligar o flash");
+        options.setPrompt(getString(R.string.scan_code_prompt));
         options.setBeepEnabled(false);
         options.setOrientationLocked(true);
         options.setCaptureActivity(CaptureActivity.class);
         barLauncher.launch(options);
     }
+
 
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if(result.getContents() != null) {

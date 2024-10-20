@@ -83,7 +83,7 @@ public class EditarClienteFragment extends Fragment {
         Cliente c = clienteDAO.selectById(mClienteId);
 
         if (c == null) {
-            Toast.makeText(getContext(), "Cliente não encontrado!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.cliente_nao_encontrado), Toast.LENGTH_SHORT).show();
         }
         else {
             Integer pos = EstadosEnum.getPosition(c.getEstado());
@@ -107,7 +107,7 @@ public class EditarClienteFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (ValidFields()) {
-                    AlertHandler.showSimpleAlert(getContext(), "Salvar alterações?", "", "Sim", new AlertHandler.AlertCallback() {
+                    AlertHandler.showSimpleAlert(getContext(), getString(R.string.salvar_alteracoes), "", getString(R.string.sim), new AlertHandler.AlertCallback() {
                         @Override
                         public void onPositiveButtonClicked() {
                             insertValues();
@@ -154,32 +154,32 @@ public class EditarClienteFragment extends Fragment {
 
         // Validate each field and set error messages
         if (documento.isEmpty()) {
-            editDocumento.setError("Documento não pode estar vazio!");
+            editDocumento.setError(getString(R.string.error_documento_vazio));
             isOkay = false;
         }
         else if(!DocumentHandler.isValidDocument(documento)) {
-            editDocumento.setError("Documento inválido");
+            editDocumento.setError(getString(R.string.error_documento_invalido));
             isOkay = false;
         }
 
         if (nome.isEmpty()) {
-            editNome.setError("Nome não pode estar vazio!");
+            editNome.setError(getString(R.string.error_nome_vazio));
             isOkay = false;
         }
 
         if (telefone.isEmpty()) {
-            editTelefone.setError("Telefone não pode estar vazio!");
+            editTelefone.setError(getString(R.string.error_telefone_vazio));
             isOkay = false;
         }
 
         if (email.isEmpty()) {
-            editMail.setError("Email não pode estar vazio!");
+            editMail.setError(getString(R.string.error_email_vazio));
             isOkay = false;
         }
 
         // Validate spinner state
         if (spinnerEstado.getSelectedItem() == null || spinnerEstado.getSelectedItemPosition() == 0) {
-            ((TextView)spinnerEstado.getSelectedView()).setError("Selecione um estado!");
+            ((TextView)spinnerEstado.getSelectedView()).setError(getString(R.string.error_selecionar_estado));
             isOkay = false;
         }
 
@@ -210,7 +210,7 @@ public class EditarClienteFragment extends Fragment {
         long result = clienteDAO.update(cliente);
 
         if (result > 0) {
-            Toast.makeText(getContext(), "Cliente salvo com sucesso!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_SHORT).show();
             requireActivity().getSupportFragmentManager().popBackStack();
         }
     }
