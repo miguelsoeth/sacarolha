@@ -31,8 +31,8 @@ public class ReportTipoAdapter extends RecyclerView.Adapter<ReportTipoAdapter.Vi
         VendaPorTipoVinho vinho = vinhoList.get(position);
         if (vinho != null) {
             holder.textTipoVinho.setText(vinho.getTipoVinho());
-            holder.textQuantidadeVendida.setText("Quantidade Vendida: " + vinho.getQuantidadeVendida());
-            holder.textValorTotal.setText("Valor Total: R$ " + String.format("%.2f", vinho.getValorTotal()));
+            holder.textQuantidadeVendida.setText(holder.itemView.getContext().getString(R.string.quantidade_vendida, vinho.getQuantidadeVendida()));
+            holder.textValorTotal.setText(holder.itemView.getContext().getString(R.string.valor_total_venda, vinho.getValorTotal()));
         }
     }
 

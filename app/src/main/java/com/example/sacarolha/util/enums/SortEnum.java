@@ -1,37 +1,38 @@
 package com.example.sacarolha.util.enums;
 
+import android.content.Context;
+
 public enum SortEnum {
-    MAIS_VENDIDOS("Mais Vendidos"),
-    MENOS_VENDIDOS("Menos Vendidos"),
-    MAIOR_RECEITA("Maior Receita"),
-    MENOR_RECEITA("Menos Receita");
+    MAIS_VENDIDOS("sort_mais_vendidos"),
+    MENOS_VENDIDOS("sort_menos_vendidos"),
+    MAIOR_RECEITA("sort_maior_receita"),
+    MENOR_RECEITA("sort_menor_receita");
 
-    private final String descricao;
+    private final String resourceName;
 
-    SortEnum(String descricao) {
-        this.descricao = descricao;
+    SortEnum(String resourceName) {
+        this.resourceName = resourceName;
     }
 
-    @Override
-    public String toString() {
-        return descricao;
+    public String getDescricao(Context context) {
+        int resId = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+        return context.getString(resId);
     }
 
-    public static String[] getNameArray() {
+    public static String[] getNameArray(Context context) {
         String[] names = new String[SortEnum.values().length];
         for (int i = 0; i < SortEnum.values().length; i++) {
-            names[i] = SortEnum.values()[i].descricao;
+            names[i] = SortEnum.values()[i].getDescricao(context);
         }
         return names;
     }
 
-    public static int getPosition(String state) {
+    public static int getPosition(Context context, String description) {
         for (int i = 0; i < SortEnum.values().length; i++) {
-            if (SortEnum.values()[i].descricao.equals(state)) {
+            if (SortEnum.values()[i].getDescricao(context).equals(description)) {
                 return i;
             }
         }
         return -1;
     }
 }
-

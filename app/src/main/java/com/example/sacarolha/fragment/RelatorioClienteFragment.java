@@ -133,7 +133,7 @@ public class RelatorioClienteFragment extends Fragment {
             totalVinhosAdquiridos = totalVinhosAdquiridos + produto.getTotalQuantidade();
         }
 
-        textTotalGasto.setText(getString(R.string.valor_total_gasto_masked, MaskHandler.applyPriceMask(String.valueOf(valorTotalGasto))));
+        textTotalGasto.setText(getString(R.string.valor_total_gasto_masked, MaskHandler.applyPriceMask(requireContext(), String.valueOf(valorTotalGasto))));
         textTotalAdquirido.setText(getString(R.string.total_adquirido, totalVinhosAdquiridos));
     }
 

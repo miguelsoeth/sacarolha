@@ -84,7 +84,7 @@ public class EditarVinhoFragment extends Fragment {
             Toast.makeText(getContext(), getString(R.string.vinho_nao_encontrado), Toast.LENGTH_SHORT).show();
         }
         else {
-            Integer pos = TiposVinhoEnum.getPosition(v.getTipo());
+            Integer pos = TiposVinhoEnum.getPosition(getContext(), v.getTipo());
             seedingUpdate = true;
             spinnerTipo.setSelection(pos);
 
@@ -94,7 +94,7 @@ public class EditarVinhoFragment extends Fragment {
                 editSafra.setText(String.valueOf(safra));
             }
             editEstoque.setText(String.valueOf(v.getEstoque()));
-            editPreco.setText(MaskHandler.applyPriceMask(String.valueOf(v.getPreco())));
+            editPreco.setText(MaskHandler.applyPriceMask(requireContext(), String.valueOf(v.getPreco())));
             editCodigo.setText(v.getCodigo());
 
         }

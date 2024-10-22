@@ -109,7 +109,7 @@ public class ConfirmarVendaFragment extends Fragment {
                         getVendaAndItens(cliente);
 
                         LocalDateTime now = LocalDateTime.now();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getString(R.string.full_date_format));
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getString(R.string.db_date_format));
                         String data = now.format(formatter);
                         Double total = MaskHandler.getPriceValue(totalCarrinho.getText().toString());
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -173,7 +173,7 @@ public class ConfirmarVendaFragment extends Fragment {
 
     private void getVendaAndItens(Cliente cliente) {
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getString(R.string.full_date_format));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getString(R.string.db_date_format));
         String data = now.format(formatter);
         Double totalValue = MaskHandler.getPriceValue(total);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());

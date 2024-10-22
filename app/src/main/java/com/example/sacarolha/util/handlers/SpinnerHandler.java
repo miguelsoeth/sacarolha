@@ -72,6 +72,7 @@ public class SpinnerHandler {
     public static <E extends Enum<E>> void configureSpinnerWithEnum_basic(Spinner spinner, Class<E> enumClass, Context context, SpinnerItemListener listener) {
 
         List<E> enumList = new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
+
         ArrayAdapter<E> adapter = new ArrayAdapter<>(context, R.layout.spinner_basic, enumList);
         adapter.setDropDownViewResource(R.layout.spinner_basic_item);
         spinner.setAdapter(adapter);

@@ -68,13 +68,13 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> implements Filterable 
         text_vinho_nome.setText(vinho.getNome());
         text_vinho_tipo.setText(vinho.getTipo());
         String price = String.valueOf(vinho.getPreco());
-        String maskedPrice = MaskHandler.applyPriceMask(price);
+        String maskedPrice = MaskHandler.applyPriceMask(getContext(), price);
         text_vinho_preco.setText(maskedPrice);
         if (vinho.getSafra() > 0) {
-            text_vinho_safra.setText("Safra " + String.valueOf(vinho.getSafra()));
+            text_vinho_safra.setText(getContext().getString(R.string.safra_data, vinho.getSafra()));
         }
         else {
-            text_vinho_safra.setText("Não-safrado");
+            text_vinho_safra.setText(getContext().getString(R.string.nao_safrado));
         }
 
         Carrinho existingItem = carrinho.stream()
@@ -91,7 +91,7 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> implements Filterable 
             public void onClick(View view) {
                 DialogHandler dialogHandler = new DialogHandler();
                 if (alreadyInCart) {
-                    Toast.makeText(getContext(), "Produto já no carrinho!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.produto_ja_adicionado_ao_carrinho), Toast.LENGTH_SHORT).show();
                     dialogHandler.showQuantitySelectorDialog(getContext(), existingItem, new DialogHandler.EditCartListener() {
                         @Override
                         public void onItemEdited(Carrinho item) {

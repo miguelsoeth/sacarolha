@@ -97,15 +97,4 @@ public class DocumentHandler {
         document = document.replaceAll("[^0-9]", "");
         return isValidCPF(document) || isValidCNPJ(document);
     }
-
-    public static void main(String[] args) {
-        // Example usage
-        String cpf = "123.456.789-09";
-        String cnpj = "12.345.678/0001-95";
-
-        System.out.println("Is valid CPF? " + isValidCPF(cpf));
-        System.out.println("Is valid CNPJ? " + isValidCNPJ(cnpj));
-        System.out.println("Is valid document (CPF or CNPJ)? " + isValidDocument(cpf));
-        System.out.println("Is valid document (CPF or CNPJ)? " + isValidDocument(cnpj));
-    }
 }

@@ -197,7 +197,7 @@ public class CarrinhoFragment extends Fragment {
             TotalDouble = TotalDouble + precoTotal;
         }
         String priceTotal = String.valueOf(TotalDouble);
-        String maskedPriceTotal = MaskHandler.applyPriceMask(priceTotal);
+        String maskedPriceTotal = MaskHandler.applyPriceMask(requireContext(), priceTotal);
         totalCarrinho.setText(maskedPriceTotal);
     }
 }

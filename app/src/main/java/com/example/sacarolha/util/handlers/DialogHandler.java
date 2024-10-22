@@ -82,17 +82,17 @@ public class DialogHandler {
         TextView text_vinho_safra = view.findViewById(R.id.text_vinho_safra);
         TextView text_vinho_estoque = view.findViewById(R.id.text_vinho_estoque);
 
-        text_vinho_estoque.setText("Estoque: " + String.valueOf(item.getEstoque()));
+        text_vinho_estoque.setText(context.getString(R.string.estoque_value, item.getEstoque()));
         text_vinho_nome.setText(item.getNome());
         text_vinho_tipo.setText(item.getTipo());
         String price = String.valueOf(item.getPreco());
-        String maskedPrice = MaskHandler.applyPriceMask(price);
+        String maskedPrice = MaskHandler.applyPriceMask(context, price);
         text_vinho_preco.setText(maskedPrice);
         if (item.getSafra() > 0) {
-            text_vinho_safra.setText("Safra " + String.valueOf(item.getSafra()));
+            text_vinho_safra.setText(context.getString(R.string.safra_data, item.getSafra()));
         }
         else {
-            text_vinho_safra.setText("Não-safrado");
+            text_vinho_safra.setText(context.getString(R.string.nao_safrado));
         }
 
         EditText quantItem = view.findViewById(R.id.quantItem);
@@ -197,17 +197,17 @@ public class DialogHandler {
         TextView text_vinho_safra = view.findViewById(R.id.text_vinho_safra);
         TextView text_vinho_estoque = view.findViewById(R.id.text_vinho_estoque);
 
-        text_vinho_estoque.setText("Estoque: " + String.valueOf(vinho.getEstoque()));
+        text_vinho_estoque.setText(context.getString(R.string.estoque_value, vinho.getEstoque()));
         text_vinho_nome.setText(vinho.getNome());
         text_vinho_tipo.setText(vinho.getTipo());
         String price = String.valueOf(vinho.getPreco());
-        String maskedPrice = MaskHandler.applyPriceMask(price);
+        String maskedPrice = MaskHandler.applyPriceMask(context, price);
         text_vinho_preco.setText(maskedPrice);
         if (vinho.getSafra() > 0) {
-            text_vinho_safra.setText("Safra " + String.valueOf(vinho.getSafra()));
+            text_vinho_safra.setText(context.getString(R.string.safra_data, vinho.getSafra()));
         }
         else {
-            text_vinho_safra.setText("Não-safrado");
+            text_vinho_safra.setText(context.getString(R.string.nao_safrado));
         }
 
         EditText quantItem = view.findViewById(R.id.quantItem);
@@ -312,13 +312,13 @@ public class DialogHandler {
         text_vinho_nome.setText(item.getNome());
         text_vinho_tipo.setText(item.getTipo());
         String price = String.valueOf(item.getPreco());
-        String maskedPrice = MaskHandler.applyPriceMask(price);
+        String maskedPrice = MaskHandler.applyPriceMask(context, price);
         text_vinho_preco.setText(maskedPrice);
         if (item.getSafra() > 0) {
-            text_vinho_safra.setText("Safra " + String.valueOf(item.getSafra()));
+            text_vinho_safra.setText(context.getString(R.string.safra_data, item.getSafra()));
         }
         else {
-            text_vinho_safra.setText("Não-safrado");
+            text_vinho_safra.setText(context.getString(R.string.nao_safrado));
         }
 
 
@@ -385,7 +385,7 @@ public class DialogHandler {
             textItemQuantidade.setText(String.valueOf(c.getQuantidade()));
             textItemNome.setText(c.getNome());
             double valor = c.getPreco() * c.getQuantidade();
-            textItemPreco.setText(MaskHandler.applyPriceMask(String.valueOf(valor)));
+            textItemPreco.setText(MaskHandler.applyPriceMask(context, String.valueOf(valor)));
 
             itemsContainer.addView(itemView);
         }
@@ -417,7 +417,7 @@ public class DialogHandler {
         TextView text_cliente_documento = view.findViewById(R.id.text_cliente_documento);
 
         textClienteNome.setText(cliente.getNome());
-        textPrecoTotal.setText(MaskHandler.applyPriceMask(String.valueOf(venda.getTotal())));
+        textPrecoTotal.setText(MaskHandler.applyPriceMask(context, String.valueOf(venda.getTotal())));
         text_cliente_documento.setText(MaskHandler.applyDocumentMask(cliente.getDocumento()));
 
         LinearLayout itemsContainer = view.findViewById(R.id.itemsContainer);
@@ -439,7 +439,7 @@ public class DialogHandler {
             textItemNome.setText(vinho.getNome());
 
             double valor = vendaItem.getPreco() * vendaItem.getQuantidade();
-            textItemPreco.setText(MaskHandler.applyPriceMask(String.valueOf(valor)));
+            textItemPreco.setText(MaskHandler.applyPriceMask(context, String.valueOf(valor)));
 
             itemsContainer.addView(itemView);
         }
@@ -458,7 +458,7 @@ public class DialogHandler {
                     ImageHandler.shareImage(context, imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(context, "Não foi possível compartilhar a imagem.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.share_image_failed), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -563,7 +563,7 @@ public class DialogHandler {
         if (filtroAtual != null) {
             String[] filtrosAtuais = getFilterValues(filtroAtual);
             if (!filtrosAtuais[0].equals(Shared.FILTER_NULL)) filtrarNome.setText(filtrosAtuais[0]);
-            if (!filtrosAtuais[1].equals(Shared.FILTER_NULL)) filtrarTipo.setSelection(TiposVinhoEnum.getPosition(filtrosAtuais[1]));
+            if (!filtrosAtuais[1].equals(Shared.FILTER_NULL)) filtrarTipo.setSelection(TiposVinhoEnum.getPosition(context, filtrosAtuais[1]));
         }
 
         dialog.show();
@@ -639,7 +639,7 @@ public class DialogHandler {
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         String monthName = Month.of(currentMonth).getDisplayName(java.time.format.TextStyle.FULL, Locale.getDefault());
-        edit.setText(StringHandler.capitalize(monthName) + " de " + currentYear);
+        edit.setText(context.getString(R.string.report_month_year, StringHandler.capitalize(monthName), currentYear));
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override

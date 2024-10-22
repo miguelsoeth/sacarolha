@@ -39,11 +39,11 @@ public class CarrinhoAdapter extends ArrayAdapter<Carrinho> {
         text_vinho_nome.setText(item.getNome());
         text_vinho_quantidade.setText(String.valueOf(item.getQuantidade()));
 
-        String maskedPriceUnt = MaskHandler.applyPriceMask(String.valueOf(item.getPreco()));
+        String maskedPriceUnt = MaskHandler.applyPriceMask(getContext(), String.valueOf(item.getPreco()));
         text_vinho_preco_unt.setText(maskedPriceUnt);
 
         Double total = item.getPreco() * item.getQuantidade();
-        String maskedPriceTotal = MaskHandler.applyPriceMask(String.valueOf(total));
+        String maskedPriceTotal = MaskHandler.applyPriceMask(getContext(), String.valueOf(total));
         text_vinho_preco_total.setText(maskedPriceTotal);
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +56,11 @@ public class CarrinhoAdapter extends ArrayAdapter<Carrinho> {
                         text_vinho_nome.setText(editedItem.getNome());
                         text_vinho_quantidade.setText(String.valueOf(editedItem.getQuantidade()));
 
-                        String maskedPriceUnt = MaskHandler.applyPriceMask(String.valueOf(editedItem.getPreco()));
+                        String maskedPriceUnt = MaskHandler.applyPriceMask(getContext(), String.valueOf(editedItem.getPreco()));
                         text_vinho_preco_unt.setText(maskedPriceUnt);
 
                         Double total = editedItem.getPreco() * editedItem.getQuantidade();
-                        String maskedPriceTotal = MaskHandler.applyPriceMask(String.valueOf(total));
+                        String maskedPriceTotal = MaskHandler.applyPriceMask(getContext(), String.valueOf(total));
                         text_vinho_preco_total.setText(maskedPriceTotal);
 
                         notifyDataSetChanged();

@@ -52,16 +52,6 @@ public class AlertHandler {
         return textView;
     }
 
-
-
-    public static void showSimpleAlert(Context context, String title, final AlertCallback callback) {
-        showSimpleAlert(context, title, "", "Ok",callback);
-    }
-
-    public static void showSimpleAlert(Context context, String title, String description, final AlertCallback callback) {
-        showSimpleAlert(context, title, description, "Ok",callback);
-    }
-
     public static void showSimpleAlert(Context context, String title, String description, String confirmText, final AlertCallback callback) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         TextView titleView = createCustomBoldTextView(context, title, TEXT_TITLE_SIZE);
@@ -85,7 +75,7 @@ public class AlertHandler {
         });
 
         // Add a Cancel button
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(context.getString(R.string.cancelar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Handle the Cancel button click

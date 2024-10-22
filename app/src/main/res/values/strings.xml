@@ -1,4 +1,9 @@
 <resources>
+    <string name="country_code">BR</string>
+    <string name="language_code">pt</string>
+    <string name="full_date_format">dd/MM/yyyy HH:mm</string>
+    <string name="db_date_format">yyyy-MM-dd HH:mm</string>
+    <string name="date_format">yyyy-MM-dd</string>
     <string name="app_name">Sacarolha</string>
     <string name="entrar">Entrar</string>
     <string name="digite_sua_senha">Digite sua senha</string>
@@ -31,7 +36,6 @@
     <string name="vender">Vender</string>
     <string name="vinhos">Vinhos</string>
     <string name="produto_nao_encontrado">Produto não encontrado!</string>
-    <string name="full_date_format">yyyy-MM-dd HH:mm</string>
     <string name="venda_realizada_com_sucesso">Venda realizada com sucesso!</string>
     <string name="cliente_nao_encontrado">Cliente não encontrado!</string>
     <string name="ola">Olá &lt;b>%1$s&lt;/b></string>
@@ -48,6 +52,8 @@
     <string name="filtrar_vinhos">Filtrar Vinhos</string>
     <string name="tipo">Tipo</string>
     <string name="safra">Safra</string>
+    <string name="safra_data">Safra %1$d</string>
+    <string name="nao_safrado">Não-safrado</string>
     <string name="price">Price</string>
     <string name="deletar">Deletar</string>
     <string name="editar">Editar</string>
@@ -112,6 +118,7 @@
     <string name="dados_de_controle">Dados de controle</string>
     <string name="pre_o">Preço</string>
     <string name="estoque">Estoque</string>
+    <string name="estoque_value">Estoque: %1$d</string>
     <string name="c_digo_do_produto">Código do produto</string>
     <string name="carrinho">Carrinho</string>
     <string name="pesquisar_vinho">Pesquisar vinho</string>
@@ -135,5 +142,42 @@
     <string name="pre_o_total">Preço total</string>
     <string name="pre_o_unit_rio">Preço unitário</string>
     <string name="x_divider">x</string>
-
+    <string name="logout">Logout</string>
+    <string name="state_none">Selecione o estado</string>
+    <string name="state_ac">Acre</string>
+    <string name="state_al">Alagoas</string>
+    <string name="state_ap">Amapá</string>
+    <string name="state_am">Amazonas</string>
+    <string name="state_ba">Bahia</string>
+    <string name="state_ce">Ceará</string>
+    <string name="state_df">Distrito Federal</string>
+    <string name="state_es">Espírito Santo</string>
+    <string name="state_go">Goiás</string>
+    <string name="state_ma">Maranhão</string>
+    <string name="state_mt">Mato Grosso</string>
+    <string name="state_ms">Mato Grosso do Sul</string>
+    <string name="state_mg">Minas Gerais</string>
+    <string name="state_pa">Pará</string>
+    <string name="state_pb">Paraíba</string>
+    <string name="state_pr">Paraná</string>
+    <string name="state_pe">Pernambuco</string>
+    <string name="state_pi">Piauí</string>
+    <string name="state_rj">Rio de Janeiro</string>
+    <string name="state_rn">Rio Grande do Norte</string>
+    <string name="state_rs">Rio Grande do Sul</string>
+    <string name="state_ro">Rondônia</string>
+    <string name="state_rr">Roraima</string>
+    <string name="state_sc">Santa Catarina</string>
+    <string name="state_sp">São Paulo</string>
+    <string name="state_se">Sergipe</string>
+    <string name="state_to">Tocantins</string>
+    <string name="sort_mais_vendidos">Mais Vendidos</string>
+    <string name="sort_menos_vendidos">Menos Vendidos</string>
+    <string name="sort_maior_receita">Maior Receita</string>
+    <string name="sort_menor_receita">Menos Receita</string>
+    <string name="wine_type_none">Selecione o tipo</string>
+    <string name="wine_type_tinto">Vinho Tinto</string>
+    <string name="wine_type_branco">Vinho Branco</string>
+    <string name="wine_type_rose">Vinho Rosé</string>
+    <string name="wine_type_organico">Vinho Orgânico</string>
 </resources>

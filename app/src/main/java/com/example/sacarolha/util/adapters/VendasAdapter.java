@@ -70,8 +70,8 @@ public class VendasAdapter extends ArrayAdapter<Venda> implements Filterable {
         cliente = clienteDAO.getClienteForVenda(venda);
 
         text_cliente_nome.setText(cliente.getNome());
-        text_data.setText(StringHandler.convertToDefaultDate(venda.getData()));
-        text_preco.setText(MaskHandler.applyPriceMask(String.valueOf(venda.getTotal())));
+        text_data.setText(StringHandler.convertToDefaultDate(getContext(), venda.getData()));
+        text_preco.setText(MaskHandler.applyPriceMask(getContext() ,String.valueOf(venda.getTotal())));
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class VendasAdapter extends ArrayAdapter<Venda> implements Filterable {
                     for (Venda venda : originalVendas) {
                         cliente = clienteDAO.getClienteForVenda(venda);
                         boolean conditionName = filterName.equals("null") || cliente.getNome().toLowerCase().contains(filterName);
-                        boolean conditionData = filterData.equals("null") || StringHandler.convertToDefaultShortDate(venda.getData()).contains(filterData);
+                        boolean conditionData = filterData.equals("null") || StringHandler.convertToDefaultShortDate(getContext(), venda.getData()).contains(filterData);
                         if (conditionName && conditionData) {
                             filteredList.add(venda);
                         }

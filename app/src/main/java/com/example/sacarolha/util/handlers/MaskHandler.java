@@ -1,10 +1,13 @@
 package com.example.sacarolha.util.handlers;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.sacarolha.R;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -100,7 +103,7 @@ public class MaskHandler {
 
                     if (!cleanString.isEmpty()) {
                         double parsed = Double.parseDouble(cleanString);
-                        String formatted = applyPriceMask(parsed);
+                        String formatted = applyPriceMask(textField.getContext(), parsed);
 
                         current = formatted;
                         textField.setText(formatted);
@@ -193,14 +196,14 @@ public class MaskHandler {
         return masked.toString();
     }
 
-    public static String applyPriceMask(String text) {
+    public static String applyPriceMask(Context context, String text) {
         double parsed = Double.parseDouble(text);
-        String formatted = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(parsed);
+        String formatted = NumberFormat.getCurrencyInstance(new Locale(context.getString(R.string.language_code), context.getString(R.string.country_code))).format(parsed);
         return formatted;
     }
 
-    private static String applyPriceMask(Double value) {
-        String formatted = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(value / 100);
+    private static String applyPriceMask(Context context, Double value) {
+        String formatted = NumberFormat.getCurrencyInstance(new Locale(context.getString(R.string.language_code), context.getString(R.string.country_code))).format(value / 100);
         return formatted;
     }
 

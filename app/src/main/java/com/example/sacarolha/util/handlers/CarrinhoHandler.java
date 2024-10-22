@@ -61,19 +61,8 @@ public class CarrinhoHandler {
         return new ArrayList<Carrinho>();
     }
 
-    public void SalvarTotalCarrinho(String total) {
-        SharedPreferences.Editor edit = preferences.edit();
-        edit.putString(USER_CART_TOTAL, total);
-        edit.apply();
-    }
-
     public String ValorVazio() {
         return "R$ 0,00";
-    }
-
-    public Double LerValorTotalCarrinho() {
-        String totalString = preferences.getString(USER_CART_TOTAL, "R$ 0,00");
-        return MaskHandler.getPriceValue(totalString);
     }
 
     public void LimparCarrinho() {

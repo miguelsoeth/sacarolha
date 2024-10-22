@@ -86,7 +86,7 @@ public class EditarClienteFragment extends Fragment {
             Toast.makeText(getContext(), getString(R.string.cliente_nao_encontrado), Toast.LENGTH_SHORT).show();
         }
         else {
-            Integer pos = EstadosEnum.getPosition(c.getEstado());
+            Integer pos = EstadosEnum.getPosition(getContext(), c.getEstado());
             seedingUpdate = true;
             spinnerEstado.setSelection(pos);
 
