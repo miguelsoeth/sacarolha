@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     edit.apply();
 
                     Intent it = new Intent(MainActivity.this, LoginActivity.class);
+                    it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(it);
                     finish();
                     return true;
