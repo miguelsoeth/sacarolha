@@ -181,4 +181,9 @@
     <string name="wine_type_branco">Vinho Branco</string>
     <string name="wine_type_rose">Vinho Rosé</string>
     <string name="wine_type_organico">Vinho Orgânico</string>
+    <string name="c_digo_de_barras_tipo_code_39">Código de barras tipo CODE-39:</string>
+    <string name="obs_c_digo_destinado_apenas_para_uso_pr_prio_e_n_o_deve_ser_utilizado_para_comercializa_o_a_terceiros">*Obs: Código destinado apenas para uso no aplicativo e não deve ser utilizado para controle de terceiros</string>
+    <string name="nao_ha_codigo_de_barras_para_compartilhar">Não há código de barras para compartilhar!</string>
+    <string name="gerar_c_digo_de_barras_nico">Gerar Código de Barras único</string>
+    <string name="compartilhar_c_digo_de_barras">Compartilhar Código de Barras</string>
 </resources>
