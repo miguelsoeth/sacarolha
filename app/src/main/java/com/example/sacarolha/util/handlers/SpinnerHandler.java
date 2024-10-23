@@ -22,7 +22,18 @@ public class SpinnerHandler {
     public <E extends Enum<E>> void configureSpinnerWithEnum(Spinner spinner, Class<E> enumClass, Context context) {
 
         List<E> enumList = new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
-        ArrayAdapter<E> adapter = new ArrayAdapter<>(context, R.layout.spinner_item_rounded, enumList);
+        List<String> stringList = new ArrayList<>();
+
+        for (E enumConstant : enumList) {
+            int stringResId = context.getResources().getIdentifier(enumConstant.name().toLowerCase(), "string", context.getPackageName());
+            if (stringResId != 0) {
+                stringList.add(context.getString(stringResId));
+            } else {
+                stringList.add(enumConstant.name());
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item_rounded, stringList);
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -47,7 +58,19 @@ public class SpinnerHandler {
     public <E extends Enum<E>> void configureSpinnerWithEnum_light(Spinner spinner, Class<E> enumClass, Context context) {
 
         List<E> enumList = new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
-        ArrayAdapter<E> adapter = new ArrayAdapter<>(context, R.layout.spinner_item_rounded_light, enumList);
+
+        List<String> stringList = new ArrayList<>();
+
+        for (E enumConstant : enumList) {
+            int stringResId = context.getResources().getIdentifier(enumConstant.name().toLowerCase(), "string", context.getPackageName());
+            if (stringResId != 0) {
+                stringList.add(context.getString(stringResId));
+            } else {
+                stringList.add(enumConstant.name());
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item_rounded_light, stringList);
         adapter.setDropDownViewResource(R.layout.spinner_item_light);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
@@ -73,7 +96,18 @@ public class SpinnerHandler {
 
         List<E> enumList = new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
 
-        ArrayAdapter<E> adapter = new ArrayAdapter<>(context, R.layout.spinner_basic, enumList);
+        List<String> stringList = new ArrayList<>();
+
+        for (E enumConstant : enumList) {
+            int stringResId = context.getResources().getIdentifier(enumConstant.name().toLowerCase(), "string", context.getPackageName());
+            if (stringResId != 0) {
+                stringList.add(context.getString(stringResId));
+            } else {
+                stringList.add(enumConstant.name());
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_basic, stringList);
         adapter.setDropDownViewResource(R.layout.spinner_basic_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);

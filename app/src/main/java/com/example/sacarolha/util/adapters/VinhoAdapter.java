@@ -56,7 +56,8 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
         TextView text_vinho_safra = convertView.findViewById(R.id.text_vinho_safra);
 
         text_vinho_nome.setText(vinho.getNome());
-        text_vinho_tipo.setText(vinho.getTipo());
+        int resId = getContext().getResources().getIdentifier(vinho.getTipo(), "string", getContext().getPackageName());
+        text_vinho_tipo.setText(getContext().getString(resId));
         String price = String.valueOf(vinho.getPreco());
         String maskedPrice = MaskHandler.applyPriceMask(getContext(), price);
         text_vinho_preco.setText(maskedPrice);
@@ -101,7 +102,9 @@ public class VinhoAdapter extends ArrayAdapter<Vinho> implements Filterable {
                 } else {
                     for (Vinho vinho : originalVinhos) {
                         boolean conditionName = filterName.equals("null") || vinho.getNome().toLowerCase().contains(filterName);
-                        boolean conditionType = filterType.equals("null") || vinho.getTipo().toLowerCase().contains(filterType);
+                        int resId = getContext().getResources().getIdentifier(vinho.getTipo(), "string", getContext().getPackageName());
+                        String atual = getContext().getString(resId).toLowerCase().trim();
+                        boolean conditionType = filterType.equals("null") || filterType.equals(atual);
                         if (conditionName && conditionType) {
                             filteredList.add(vinho);
                         }

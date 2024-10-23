@@ -3,10 +3,10 @@ package com.example.sacarolha.util.enums;
 import android.content.Context;
 
 public enum SortEnum {
-    MAIS_VENDIDOS("sort_mais_vendidos"),
-    MENOS_VENDIDOS("sort_menos_vendidos"),
-    MAIOR_RECEITA("sort_maior_receita"),
-    MENOR_RECEITA("sort_menor_receita");
+    sort_mais_vendidos("sort_mais_vendidos"),
+    sort_menos_vendidos("sort_menos_vendidos"),
+    sort_maior_receita("sort_maior_receita"),
+    sort_menor_receita("sort_menor_receita");
 
     private final String resourceName;
 
