@@ -160,7 +160,18 @@ public class CadastrarClienteFragment extends Fragment {
     private <E extends Enum<E>> void configureSpinnerWithEnumWithFieldDisabling(Spinner spinner, Class<E> enumClass) {
 
         List<E> enumList = new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
-        ArrayAdapter<E> adapter = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_rounded, enumList);
+        List<String> stringList = new ArrayList<>();
+
+        for (E enumConstant : enumList) {
+            int stringResId = getContext().getResources().getIdentifier(enumConstant.name().toLowerCase(), "string", getContext().getPackageName());
+            if (stringResId != 0) {
+                stringList.add(getContext().getString(stringResId));
+            } else {
+                stringList.add(enumConstant.name());
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_rounded, stringList);
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

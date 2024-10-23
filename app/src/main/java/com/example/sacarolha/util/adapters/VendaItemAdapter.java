@@ -136,7 +136,9 @@ public class VendaItemAdapter extends ArrayAdapter<Vinho> implements Filterable 
                 } else {
                     for (Vinho vinho : originalVinhos) {
                         boolean conditionName = filterName.equals("null") || vinho.getNome().toLowerCase().contains(filterName);
-                        boolean conditionType = filterType.equals("null") || vinho.getTipo().toLowerCase().contains(filterType);
+                        int resId = getContext().getResources().getIdentifier(vinho.getTipo(), "string", getContext().getPackageName());
+                        String atual = getContext().getString(resId).toLowerCase().trim();
+                        boolean conditionType = filterType.equals("null") || filterType.equals(atual);
                         if (conditionName && conditionType) {
                             filteredList.add(vinho);
                         }

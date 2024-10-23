@@ -147,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
     private void goToRegister() {
         Intent it = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(it);
+        finish();
     }
 
     private void registerOnFirstRun() {

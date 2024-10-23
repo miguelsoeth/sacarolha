@@ -108,6 +108,7 @@
     <string name="alert_carrinho_vazio_adicionar_itens">Carrinho vazio! Adicione itens para prosseguir!</string>
     <string name="cidade">Cidade</string>
     <string name="rua">Rua</string>
+    <string name="error">Error</string>
     <string name="bairro">Bairro</string>
     <string name="num_ponto">Num.</string>
     <string name="complemento">Complemento</string>

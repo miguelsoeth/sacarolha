@@ -2,6 +2,8 @@ package com.example.sacarolha.util.enums;
 
 import android.content.Context;
 
+import com.example.sacarolha.R;
+
 public enum TiposVinhoEnum {
     wine_type_none,
     wine_type_tinto,
@@ -24,5 +26,17 @@ public enum TiposVinhoEnum {
             }
         }
         return -1;
+    }
+
+    public static String getResFromString(String tipo, Context context) {
+        try {
+            int pos = TiposVinhoEnum.getPosition(context, tipo);
+            String resString = TiposVinhoEnum.values()[pos].name();
+            int resId = context.getResources().getIdentifier(resString, "string", context.getPackageName());
+            return context.getString(resId);
+        }
+        catch (Exception ex) {
+            return context.getString(R.string.error);
+        }
     }
 }

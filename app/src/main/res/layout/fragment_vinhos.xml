@@ -50,8 +50,8 @@
                         android:fontFamily="@font/zain_bold"
                         android:layout_gravity="center"
 
-                        android:background="@drawable/bkg_light_purple_rounded"
-                        app:background="@null"
+                        android:background="@drawable/bkg_dark_purple_rounded"
+                        app:backgroundTint="@null"
                         />
 
                 </LinearLayout>
