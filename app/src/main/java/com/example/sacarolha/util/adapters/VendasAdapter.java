@@ -49,6 +49,7 @@ public class VendasAdapter extends ArrayAdapter<Venda> implements Filterable {
         this.originalVendas = new ArrayList<>(vendas);
         this.filteredVendas = vendas;
         Collections.reverse(this.originalVendas);
+        Collections.reverse(this.filteredVendas);
         this.clienteDAO = new ClienteDAO(getContext());
     }
 
